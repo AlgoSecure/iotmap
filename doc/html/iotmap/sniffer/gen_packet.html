@@ -1,0 +1,1200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>iotmap.sniffer.gen_packet API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>iotmap.sniffer.gen_packet</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># from extractors import btleextractor, zigbeeextractor, sixlowpanextractor
+# from extractors import btleextractor, zigbeeextractor
+from .extractors import btleextractor
+from .extractors import bleConstants as bleConstants
+from multiprocessing import Pool
+import logging
+import csv
+from scapy.utils import raw, rdpcap
+from scapy.layers.dot15d4 import conf
+
+# apptype
+# 1 : streaming
+# 2 : sensor
+# 3 : actuator
+
+gpkts = []
+
+#extractor = zigbeeextractor.ZigbeeExtractor(key_net, True, 1)
+#conf.dot15d4_protocol=&#34;zigbee&#34;
+
+class PacketGenerator():
+    def __init__(self, protocol, pkts_size, nbThread, verbose):
+        self.protocol = protocol
+        self.pkts_size = pkts_size
+        self.verbose = verbose
+        self.nbThread = nbThread
+        self.BTLEAddr = {
+            &#39;Slave&#39;: &#39;Slave&#39;,
+            &#39;Master&#39;: &#39;Master&#39;
+        }
+
+        # List of supported protocols
+        self.protocols = {
+            &#39;ZIGBEE&#39;: self.ZigBeeConversion,
+            &#39;BTLE&#39;: self.BTLEConversion,
+            &#39;OS4I&#39;: self.SixLowPANConversion
+        }
+
+        # list of extractors
+        self.extractors = {
+            &#39;BTLE&#39;: {
+                &#39;extractor&#39;: btleextractor.BTLEextractor,
+                &#39;args&#39;: [self.verbose]
+            },
+        }
+
+        if self.protocol == &#39;ZIGBEE&#39;:
+            from .extractors import zigbeeextractor
+            self.extractors[&#39;ZIGBEE&#39;] = {
+                &#39;extractor&#39;: zigbeeextractor.ZigbeeExtractor,
+                &#39;args&#39;: [None, True, self.verbose]
+            }
+
+        elif self.protocol == &#39;OS4I&#39;:
+            from .extractors import sixlowpanextractor
+            self.extractors[&#39;OS4I&#39;] = {
+                &#39;extractor&#39;: sixlowpanextractor.SixLowPANExtractor,
+                &#39;args&#39;: [self.verbose]
+            }
+
+        # Set the extractor and the function to use
+        e = self.extractors[protocol][&#39;extractor&#39;]
+        self.extractor = e(self.extractors[protocol][&#39;args&#39;])
+        self.function = self.protocols[protocol]
+
+    def convertPackets(self):
+        logging.info(f&#39;{self.pkts_size} packets will be processed&#39;)
+        print(f&#34;type of nbThread: {type(self.nbThread)}&#34;)
+        with Pool(int(self.nbThread)) as p:
+        # Rather than set as parameter the packets array
+        # We set an array of index, and we access the array through a global variable
+        # It&#39;s a weird way to do it, however it&#39;s works
+            rows = p.map(self.function, [i for i in range(0, self.pkts_size)])
+            
+        return rows
+
+    def SixLowPANConversion(self, pkt):
+        &#34;&#34;&#34;Return a row with the unified format if the packet (input) meets all the requirements  
+        
+        Extracts information from 6LowPAN packet, analyzes it and converts it to the unified format
+        if it corresponds to a data packet with specific information.
+        &#34;&#34;&#34;
+        # This is the little dirty trick
+        # We access to the global variable to get the packet
+        packet = gpkts[pkt]
+        row = []
+
+        row.append(&#39;os4i&#39;)
+        
+        # Print debug
+        logging.debug(f&#34;Packet[{pkt}] processed&#34;)
+
+        e = self.extractor.extract_pkt_layers(packet)
+        logging.debug(f&#34;Packet[{pkt}] extracted: {e}&#34;)
+
+        if e is None:
+            return None
+        
+        row.append(e[&#34;time&#34;])
+        row.append(e[&#39;layer2&#39;][&#39;src_addr&#39;])
+        row.append(e[&#39;layer2&#39;][&#39;dst_addr&#39;])
+        
+        if &#34;fe80::&#34; in e[&#39;layer3&#39;][&#39;src&#39;]:
+            row.append(&#34;fe80::2&#34;+e[&#39;layer2&#39;][&#39;src_addr&#39;][3:])
+        else:
+            row.append(e[&#39;layer3&#39;][&#39;src&#39;])
+
+        row.append(e[&#39;layer3&#39;][&#39;dst&#39;])
+
+        apptype = 2
+        row.append(apptype)
+
+        if e[&#34;layer4&#34;][&#39;code&#39;] == 1 or \
+           e[&#34;layer4&#34;][&#39;code&#39;] == &#34;GET&#34;:
+            row.append(&#34;get_data&#34;)
+
+        elif e[&#34;layer4&#34;][&#39;code&#39;] == 2 or \
+           e[&#34;layer4&#34;][&#39;code&#39;] == &#34;POST&#34;:
+            row.append(&#34;post_data&#34;)
+
+        else:
+            if e[&#39;layer4&#39;][&#39;value&#39;] == &#39;Done&#39;:
+                row = None
+            else:
+                row.append(e[&#34;layer4&#34;][&#39;value&#39;])
+
+        return row
+        
+    def BTLEConversion(self, pkt):
+        &#34;&#34;&#34;Return a row with the unified format if the packet (input) meets all the requirements  
+        
+        Extracts information from BTLE packet, analyzes it and converts it to the unified format
+        if it corresponds to a data packet with specific information.
+        &#34;&#34;&#34;
+        # This is the little dirty trick
+        # We access to the global variable to get the packet
+        packet = gpkts[pkt]
+        row = []
+
+        row.append(&#39;btle&#39;)
+        
+        # Print debug
+        logging.debug(f&#34;Packet[{pkt}] processed&#34;)
+
+        e = self.extractor.extract_pkt_layers(packet)
+        logging.debug(f&#34;Packet[{pkt}] extracted: {e}&#34;)
+
+        if &#39;Master&#39; in e[&#39;layer2&#39;][&#39;data header&#39;]:
+            row.append(f&#34;mst-{e[&#39;layer2&#39;][&#39;data header&#39;][&#39;Master&#39;]}&#34;)
+            row.append(f&#34;slv-{e[&#39;layer2&#39;][&#39;data header&#39;][&#39;Slave&#39;]}&#34;)
+            return row
+            
+        # We only focus on data packet
+        if &#39;layer4&#39; not in e:
+            return None
+
+        # We are only interested by Read Request/response
+        # and Handle Value Indication/Write Command
+        # Currently I only need packets with those opcode
+        opCode = list(bleConstants.opCode.keys())
+        opCode.remove(0x01)
+        opCode.remove(0x08)
+        opCode.remove(0x09)
+        
+        if self.verbose:
+            opCode = list(bleConstants.opCode.values())
+            opCode.remove(&#39;Error Response&#39;)
+            opCode.remove(&#39;Read By Type Request&#39;)
+            opCode.remove(&#39;Read By Type Response&#39;)
+            
+        if e[&#39;layer4&#39;] == {} or e[&#39;layer4&#39;][&#39;opcode&#39;] not in opCode:
+            return None
+        
+        row.append(e[&#34;time&#34;])
+        row.append(e[&#39;src&#39;])
+        row.append(e[&#39;dst&#39;])
+        row.append(e[&#39;src&#39;])
+        row.append(e[&#39;dst&#39;])
+
+        #### AppType ####
+        # At this moment, we only care about actuator/sensor application
+        # So the apptype is either 2 or 3
+        # Device that sends read request is a controller
+        # Device that sends read response is a sensor
+        # Device that receives command is an actuator
+        apptype = 2
+        row.append(apptype)
+        
+        if (e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Read Request&#39; or \
+            e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Read By Type Request&#39; or \
+            e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x0a or \
+            e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x08 or \
+            e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Write Command&#39; or \
+            e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x52):
+            # It corresponds to a sensor scheme initialised by the controller
+            # And we define it with get_data
+            row.append(&#39;get_data&#39;)
+
+        elif (e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Read By Type Response&#39; or \
+              e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x09 or \
+              e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Handle Value Indication&#39; or \
+              e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x1d):
+            row.append(&#39;value&#39;)
+            # handles = e[&#39;layer4&#39;][&#39;handles&#39;]
+            # row.append(handles.pop(0)[&#39;value&#39;][&#39;UUID&#39;])
+            # if len(handles) &gt; 0:
+            #     for handle in handles:
+            #         row[-1] += &#39;:-:&#39; + handle[&#34;value&#34;][&#34;UUID&#34;]
+            
+        else:
+            row.append(e[&#39;layer4&#39;][&#39;value&#39;])
+
+        logging.debug(f&#34;Packet[{pkt}] : {row}&#34;)
+        return row
+    
+    def ZigBeeConversion(self, pkt):
+        &#34;&#34;&#34;Return a row with the unified format if the packet (input) meets all the requirements  
+        
+        Extracts information from ZigBee packet, analyzes it and converts it to the unified format
+        if it corresponds to a data packet with specific information.
+        &#34;&#34;&#34;
+        # This is the little dirty trick
+        # We access to the global variable to get the packet
+        #packet = self.pkts[pkt]
+        packet = gpkts[pkt]
+        
+        # Print debug
+        logging.debug(f&#34;Packet[{pkt}] processed&#34;)
+        # We check if the packet is well formed
+        # And the fcs is correct
+        # So we compute the fcs and compare it to the one store in the packet
+        try:
+            fcs = int.from_bytes(packet.compute_fcs(raw(packet)[:-2]), &#39;little&#39;)
+        except:
+            return None
+        
+        if fcs != packet.fcs:
+            return None
+            
+        #e = extractor.extract_pkt_info(packet)
+        e = self.extractor.extract_pkt_info(packet)
+        logging.debug(f&#34;Packet[{pkt}] extracted: {e}&#34;)
+        # We are only interested in ZCL Packets
+        # So if the packet is an 802.15.4 ACK or DATA
+        # then we ignore this packet and only focus on data packets
+
+        if e is None:
+            return None
+        
+        if &#34;transmission&#34; in e and &#34;transmission4&#34; in e[&#34;transmission&#34;]:
+            transmission4 = e[&#34;transmission&#34;][&#34;transmission4&#34;]
+            
+            # The transmission4 is empty
+            if transmission4 == {}:
+                return None
+
+            # We only check for data aps_frametype and HA profile
+            # As for 802.15.4 ACK, aps one are not interesting
+            if self.verbose:
+                if transmission4[&#39;profile&#39;] != &#39;HA_Home_Automation&#39; or \
+                   transmission4[&#39;aps_frametype&#39;] == &#39;ack&#39;:
+                    return None
+            else:
+                if transmission4[&#39;profile&#39;] != 0x0104 or \
+                   transmission4[&#39;aps_frametype&#39;] == 2:
+                    return None
+
+            # tmp only focus on cluster &#34;temperature_measurement&#34; and &#34;on_off&#34;
+            good_cluster = [0x0006, 0x0402]
+            if self.verbose:
+                good_cluster = [&#34;temperature_measurement&#34;, &#34;on_off&#34;]
+
+            if transmission4[&#39;cluster&#39;] not in good_cluster:
+                return None
+        
+            row = []
+            row.append(&#39;zigbee&#39;)
+            row.append(e[&#34;transmission&#34;][&#34;time&#34;])
+            row.append(e[&#34;transmission&#34;][&#34;transmission2&#34;][&#39;src&#39;])
+            row.append(e[&#34;transmission&#34;][&#34;transmission2&#34;][&#39;dst&#39;])
+            row.append(e[&#34;transmission&#34;][&#34;transmission3&#34;][&#39;srcshort&#39;])
+            row.append(e[&#34;transmission&#34;][&#34;transmission3&#34;][&#39;dstshort&#39;])
+        
+            zcl_frametype = transmission4[&#39;zcl_frametype&#39;]
+        
+            ####  Apptype ####
+            
+            # ZCl_frametype
+            # 1 -&gt; Cluster-wide : In our case it means &#39;send command&#39;
+            # So apptype is actuator and the command is stored in e[&#34;transmission&#34;][&#34;transmission4&#34;][&#39;command&#39;]
+            if zcl_frametype == 1 or zcl_frametype == &#39;cluster-specific&#39;:
+                apptype = 3
+                row.append(apptype)
+                row.append(transmission4[&#39;command&#39;])
+
+            # In the case of profile-wide zcl_apptype
+            # It correspond to sensor apptype
+            # but the data can be different, it is either get_data or the data itself
+            elif zcl_frametype == 0 or zcl_frametype == &#39;profile-wide&#39;:
+                apptype = 2
+                row.append(apptype)
+
+                command_identifier = transmission4[&#39;command_identifier&#39;]
+                if command_identifier == &#39;read attributes response&#39; or command_identifier == 0x01:
+                    # TODO : make a conversion structure according to the type of data
+                    # Here we are only 2 data types : Boolean (16) or signed int (41)
+                    datatype = transmission4[&#39;read_attributes_status_records&#39;][0][&#39;attribute_data_type&#39;]
+                    # boolean
+                    if datatype == 16:
+                        data = int.from_bytes(transmission4[&#39;read_attributes_status_records&#39;][0][&#39;attribute_value&#39;], &#39;little&#39;)
+                        row.append(&#39;On&#39; if data else &#39;Off&#39;)
+
+                    #Unsigned Int
+                    elif datatype == 41:
+                        data = int.from_bytes(transmission4[&#39;read_attributes_status_records&#39;][0][&#39;attribute_value&#39;], &#39;little&#39;)
+                        row.append(data)
+
+                # We don&#39;t consider default response as interesting message
+                elif command_identifier == &#39;report attributes&#39; or command_identifier == 0x0a:
+                    return None
+                    
+                # We don&#39;t consider default response as interesting message
+                elif command_identifier == &#39;default response&#39; or command_identifier == 0x0b:
+                    return None
+
+                else :
+                    row.append(&#39;get_data&#39;)
+
+            logging.debug(f&#34;Packet[{pkt}] : {row}&#34;)
+            return row
+
+# This function convert a list of packet from a specific protocol to a list
+# of packet using the unified format.
+def gen_packet(pcap: list, protocol: str, nbThread: int, debug: bool):
+    
+    nbThread = nbThread
+    protocol = protocol
+    verbose = debug
+    
+    logging.basicConfig(
+        level=logging.DEBUG if verbose else logging.INFO,
+        format=&#34;%(levelname)s:%(message)s&#34;
+    )
+
+    logging.info(f&#34;[i] Pcap from protocol {protocol} will be processed&#34;)
+
+    if protocol == &#39;ZIGBEE&#39;:
+        from .extractors import zigbeeextractor
+        conf.dot15d4_protocol = &#39;zigbee&#39;
+    elif protocol == &#39;OS4I&#39;:
+        from .extractors import sixlowpanextractor
+        conf.dot15d4_protocol = &#39;sixlowpan&#39;
+        
+    try:
+        logging.debug(f&#34;[d] Read Pcap File&#34;)
+        pkts = rdpcap(pcap)
+    except:
+        logging.error(&#39;Error while opening the file...&#39;)
+        logging.error(f&#39;{pcap}&#39;)
+        exit(1)
+
+    # Clean the os4i pcap file to remove all retransmissions packets
+    # It means remove all messages sent with the same MID in both request and response
+    if &#39;OS4I&#39; in protocol:
+        logging.info(f&#34;[i] Cleaning Pcap files to erase retransmission communications&#34;)
+        pkts = sixlowpanextractor.cleanCoAPPcap(pkts)
+        
+    global gpkts
+    gpkts = pkts
+   
+    genPacket = PacketGenerator(protocol, len(pkts), nbThread, verbose)
+
+    rows = genPacket.convertPackets()
+    
+    # CSV format
+    # timestamp, dlsrc, dldst, nwksrc, nwkdst, apptype, data
+    csvData = list(filter(None, rows)) 
+    
+    if &#39;BTLE&#39; in protocol:
+        for row in csvData:
+            if len(row) == 3:
+                genPacket.BTLEAddr[&#39;Master&#39;] = row[1][4:]
+                genPacket.BTLEAddr[&#39;Slave&#39;] = row[2][4:]
+                while row in csvData:
+                    csvData.remove(row)
+
+    # Let order the list by timestamp
+    # csvData.sort(key=lambda x: x[0])
+    if &#39;BTLE&#39; in protocol:
+        csvDataTmp = []
+        for row in csvData:
+            row = [r.replace(&#39;Slave&#39;, genPacket.BTLEAddr[&#39;Slave&#39;]) if isinstance(r, str) else r for r in row]
+            row = [r.replace(&#39;Master&#39;, genPacket.BTLEAddr[&#39;Master&#39;]) if isinstance(r, str) else r for r in row]
+            csvDataTmp.append(row)
+
+        csvData = csvDataTmp
+            
+    logging.info(f&#34;[i] The process is ending&#34;)
+    
+    return csvData</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="iotmap.sniffer.gen_packet.gen_packet"><code class="name flex">
+<span>def <span class="ident">gen_packet</span></span>(<span>pcap: list, protocol: str, nbThread: int, debug: bool)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def gen_packet(pcap: list, protocol: str, nbThread: int, debug: bool):
+    
+    nbThread = nbThread
+    protocol = protocol
+    verbose = debug
+    
+    logging.basicConfig(
+        level=logging.DEBUG if verbose else logging.INFO,
+        format=&#34;%(levelname)s:%(message)s&#34;
+    )
+
+    logging.info(f&#34;[i] Pcap from protocol {protocol} will be processed&#34;)
+
+    if protocol == &#39;ZIGBEE&#39;:
+        from .extractors import zigbeeextractor
+        conf.dot15d4_protocol = &#39;zigbee&#39;
+    elif protocol == &#39;OS4I&#39;:
+        from .extractors import sixlowpanextractor
+        conf.dot15d4_protocol = &#39;sixlowpan&#39;
+        
+    try:
+        logging.debug(f&#34;[d] Read Pcap File&#34;)
+        pkts = rdpcap(pcap)
+    except:
+        logging.error(&#39;Error while opening the file...&#39;)
+        logging.error(f&#39;{pcap}&#39;)
+        exit(1)
+
+    # Clean the os4i pcap file to remove all retransmissions packets
+    # It means remove all messages sent with the same MID in both request and response
+    if &#39;OS4I&#39; in protocol:
+        logging.info(f&#34;[i] Cleaning Pcap files to erase retransmission communications&#34;)
+        pkts = sixlowpanextractor.cleanCoAPPcap(pkts)
+        
+    global gpkts
+    gpkts = pkts
+   
+    genPacket = PacketGenerator(protocol, len(pkts), nbThread, verbose)
+
+    rows = genPacket.convertPackets()
+    
+    # CSV format
+    # timestamp, dlsrc, dldst, nwksrc, nwkdst, apptype, data
+    csvData = list(filter(None, rows)) 
+    
+    if &#39;BTLE&#39; in protocol:
+        for row in csvData:
+            if len(row) == 3:
+                genPacket.BTLEAddr[&#39;Master&#39;] = row[1][4:]
+                genPacket.BTLEAddr[&#39;Slave&#39;] = row[2][4:]
+                while row in csvData:
+                    csvData.remove(row)
+
+    # Let order the list by timestamp
+    # csvData.sort(key=lambda x: x[0])
+    if &#39;BTLE&#39; in protocol:
+        csvDataTmp = []
+        for row in csvData:
+            row = [r.replace(&#39;Slave&#39;, genPacket.BTLEAddr[&#39;Slave&#39;]) if isinstance(r, str) else r for r in row]
+            row = [r.replace(&#39;Master&#39;, genPacket.BTLEAddr[&#39;Master&#39;]) if isinstance(r, str) else r for r in row]
+            csvDataTmp.append(row)
+
+        csvData = csvDataTmp
+            
+    logging.info(f&#34;[i] The process is ending&#34;)
+    
+    return csvData</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="iotmap.sniffer.gen_packet.PacketGenerator"><code class="flex name class">
+<span>class <span class="ident">PacketGenerator</span></span>
+<span>(</span><span>protocol, pkts_size, nbThread, verbose)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PacketGenerator():
+    def __init__(self, protocol, pkts_size, nbThread, verbose):
+        self.protocol = protocol
+        self.pkts_size = pkts_size
+        self.verbose = verbose
+        self.nbThread = nbThread
+        self.BTLEAddr = {
+            &#39;Slave&#39;: &#39;Slave&#39;,
+            &#39;Master&#39;: &#39;Master&#39;
+        }
+
+        # List of supported protocols
+        self.protocols = {
+            &#39;ZIGBEE&#39;: self.ZigBeeConversion,
+            &#39;BTLE&#39;: self.BTLEConversion,
+            &#39;OS4I&#39;: self.SixLowPANConversion
+        }
+
+        # list of extractors
+        self.extractors = {
+            &#39;BTLE&#39;: {
+                &#39;extractor&#39;: btleextractor.BTLEextractor,
+                &#39;args&#39;: [self.verbose]
+            },
+        }
+
+        if self.protocol == &#39;ZIGBEE&#39;:
+            from .extractors import zigbeeextractor
+            self.extractors[&#39;ZIGBEE&#39;] = {
+                &#39;extractor&#39;: zigbeeextractor.ZigbeeExtractor,
+                &#39;args&#39;: [None, True, self.verbose]
+            }
+
+        elif self.protocol == &#39;OS4I&#39;:
+            from .extractors import sixlowpanextractor
+            self.extractors[&#39;OS4I&#39;] = {
+                &#39;extractor&#39;: sixlowpanextractor.SixLowPANExtractor,
+                &#39;args&#39;: [self.verbose]
+            }
+
+        # Set the extractor and the function to use
+        e = self.extractors[protocol][&#39;extractor&#39;]
+        self.extractor = e(self.extractors[protocol][&#39;args&#39;])
+        self.function = self.protocols[protocol]
+
+    def convertPackets(self):
+        logging.info(f&#39;{self.pkts_size} packets will be processed&#39;)
+        print(f&#34;type of nbThread: {type(self.nbThread)}&#34;)
+        with Pool(int(self.nbThread)) as p:
+        # Rather than set as parameter the packets array
+        # We set an array of index, and we access the array through a global variable
+        # It&#39;s a weird way to do it, however it&#39;s works
+            rows = p.map(self.function, [i for i in range(0, self.pkts_size)])
+            
+        return rows
+
+    def SixLowPANConversion(self, pkt):
+        &#34;&#34;&#34;Return a row with the unified format if the packet (input) meets all the requirements  
+        
+        Extracts information from 6LowPAN packet, analyzes it and converts it to the unified format
+        if it corresponds to a data packet with specific information.
+        &#34;&#34;&#34;
+        # This is the little dirty trick
+        # We access to the global variable to get the packet
+        packet = gpkts[pkt]
+        row = []
+
+        row.append(&#39;os4i&#39;)
+        
+        # Print debug
+        logging.debug(f&#34;Packet[{pkt}] processed&#34;)
+
+        e = self.extractor.extract_pkt_layers(packet)
+        logging.debug(f&#34;Packet[{pkt}] extracted: {e}&#34;)
+
+        if e is None:
+            return None
+        
+        row.append(e[&#34;time&#34;])
+        row.append(e[&#39;layer2&#39;][&#39;src_addr&#39;])
+        row.append(e[&#39;layer2&#39;][&#39;dst_addr&#39;])
+        
+        if &#34;fe80::&#34; in e[&#39;layer3&#39;][&#39;src&#39;]:
+            row.append(&#34;fe80::2&#34;+e[&#39;layer2&#39;][&#39;src_addr&#39;][3:])
+        else:
+            row.append(e[&#39;layer3&#39;][&#39;src&#39;])
+
+        row.append(e[&#39;layer3&#39;][&#39;dst&#39;])
+
+        apptype = 2
+        row.append(apptype)
+
+        if e[&#34;layer4&#34;][&#39;code&#39;] == 1 or \
+           e[&#34;layer4&#34;][&#39;code&#39;] == &#34;GET&#34;:
+            row.append(&#34;get_data&#34;)
+
+        elif e[&#34;layer4&#34;][&#39;code&#39;] == 2 or \
+           e[&#34;layer4&#34;][&#39;code&#39;] == &#34;POST&#34;:
+            row.append(&#34;post_data&#34;)
+
+        else:
+            if e[&#39;layer4&#39;][&#39;value&#39;] == &#39;Done&#39;:
+                row = None
+            else:
+                row.append(e[&#34;layer4&#34;][&#39;value&#39;])
+
+        return row
+        
+    def BTLEConversion(self, pkt):
+        &#34;&#34;&#34;Return a row with the unified format if the packet (input) meets all the requirements  
+        
+        Extracts information from BTLE packet, analyzes it and converts it to the unified format
+        if it corresponds to a data packet with specific information.
+        &#34;&#34;&#34;
+        # This is the little dirty trick
+        # We access to the global variable to get the packet
+        packet = gpkts[pkt]
+        row = []
+
+        row.append(&#39;btle&#39;)
+        
+        # Print debug
+        logging.debug(f&#34;Packet[{pkt}] processed&#34;)
+
+        e = self.extractor.extract_pkt_layers(packet)
+        logging.debug(f&#34;Packet[{pkt}] extracted: {e}&#34;)
+
+        if &#39;Master&#39; in e[&#39;layer2&#39;][&#39;data header&#39;]:
+            row.append(f&#34;mst-{e[&#39;layer2&#39;][&#39;data header&#39;][&#39;Master&#39;]}&#34;)
+            row.append(f&#34;slv-{e[&#39;layer2&#39;][&#39;data header&#39;][&#39;Slave&#39;]}&#34;)
+            return row
+            
+        # We only focus on data packet
+        if &#39;layer4&#39; not in e:
+            return None
+
+        # We are only interested by Read Request/response
+        # and Handle Value Indication/Write Command
+        # Currently I only need packets with those opcode
+        opCode = list(bleConstants.opCode.keys())
+        opCode.remove(0x01)
+        opCode.remove(0x08)
+        opCode.remove(0x09)
+        
+        if self.verbose:
+            opCode = list(bleConstants.opCode.values())
+            opCode.remove(&#39;Error Response&#39;)
+            opCode.remove(&#39;Read By Type Request&#39;)
+            opCode.remove(&#39;Read By Type Response&#39;)
+            
+        if e[&#39;layer4&#39;] == {} or e[&#39;layer4&#39;][&#39;opcode&#39;] not in opCode:
+            return None
+        
+        row.append(e[&#34;time&#34;])
+        row.append(e[&#39;src&#39;])
+        row.append(e[&#39;dst&#39;])
+        row.append(e[&#39;src&#39;])
+        row.append(e[&#39;dst&#39;])
+
+        #### AppType ####
+        # At this moment, we only care about actuator/sensor application
+        # So the apptype is either 2 or 3
+        # Device that sends read request is a controller
+        # Device that sends read response is a sensor
+        # Device that receives command is an actuator
+        apptype = 2
+        row.append(apptype)
+        
+        if (e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Read Request&#39; or \
+            e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Read By Type Request&#39; or \
+            e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x0a or \
+            e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x08 or \
+            e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Write Command&#39; or \
+            e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x52):
+            # It corresponds to a sensor scheme initialised by the controller
+            # And we define it with get_data
+            row.append(&#39;get_data&#39;)
+
+        elif (e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Read By Type Response&#39; or \
+              e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x09 or \
+              e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Handle Value Indication&#39; or \
+              e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x1d):
+            row.append(&#39;value&#39;)
+            # handles = e[&#39;layer4&#39;][&#39;handles&#39;]
+            # row.append(handles.pop(0)[&#39;value&#39;][&#39;UUID&#39;])
+            # if len(handles) &gt; 0:
+            #     for handle in handles:
+            #         row[-1] += &#39;:-:&#39; + handle[&#34;value&#34;][&#34;UUID&#34;]
+            
+        else:
+            row.append(e[&#39;layer4&#39;][&#39;value&#39;])
+
+        logging.debug(f&#34;Packet[{pkt}] : {row}&#34;)
+        return row
+    
+    def ZigBeeConversion(self, pkt):
+        &#34;&#34;&#34;Return a row with the unified format if the packet (input) meets all the requirements  
+        
+        Extracts information from ZigBee packet, analyzes it and converts it to the unified format
+        if it corresponds to a data packet with specific information.
+        &#34;&#34;&#34;
+        # This is the little dirty trick
+        # We access to the global variable to get the packet
+        #packet = self.pkts[pkt]
+        packet = gpkts[pkt]
+        
+        # Print debug
+        logging.debug(f&#34;Packet[{pkt}] processed&#34;)
+        # We check if the packet is well formed
+        # And the fcs is correct
+        # So we compute the fcs and compare it to the one store in the packet
+        try:
+            fcs = int.from_bytes(packet.compute_fcs(raw(packet)[:-2]), &#39;little&#39;)
+        except:
+            return None
+        
+        if fcs != packet.fcs:
+            return None
+            
+        #e = extractor.extract_pkt_info(packet)
+        e = self.extractor.extract_pkt_info(packet)
+        logging.debug(f&#34;Packet[{pkt}] extracted: {e}&#34;)
+        # We are only interested in ZCL Packets
+        # So if the packet is an 802.15.4 ACK or DATA
+        # then we ignore this packet and only focus on data packets
+
+        if e is None:
+            return None
+        
+        if &#34;transmission&#34; in e and &#34;transmission4&#34; in e[&#34;transmission&#34;]:
+            transmission4 = e[&#34;transmission&#34;][&#34;transmission4&#34;]
+            
+            # The transmission4 is empty
+            if transmission4 == {}:
+                return None
+
+            # We only check for data aps_frametype and HA profile
+            # As for 802.15.4 ACK, aps one are not interesting
+            if self.verbose:
+                if transmission4[&#39;profile&#39;] != &#39;HA_Home_Automation&#39; or \
+                   transmission4[&#39;aps_frametype&#39;] == &#39;ack&#39;:
+                    return None
+            else:
+                if transmission4[&#39;profile&#39;] != 0x0104 or \
+                   transmission4[&#39;aps_frametype&#39;] == 2:
+                    return None
+
+            # tmp only focus on cluster &#34;temperature_measurement&#34; and &#34;on_off&#34;
+            good_cluster = [0x0006, 0x0402]
+            if self.verbose:
+                good_cluster = [&#34;temperature_measurement&#34;, &#34;on_off&#34;]
+
+            if transmission4[&#39;cluster&#39;] not in good_cluster:
+                return None
+        
+            row = []
+            row.append(&#39;zigbee&#39;)
+            row.append(e[&#34;transmission&#34;][&#34;time&#34;])
+            row.append(e[&#34;transmission&#34;][&#34;transmission2&#34;][&#39;src&#39;])
+            row.append(e[&#34;transmission&#34;][&#34;transmission2&#34;][&#39;dst&#39;])
+            row.append(e[&#34;transmission&#34;][&#34;transmission3&#34;][&#39;srcshort&#39;])
+            row.append(e[&#34;transmission&#34;][&#34;transmission3&#34;][&#39;dstshort&#39;])
+        
+            zcl_frametype = transmission4[&#39;zcl_frametype&#39;]
+        
+            ####  Apptype ####
+            
+            # ZCl_frametype
+            # 1 -&gt; Cluster-wide : In our case it means &#39;send command&#39;
+            # So apptype is actuator and the command is stored in e[&#34;transmission&#34;][&#34;transmission4&#34;][&#39;command&#39;]
+            if zcl_frametype == 1 or zcl_frametype == &#39;cluster-specific&#39;:
+                apptype = 3
+                row.append(apptype)
+                row.append(transmission4[&#39;command&#39;])
+
+            # In the case of profile-wide zcl_apptype
+            # It correspond to sensor apptype
+            # but the data can be different, it is either get_data or the data itself
+            elif zcl_frametype == 0 or zcl_frametype == &#39;profile-wide&#39;:
+                apptype = 2
+                row.append(apptype)
+
+                command_identifier = transmission4[&#39;command_identifier&#39;]
+                if command_identifier == &#39;read attributes response&#39; or command_identifier == 0x01:
+                    # TODO : make a conversion structure according to the type of data
+                    # Here we are only 2 data types : Boolean (16) or signed int (41)
+                    datatype = transmission4[&#39;read_attributes_status_records&#39;][0][&#39;attribute_data_type&#39;]
+                    # boolean
+                    if datatype == 16:
+                        data = int.from_bytes(transmission4[&#39;read_attributes_status_records&#39;][0][&#39;attribute_value&#39;], &#39;little&#39;)
+                        row.append(&#39;On&#39; if data else &#39;Off&#39;)
+
+                    #Unsigned Int
+                    elif datatype == 41:
+                        data = int.from_bytes(transmission4[&#39;read_attributes_status_records&#39;][0][&#39;attribute_value&#39;], &#39;little&#39;)
+                        row.append(data)
+
+                # We don&#39;t consider default response as interesting message
+                elif command_identifier == &#39;report attributes&#39; or command_identifier == 0x0a:
+                    return None
+                    
+                # We don&#39;t consider default response as interesting message
+                elif command_identifier == &#39;default response&#39; or command_identifier == 0x0b:
+                    return None
+
+                else :
+                    row.append(&#39;get_data&#39;)
+
+            logging.debug(f&#34;Packet[{pkt}] : {row}&#34;)
+            return row</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="iotmap.sniffer.gen_packet.PacketGenerator.BTLEConversion"><code class="name flex">
+<span>def <span class="ident">BTLEConversion</span></span>(<span>self, pkt)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a row with the unified format if the packet (input) meets all the requirements
+</p>
+<p>Extracts information from BTLE packet, analyzes it and converts it to the unified format
+if it corresponds to a data packet with specific information.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def BTLEConversion(self, pkt):
+    &#34;&#34;&#34;Return a row with the unified format if the packet (input) meets all the requirements  
+    
+    Extracts information from BTLE packet, analyzes it and converts it to the unified format
+    if it corresponds to a data packet with specific information.
+    &#34;&#34;&#34;
+    # This is the little dirty trick
+    # We access to the global variable to get the packet
+    packet = gpkts[pkt]
+    row = []
+
+    row.append(&#39;btle&#39;)
+    
+    # Print debug
+    logging.debug(f&#34;Packet[{pkt}] processed&#34;)
+
+    e = self.extractor.extract_pkt_layers(packet)
+    logging.debug(f&#34;Packet[{pkt}] extracted: {e}&#34;)
+
+    if &#39;Master&#39; in e[&#39;layer2&#39;][&#39;data header&#39;]:
+        row.append(f&#34;mst-{e[&#39;layer2&#39;][&#39;data header&#39;][&#39;Master&#39;]}&#34;)
+        row.append(f&#34;slv-{e[&#39;layer2&#39;][&#39;data header&#39;][&#39;Slave&#39;]}&#34;)
+        return row
+        
+    # We only focus on data packet
+    if &#39;layer4&#39; not in e:
+        return None
+
+    # We are only interested by Read Request/response
+    # and Handle Value Indication/Write Command
+    # Currently I only need packets with those opcode
+    opCode = list(bleConstants.opCode.keys())
+    opCode.remove(0x01)
+    opCode.remove(0x08)
+    opCode.remove(0x09)
+    
+    if self.verbose:
+        opCode = list(bleConstants.opCode.values())
+        opCode.remove(&#39;Error Response&#39;)
+        opCode.remove(&#39;Read By Type Request&#39;)
+        opCode.remove(&#39;Read By Type Response&#39;)
+        
+    if e[&#39;layer4&#39;] == {} or e[&#39;layer4&#39;][&#39;opcode&#39;] not in opCode:
+        return None
+    
+    row.append(e[&#34;time&#34;])
+    row.append(e[&#39;src&#39;])
+    row.append(e[&#39;dst&#39;])
+    row.append(e[&#39;src&#39;])
+    row.append(e[&#39;dst&#39;])
+
+    #### AppType ####
+    # At this moment, we only care about actuator/sensor application
+    # So the apptype is either 2 or 3
+    # Device that sends read request is a controller
+    # Device that sends read response is a sensor
+    # Device that receives command is an actuator
+    apptype = 2
+    row.append(apptype)
+    
+    if (e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Read Request&#39; or \
+        e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Read By Type Request&#39; or \
+        e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x0a or \
+        e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x08 or \
+        e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Write Command&#39; or \
+        e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x52):
+        # It corresponds to a sensor scheme initialised by the controller
+        # And we define it with get_data
+        row.append(&#39;get_data&#39;)
+
+    elif (e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Read By Type Response&#39; or \
+          e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x09 or \
+          e[&#39;layer4&#39;][&#39;opcode&#39;] == &#39;Handle Value Indication&#39; or \
+          e[&#39;layer4&#39;][&#39;opcode&#39;] == 0x1d):
+        row.append(&#39;value&#39;)
+        # handles = e[&#39;layer4&#39;][&#39;handles&#39;]
+        # row.append(handles.pop(0)[&#39;value&#39;][&#39;UUID&#39;])
+        # if len(handles) &gt; 0:
+        #     for handle in handles:
+        #         row[-1] += &#39;:-:&#39; + handle[&#34;value&#34;][&#34;UUID&#34;]
+        
+    else:
+        row.append(e[&#39;layer4&#39;][&#39;value&#39;])
+
+    logging.debug(f&#34;Packet[{pkt}] : {row}&#34;)
+    return row</code></pre>
+</details>
+</dd>
+<dt id="iotmap.sniffer.gen_packet.PacketGenerator.SixLowPANConversion"><code class="name flex">
+<span>def <span class="ident">SixLowPANConversion</span></span>(<span>self, pkt)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a row with the unified format if the packet (input) meets all the requirements
+</p>
+<p>Extracts information from 6LowPAN packet, analyzes it and converts it to the unified format
+if it corresponds to a data packet with specific information.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def SixLowPANConversion(self, pkt):
+    &#34;&#34;&#34;Return a row with the unified format if the packet (input) meets all the requirements  
+    
+    Extracts information from 6LowPAN packet, analyzes it and converts it to the unified format
+    if it corresponds to a data packet with specific information.
+    &#34;&#34;&#34;
+    # This is the little dirty trick
+    # We access to the global variable to get the packet
+    packet = gpkts[pkt]
+    row = []
+
+    row.append(&#39;os4i&#39;)
+    
+    # Print debug
+    logging.debug(f&#34;Packet[{pkt}] processed&#34;)
+
+    e = self.extractor.extract_pkt_layers(packet)
+    logging.debug(f&#34;Packet[{pkt}] extracted: {e}&#34;)
+
+    if e is None:
+        return None
+    
+    row.append(e[&#34;time&#34;])
+    row.append(e[&#39;layer2&#39;][&#39;src_addr&#39;])
+    row.append(e[&#39;layer2&#39;][&#39;dst_addr&#39;])
+    
+    if &#34;fe80::&#34; in e[&#39;layer3&#39;][&#39;src&#39;]:
+        row.append(&#34;fe80::2&#34;+e[&#39;layer2&#39;][&#39;src_addr&#39;][3:])
+    else:
+        row.append(e[&#39;layer3&#39;][&#39;src&#39;])
+
+    row.append(e[&#39;layer3&#39;][&#39;dst&#39;])
+
+    apptype = 2
+    row.append(apptype)
+
+    if e[&#34;layer4&#34;][&#39;code&#39;] == 1 or \
+       e[&#34;layer4&#34;][&#39;code&#39;] == &#34;GET&#34;:
+        row.append(&#34;get_data&#34;)
+
+    elif e[&#34;layer4&#34;][&#39;code&#39;] == 2 or \
+       e[&#34;layer4&#34;][&#39;code&#39;] == &#34;POST&#34;:
+        row.append(&#34;post_data&#34;)
+
+    else:
+        if e[&#39;layer4&#39;][&#39;value&#39;] == &#39;Done&#39;:
+            row = None
+        else:
+            row.append(e[&#34;layer4&#34;][&#39;value&#39;])
+
+    return row</code></pre>
+</details>
+</dd>
+<dt id="iotmap.sniffer.gen_packet.PacketGenerator.ZigBeeConversion"><code class="name flex">
+<span>def <span class="ident">ZigBeeConversion</span></span>(<span>self, pkt)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a row with the unified format if the packet (input) meets all the requirements
+</p>
+<p>Extracts information from ZigBee packet, analyzes it and converts it to the unified format
+if it corresponds to a data packet with specific information.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ZigBeeConversion(self, pkt):
+    &#34;&#34;&#34;Return a row with the unified format if the packet (input) meets all the requirements  
+    
+    Extracts information from ZigBee packet, analyzes it and converts it to the unified format
+    if it corresponds to a data packet with specific information.
+    &#34;&#34;&#34;
+    # This is the little dirty trick
+    # We access to the global variable to get the packet
+    #packet = self.pkts[pkt]
+    packet = gpkts[pkt]
+    
+    # Print debug
+    logging.debug(f&#34;Packet[{pkt}] processed&#34;)
+    # We check if the packet is well formed
+    # And the fcs is correct
+    # So we compute the fcs and compare it to the one store in the packet
+    try:
+        fcs = int.from_bytes(packet.compute_fcs(raw(packet)[:-2]), &#39;little&#39;)
+    except:
+        return None
+    
+    if fcs != packet.fcs:
+        return None
+        
+    #e = extractor.extract_pkt_info(packet)
+    e = self.extractor.extract_pkt_info(packet)
+    logging.debug(f&#34;Packet[{pkt}] extracted: {e}&#34;)
+    # We are only interested in ZCL Packets
+    # So if the packet is an 802.15.4 ACK or DATA
+    # then we ignore this packet and only focus on data packets
+
+    if e is None:
+        return None
+    
+    if &#34;transmission&#34; in e and &#34;transmission4&#34; in e[&#34;transmission&#34;]:
+        transmission4 = e[&#34;transmission&#34;][&#34;transmission4&#34;]
+        
+        # The transmission4 is empty
+        if transmission4 == {}:
+            return None
+
+        # We only check for data aps_frametype and HA profile
+        # As for 802.15.4 ACK, aps one are not interesting
+        if self.verbose:
+            if transmission4[&#39;profile&#39;] != &#39;HA_Home_Automation&#39; or \
+               transmission4[&#39;aps_frametype&#39;] == &#39;ack&#39;:
+                return None
+        else:
+            if transmission4[&#39;profile&#39;] != 0x0104 or \
+               transmission4[&#39;aps_frametype&#39;] == 2:
+                return None
+
+        # tmp only focus on cluster &#34;temperature_measurement&#34; and &#34;on_off&#34;
+        good_cluster = [0x0006, 0x0402]
+        if self.verbose:
+            good_cluster = [&#34;temperature_measurement&#34;, &#34;on_off&#34;]
+
+        if transmission4[&#39;cluster&#39;] not in good_cluster:
+            return None
+    
+        row = []
+        row.append(&#39;zigbee&#39;)
+        row.append(e[&#34;transmission&#34;][&#34;time&#34;])
+        row.append(e[&#34;transmission&#34;][&#34;transmission2&#34;][&#39;src&#39;])
+        row.append(e[&#34;transmission&#34;][&#34;transmission2&#34;][&#39;dst&#39;])
+        row.append(e[&#34;transmission&#34;][&#34;transmission3&#34;][&#39;srcshort&#39;])
+        row.append(e[&#34;transmission&#34;][&#34;transmission3&#34;][&#39;dstshort&#39;])
+    
+        zcl_frametype = transmission4[&#39;zcl_frametype&#39;]
+    
+        ####  Apptype ####
+        
+        # ZCl_frametype
+        # 1 -&gt; Cluster-wide : In our case it means &#39;send command&#39;
+        # So apptype is actuator and the command is stored in e[&#34;transmission&#34;][&#34;transmission4&#34;][&#39;command&#39;]
+        if zcl_frametype == 1 or zcl_frametype == &#39;cluster-specific&#39;:
+            apptype = 3
+            row.append(apptype)
+            row.append(transmission4[&#39;command&#39;])
+
+        # In the case of profile-wide zcl_apptype
+        # It correspond to sensor apptype
+        # but the data can be different, it is either get_data or the data itself
+        elif zcl_frametype == 0 or zcl_frametype == &#39;profile-wide&#39;:
+            apptype = 2
+            row.append(apptype)
+
+            command_identifier = transmission4[&#39;command_identifier&#39;]
+            if command_identifier == &#39;read attributes response&#39; or command_identifier == 0x01:
+                # TODO : make a conversion structure according to the type of data
+                # Here we are only 2 data types : Boolean (16) or signed int (41)
+                datatype = transmission4[&#39;read_attributes_status_records&#39;][0][&#39;attribute_data_type&#39;]
+                # boolean
+                if datatype == 16:
+                    data = int.from_bytes(transmission4[&#39;read_attributes_status_records&#39;][0][&#39;attribute_value&#39;], &#39;little&#39;)
+                    row.append(&#39;On&#39; if data else &#39;Off&#39;)
+
+                #Unsigned Int
+                elif datatype == 41:
+                    data = int.from_bytes(transmission4[&#39;read_attributes_status_records&#39;][0][&#39;attribute_value&#39;], &#39;little&#39;)
+                    row.append(data)
+
+            # We don&#39;t consider default response as interesting message
+            elif command_identifier == &#39;report attributes&#39; or command_identifier == 0x0a:
+                return None
+                
+            # We don&#39;t consider default response as interesting message
+            elif command_identifier == &#39;default response&#39; or command_identifier == 0x0b:
+                return None
+
+            else :
+                row.append(&#39;get_data&#39;)
+
+        logging.debug(f&#34;Packet[{pkt}] : {row}&#34;)
+        return row</code></pre>
+</details>
+</dd>
+<dt id="iotmap.sniffer.gen_packet.PacketGenerator.convertPackets"><code class="name flex">
+<span>def <span class="ident">convertPackets</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def convertPackets(self):
+    logging.info(f&#39;{self.pkts_size} packets will be processed&#39;)
+    print(f&#34;type of nbThread: {type(self.nbThread)}&#34;)
+    with Pool(int(self.nbThread)) as p:
+    # Rather than set as parameter the packets array
+    # We set an array of index, and we access the array through a global variable
+    # It&#39;s a weird way to do it, however it&#39;s works
+        rows = p.map(self.function, [i for i in range(0, self.pkts_size)])
+        
+    return rows</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="iotmap.sniffer" href="index.html">iotmap.sniffer</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="iotmap.sniffer.gen_packet.gen_packet" href="#iotmap.sniffer.gen_packet.gen_packet">gen_packet</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="iotmap.sniffer.gen_packet.PacketGenerator" href="#iotmap.sniffer.gen_packet.PacketGenerator">PacketGenerator</a></code></h4>
+<ul class="">
+<li><code><a title="iotmap.sniffer.gen_packet.PacketGenerator.BTLEConversion" href="#iotmap.sniffer.gen_packet.PacketGenerator.BTLEConversion">BTLEConversion</a></code></li>
+<li><code><a title="iotmap.sniffer.gen_packet.PacketGenerator.SixLowPANConversion" href="#iotmap.sniffer.gen_packet.PacketGenerator.SixLowPANConversion">SixLowPANConversion</a></code></li>
+<li><code><a title="iotmap.sniffer.gen_packet.PacketGenerator.ZigBeeConversion" href="#iotmap.sniffer.gen_packet.PacketGenerator.ZigBeeConversion">ZigBeeConversion</a></code></li>
+<li><code><a title="iotmap.sniffer.gen_packet.PacketGenerator.convertPackets" href="#iotmap.sniffer.gen_packet.PacketGenerator.convertPackets">convertPackets</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

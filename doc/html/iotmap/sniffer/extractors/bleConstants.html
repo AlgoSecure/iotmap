@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>iotmap.sniffer.extractors.bleConstants API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>iotmap.sniffer.extractors.bleConstants</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">LLID = {
+    0: &#39;Unknown&#39;,
+    1: &#39;continue&#39;,
+    2: &#39;start&#39;,
+    3: &#39;control&#39;
+}
+
+RxTxAdd = {
+    0: &#39;public&#39;,
+    1: &#39;random&#39;
+}
+
+PDUType = {
+    0: &#34;ADV_IND&#34;,
+    1: &#34;ADV_DIRECT_IND&#34;,
+    2: &#34;ADV_NONCONN_IND&#34;,
+    3: &#34;SCAN_REQ&#34;,
+    # noqa: E501
+    4: &#34;SCAN_RSP&#34;,
+    5: &#34;CONNECT_REQ&#34;,
+    6: &#34;ADV_SCAN_IND&#34;
+}
+
+optCode = {
+    0x00: &#34;LL_CONNECTION_UPDATE_REQ&#34;,
+    0x01: &#34;LL_CHANNEL_MAP_REQ&#34;,
+    0x02: &#34;LL_TERMINATE_IND&#34;,
+    0x03: &#34;LL_ENC_REQ&#34;,
+    0x04: &#34;LL_ENC_RSP&#34;,
+    0x05: &#34;LL_START_ENC_REQ&#34;,
+    0x06: &#34;LL_START_ENC_RSP&#34;,
+    0x07: &#34;LL_UNKNOWN_RSP&#34;,
+    0x08: &#34;LL_FEATURE_REQ&#34;,
+    0x09: &#34;LL_FEATURE_RSP&#34;,
+    0x0A: &#34;LL_PAUSE_ENC_REQ&#34;,
+    0x0B: &#34;LL_PAUSE_ENC_RSP&#34;,
+    0x0C: &#34;LL_VERSION_IND&#34;,
+    0x0D: &#34;LL_REJECT_IND&#34;, 
+    0x0E: &#34;LL_SLAVE_FEATURE_REQ&#34;,
+    0x0F: &#34;LL_CONNECTION_PARAM_REQ&#34;,
+    0x10: &#34;LL_CONNECTION_PARAM_RSP&#34;,
+    0x11: &#34;LL_REJECT_IND_EXT&#34;,
+    0x12: &#34;LL_PING_REQ&#34;,
+    0x13: &#34;LL_PING_RSP&#34;,
+    0x14: &#34;LL_LENGTH_REQ&#34;,
+    0x15: &#34;LL_LENGTH_RSP&#34;,
+    0x16: &#34;LL_PHY_REQ&#34;,
+    0x17: &#34;LL_PHY_RSP&#34;,
+    0x18: &#34;LL_PHY_UPDATE_IND&#34;,
+    0x19: &#34;LL_MIN_USED_CHANNELS_IND&#34;,
+    0x1A: &#34;LL_CTE_REQ&#34;,
+    0x1B: &#34;LL_CTE_RSP&#34;,
+    0x1C: &#34;LL_PERIODIC_SYNC_IND&#34;,
+    0x1D: &#34;LL_CLOCK_ACCURACY_REQ&#34;,
+    0x1E: &#34;LL_CLOCK_ACCURACY_RSP&#34;,
+    0x1F: &#34;LL_CIS_REQ&#34;,
+    0x20: &#34;LL_CIS_RSP&#34;,
+    0x21: &#34;LL_CIS_IND&#34;,
+    0x22: &#34;LL_CIS_TERMINATE_IND&#34;,
+    0x23: &#34;LL_POWER_CONTROL_REQ&#34;,
+    0x24: &#34;LL_POWER_CONTROL_RSP&#34;,
+    0x25: &#34;LL_POWER_CHANGE_IND&#34;,
+    0xff: &#34;Unknown&#34;
+}
+
+CID = {
+    1: &#39;control&#39;,
+    4: &#39;attribute&#39;,
+    2720: &#39;L2CAP Fragement&#39;
+}
+
+flags = {
+    0: &#34;dewhitened&#34;,
+    1: &#34;sig_power_valid&#34;,
+    2: &#34;noise_power_valid&#34;,
+    3: &#34;decrypted&#34;,
+    4: &#34;reference_access_address_valid&#34;,
+    5: &#34;access_address_offenses_valid&#34;,
+    6: &#34;channel_aliased&#34;,
+    7: &#34;RFU1&#34;,
+    10: &#34;crc_checked&#34;,
+    11: &#34;crc_valid&#34;,
+    12: &#34;mic_checked&#34;,
+    13: &#34;mic_valid&#34;,
+    14: &#34;RFU2&#34;
+}
+
+properties = {
+    0: &#34;Extended Properties&#34;,
+    1: &#34;Authenticated Signed Writes&#34;,
+    2: &#34;Indicate&#34;,
+    3: &#34;Notify&#34;,
+    4: &#34;Write&#34;,
+    5: &#34;Write without Response&#34;,
+    6: &#34;Read&#34;,
+    7: &#34;Broadcast&#34;
+}
+
+opCode = {
+    0x01: &#34;Error Response&#34;,
+    0x02: &#34;Exchange MTU Request&#34;,
+    0x03: &#34;Exchange MTU Response&#34;,
+    0x04: &#34;Find Information Request&#34;,
+    0x05: &#34;Find Information Response&#34;,
+    0x06: &#34;Find By Type Value Request&#34;,
+    0x07: &#34;Find By Type Value Response&#34;,
+    0x08: &#34;Read By Type Request&#34;,
+    0x09: &#34;Read By Type Response&#34;,
+    0x0a: &#34;Read Request&#34;,
+    0x0b: &#34;Read Response&#34;,
+    0x0c: &#34;Read Blob Request&#34;,
+    0x0d: &#34;Read Blob Response&#34;,
+    0x0e: &#34;Read Multiple Request&#34;,
+    0x0f: &#34;Read Multiple Response&#34;,
+    0x10: &#34;Read By Group Type Request&#34;,
+    0x11: &#34;Read By Group Type Response&#34;,
+    0x12: &#34;Write Request&#34;,
+    0x13: &#34;Write Response&#34;,
+    0x52: &#34;Write Command&#34;,
+    0x16: &#34;Prepare Write Request&#34;,
+    0x17: &#34;Prepare Write Response&#34;,
+    0x18: &#34;Execute Write Request&#34;,
+    0x19: &#34;Execute Write Response&#34;,
+    0x1b: &#34;Handle Value Notification&#34;,
+    0x1d: &#34;Handle Value Indication&#34;,
+    0x1e: &#34;Handle Value Confirmation&#34;,
+    0xd2: &#34;Signed Write Command&#34;
+}
+
+UUIDS_16BITS = {
+    0x0001: &#34;SDP&#34;,
+    0x0003: &#34;RFCOMM&#34;,
+    0x0005: &#34;TCS-BIN&#34;,
+    0x0007: &#34;ATT&#34;,
+    0x0008: &#34;OBEX&#34;,
+    0x000f: &#34;BNEP&#34;,
+    0x0010: &#34;UPNP&#34;,
+    0x0011: &#34;HIDP&#34;,
+    0x0012: &#34;Hardcopy Control Channel&#34;,
+    0x0014: &#34;Hardcopy Data Channel&#34;,
+    0x0016: &#34;Hardcopy Notification&#34;,
+    0x0017: &#34;AVCTP&#34;,
+    0x0019: &#34;AVDTP&#34;,
+    0x001b: &#34;CMTP&#34;,
+    0x001e: &#34;MCAP Control Channel&#34;,
+    0x001f: &#34;MCAP Data Channel&#34;,
+    0x0100: &#34;L2CAP&#34;,
+    # 0x0101 to 0x0fff undefined */
+    0x1000: &#34;Service Discovery Server Service Class&#34;,
+    0x1001: &#34;Browse Group Descriptor Service Class&#34;,
+    0x1002: &#34;Public Browse Root&#34;,
+    # 0x1003 to 0x1100 undefined */
+    0x1101: &#34;Serial Port&#34;,
+    0x1102: &#34;LAN Access Using PPP&#34;,
+    0x1103: &#34;Dialup Networking&#34;,
+    0x1104: &#34;IrMC Sync&#34;,
+    0x1105: &#34;OBEX Object Push&#34;,
+    0x1106: &#34;OBEX File Transfer&#34;,
+    0x1107: &#34;IrMC Sync Command&#34;,
+    0x1108: &#34;Headset&#34;,
+    0x1109: &#34;Cordless Telephony&#34;,
+    0x110a: &#34;Audio Source&#34;,
+    0x110b: &#34;Audio Sink&#34;,
+    0x110c: &#34;A/V Remote Control Target&#34;,
+    0x110d: &#34;Advanced Audio Distribution&#34;,
+    0x110e: &#34;A/V Remote Control&#34;,
+    0x110f: &#34;A/V Remote Control Controller&#34;,
+    0x1110: &#34;Intercom&#34;,
+    0x1111: &#34;Fax&#34;,
+    0x1112: &#34;Headset AG&#34;,
+    0x1113: &#34;WAP&#34;,
+    0x1114: &#34;WAP Client&#34;,
+    0x1115: &#34;PANU&#34;,
+    0x1116: &#34;NAP&#34;,
+    0x1117: &#34;GN&#34;,
+    0x1118: &#34;Direct Printing&#34;,
+    0x1119: &#34;Reference Printing&#34;,
+    0x111a: &#34;Basic Imaging Profile&#34;,
+    0x111b: &#34;Imaging Responder&#34;,
+    0x111c: &#34;Imaging Automatic Archive&#34;,
+    0x111d: &#34;Imaging Referenced Objects&#34;,
+    0x111e: &#34;Handsfree&#34;,
+    0x111f: &#34;Handsfree Audio Gateway&#34;,
+    0x1120: &#34;Direct Printing Refrence Objects Service&#34;,
+    0x1121: &#34;Reflected UI&#34;,
+    0x1122: &#34;Basic Printing&#34;,
+    0x1123: &#34;Printing Status&#34;,
+    0x1124: &#34;Human Interface Device Service&#34;,
+    0x1125: &#34;Hardcopy Cable Replacement&#34;,
+    0x1126: &#34;HCR Print&#34;,
+    0x1127: &#34;HCR Scan&#34;,
+    0x1128: &#34;Common ISDN Access&#34;,
+    # 0x1129 and 0x112a undefined */
+    0x112d: &#34;SIM Access&#34;,
+    0x112e: &#34;Phonebook Access Client&#34;,
+    0x112f: &#34;Phonebook Access Server&#34;,
+    0x1130: &#34;Phonebook Access&#34;,
+    0x1131: &#34;Headset HS&#34;,
+    0x1132: &#34;Message Access Server&#34;,
+    0x1133: &#34;Message Notification Server&#34;,
+    0x1134: &#34;Message Access Profile&#34;,
+    0x1135: &#34;GNSS&#34;,
+    0x1136: &#34;GNSS Server&#34;,
+    0x1137: &#34;3D Display&#34;,
+    0x1138: &#34;3D Glasses&#34;,
+    0x1139: &#34;3D Synchronization&#34;,
+    0x113a: &#34;MPS Profile&#34;,
+    0x113b: &#34;MPS Service&#34;,
+    # 0x113c to 0x11ff undefined */
+    0x1200: &#34;PnP Information&#34;,
+    0x1201: &#34;Generic Networking&#34;,
+    0x1202: &#34;Generic File Transfer&#34;,
+    0x1203: &#34;Generic Audio&#34;,
+    0x1204: &#34;Generic Telephony&#34;,
+    0x1205: &#34;UPNP Service&#34;,
+    0x1206: &#34;UPNP IP Service&#34;,
+    0x1300: &#34;UPNP IP PAN&#34;,
+    0x1301: &#34;UPNP IP LAP&#34;,
+    0x1302: &#34;UPNP IP L2CAP&#34;,
+    0x1303: &#34;Video Source&#34;,
+    0x1304: &#34;Video Sink&#34;,
+    0x1305: &#34;Video Distribution&#34;,
+    # 0x1306 to 0x13ff undefined */
+    0x1400: &#34;HDP&#34;,
+    0x1401: &#34;HDP Source&#34;,
+    0x1402: &#34;HDP Sink&#34;,
+    # 0x1403 to 0x17ff undefined */
+    0x1800: &#34;Generic Access Profile&#34;,
+    0x1801: &#34;Generic Attribute Profile&#34;,
+    0x1802: &#34;Immediate Alert&#34;,
+    0x1803: &#34;Link Loss&#34;,
+    0x1804: &#34;Tx Power&#34;,
+    0x1805: &#34;Current Time Service&#34;,
+    0x1806: &#34;Reference Time Update Service&#34;,
+    0x1807: &#34;Next DST Change Service&#34;,
+    0x1808: &#34;Glucose&#34;,
+    0x1809: &#34;Health Thermometer&#34;,
+    0x180a: &#34;Device Information&#34;,
+    # 0x180b and 0x180c undefined */
+    0x180d: &#34;Heart Rate&#34;,
+    0x180e: &#34;Phone Alert Status Service&#34;,
+    0x180f: &#34;Battery Service&#34;,
+    0x1810: &#34;Blood Pressure&#34;,
+    0x1811: &#34;Alert Notification Service&#34;,
+    0x1812: &#34;Human Interface Device&#34;,
+    0x1813: &#34;Scan Parameters&#34;,
+    0x1814: &#34;Running Speed and Cadence&#34;,
+    0x1815: &#34;Automation IO&#34;,
+    0x1816: &#34;Cycling Speed and Cadence&#34;,
+    # 0x1817 undefined */
+    0x1818: &#34;Cycling Power&#34;,
+    0x1819: &#34;Location and Navigation&#34;,
+    0x181a: &#34;Environmental Sensing&#34;,
+    0x181b: &#34;Body Composition&#34;,
+    0x181c: &#34;User Data&#34;,
+    0x181d: &#34;Weight Scale&#34;,
+    0x181e: &#34;Bond Management&#34;,
+    0x181f: &#34;Continuous Glucose Monitoring&#34;,
+    0x1820: &#34;Internet Protocol Support&#34;,
+    0x1821: &#34;Indoor Positioning&#34;,
+    0x1822: &#34;Pulse Oximeter&#34;,
+    0x1823: &#34;HTTP Proxy&#34;,
+    0x1824: &#34;Transport Discovery&#34;,
+    0x1825: &#34;Object Transfer&#34;,
+    # 0x1824 to 0x27ff undefined */
+    0x2800: &#34;Primary Service&#34;,
+    0x2801: &#34;Secondary Service&#34;,
+    0x2802: &#34;Include&#34;,
+    0x2803: &#34;Characteristic&#34;,
+    # 0x2804 to 0x28ff undefined */
+    0x2900: &#34;Characteristic Extended Properties&#34;,
+    0x2901: &#34;Characteristic User Description&#34;,
+    0x2902: &#34;Client Characteristic Configuration&#34;,
+    0x2903: &#34;Server Characteristic Configuration&#34;,
+    0x2904: &#34;Characteristic Format&#34;,
+    0x2905: &#34;Characteristic Aggregate Formate&#34;,
+    0x2906: &#34;Valid Range&#34;,
+    0x2907: &#34;External Report Reference&#34;,
+    0x2908: &#34;Report Reference&#34;,
+    0x2909: &#34;Number of Digitals&#34;,
+    0x290a: &#34;Value Trigger Setting&#34;,
+    0x290b: &#34;Environmental Sensing Configuration&#34;,
+    0x290c: &#34;Environmental Sensing Measurement&#34;,
+    0x290d: &#34;Environmental Sensing Trigger Setting&#34;,
+    0x290e: &#34;Time Trigger Setting&#34;,
+    # 0x290f to 0x29ff undefined */
+    0x2a00: &#34;Device Name&#34;,
+    0x2a01: &#34;Appearance&#34;,
+    0x2a02: &#34;Peripheral Privacy Flag&#34;,
+    0x2a03: &#34;Reconnection Address&#34;,
+    0x2a04: &#34;Peripheral Preferred Connection Parameters&#34;,
+    0x2a05: &#34;Service Changed&#34;,
+    0x2a06: &#34;Alert Level&#34;,
+    0x2a07: &#34;Tx Power Level&#34;,
+    0x2a08: &#34;Date Time&#34;,
+    0x2a09: &#34;Day of Week&#34;,
+    0x2a0a: &#34;Day Date Time&#34;,
+    # 0x2a0b undefined */
+    0x2a0c: &#34;Exact Time 256&#34;,
+    0x2a0d: &#34;DST Offset&#34;,
+    0x2a0e: &#34;Time Zone&#34;,
+    0x2a0f: &#34;Local Time Information&#34;,
+    # 0x2a10 undefined */
+    0x2a11: &#34;Time with DST&#34;,
+    0x2a12: &#34;Time Accuracy&#34;,
+    0x2a13: &#34;Time Source&#34;,
+    0x2a14: &#34;Reference Time Information&#34;,
+    # 0x2a15 undefined */
+    0x2a16: &#34;Time Update Control Point&#34;,
+    0x2a17: &#34;Time Update State&#34;,
+    0x2a18: &#34;Glucose Measurement&#34;,
+    0x2a19: &#34;Battery Level&#34;,
+    # 0x2a1a and 0x2a1b undefined */
+    0x2a1c: &#34;Temperature Measurement&#34;,
+    0x2a1d: &#34;Temperature Type&#34;,
+    0x2a1e: &#34;Intermediate Temperature&#34;,
+    # 0x2a1f and 0x2a20 undefined */
+    0x2a21: &#34;Measurement Interval&#34;,
+    0x2a22: &#34;Boot Keyboard Input Report&#34;,
+    0x2a23: &#34;System ID&#34;,
+    0x2a24: &#34;Model Number String&#34;,
+    0x2a25: &#34;Serial Number String&#34;,
+    0x2a26: &#34;Firmware Revision String&#34;,
+    0x2a27: &#34;Hardware Revision String&#34;,
+    0x2a28: &#34;Software Revision String&#34;,
+    0x2a29: &#34;Manufacturer Name String&#34;,
+    0x2a2a: &#34;IEEE 11073-20601 Regulatory Cert. Data List&#34;,
+    0x2a2b: &#34;Current Time&#34;,
+    0x2a2c: &#34;Magnetic Declination&#34;,
+    # 0x2a2d to 0x2a30 undefined */
+    0x2a31: &#34;Scan Refresh&#34;,
+    0x2a32: &#34;Boot Keyboard Output Report&#34;,
+    0x2a33: &#34;Boot Mouse Input Report&#34;,
+    0x2a34: &#34;Glucose Measurement Context&#34;,
+    0x2a35: &#34;Blood Pressure Measurement&#34;,
+    0x2a36: &#34;Intermediate Cuff Pressure&#34;,
+    0x2a37: &#34;Heart Rate Measurement&#34;,
+    0x2a38: &#34;Body Sensor Location&#34;,
+    0x2a39: &#34;Heart Rate Control Point&#34;,
+    # 0x2a3a to 0x2a3e undefined */
+    0x2a3f: &#34;Alert Status&#34;,
+    0x2a40: &#34;Ringer Control Point&#34;,
+    0x2a41: &#34;Ringer Setting&#34;,
+    0x2a42: &#34;Alert Category ID Bit Mask&#34;,
+    0x2a43: &#34;Alert Category ID&#34;,
+    0x2a44: &#34;Alert Notification Control Point&#34;,
+    0x2a45: &#34;Unread Alert Status&#34;,
+    0x2a46: &#34;New Alert&#34;,
+    0x2a47: &#34;Supported New Alert Category&#34;,
+    0x2a48: &#34;Supported Unread Alert Category&#34;,
+    0x2a49: &#34;Blood Pressure Feature&#34;,
+    0x2a4a: &#34;HID Information&#34;,
+    0x2a4b: &#34;Report Map&#34;,
+    0x2a4c: &#34;HID Control Point&#34;,
+    0x2a4d: &#34;Report&#34;,
+    0x2a4e: &#34;Protocol Mode&#34;,
+    0x2a4f: &#34;Scan Interval Window&#34;,
+    0x2a50: &#34;PnP ID&#34;,
+    0x2a51: &#34;Glucose Feature&#34;,
+    0x2a52: &#34;Record Access Control Point&#34;,
+    0x2a53: &#34;RSC Measurement&#34;,
+    0x2a54: &#34;RSC Feature&#34;,
+    0x2a55: &#34;SC Control Point&#34;,
+    0x2a56: &#34;Digital&#34;,
+    # 0x2a57 undefined */
+    0x2a58: &#34;Analog&#34;,
+    # 0x2a59 undefined */
+    0x2a5a: &#34;Aggregate&#34;,
+    0x2a5b: &#34;CSC Measurement&#34;,
+    0x2a5c: &#34;CSC Feature&#34;,
+    0x2a5d: &#34;Sensor Location&#34;,
+    # 0x2a5e to 0x2a62 undefined */
+    0x2a63: &#34;Cycling Power Measurement&#34;,
+    0x2a64: &#34;Cycling Power Vector&#34;,
+    0x2a65: &#34;Cycling Power Feature&#34;,
+    0x2a66: &#34;Cycling Power Control Point&#34;,
+    0x2a67: &#34;Location and Speed&#34;,
+    0x2a68: &#34;Navigation&#34;,
+    0x2a69: &#34;Position Quality&#34;,
+    0x2a6a: &#34;LN Feature&#34;,
+    0x2a6b: &#34;LN Control Point&#34;,
+    0x2a6c: &#34;Elevation&#34;,
+    0x2a6d: &#34;Pressure&#34;,
+    0x2a6e: &#34;Temperature&#34;,
+    0x2a6f: &#34;Humidity&#34;,
+    0x2a70: &#34;True Wind Speed&#34;,
+    0x2a71: &#34;True Wind Direction&#34;,
+    0x2a72: &#34;Apparent Wind Speed&#34;,
+    0x2a73: &#34;Apparent Wind Direction&#34;,
+    0x2a74: &#34;Gust Factor&#34;,
+    0x2a75: &#34;Pollen Concentration&#34;,
+    0x2a76: &#34;UV Index&#34;,
+    0x2a77: &#34;Irradiance&#34;,
+    0x2a78: &#34;Rainfall&#34;,
+    0x2a79: &#34;Wind Chill&#34;,
+    0x2a7a: &#34;Heat Index&#34;,
+    0x2a7b: &#34;Dew Point&#34;,
+    0x2a7c: &#34;Trend&#34;,
+    0x2a7d: &#34;Descriptor Value Changed&#34;,
+    0x2a7e: &#34;Aerobic Heart Rate Lower Limit&#34;,
+    0x2a7f: &#34;Aerobic Threshold&#34;,
+    0x2a80: &#34;Age&#34;,
+    0x2a81: &#34;Anaerobic Heart Rate Lower Limit&#34;,
+    0x2a82: &#34;Anaerobic Heart Rate Upper Limit&#34;,
+    0x2a83: &#34;Anaerobic Threshold&#34;,
+    0x2a84: &#34;Aerobic Heart Rate Upper Limit&#34;,
+    0x2a85: &#34;Date of Birth&#34;,
+    0x2a86: &#34;Date of Threshold Assessment&#34;,
+    0x2a87: &#34;Email Address&#34;,
+    0x2a88: &#34;Fat Burn Heart Rate Lower Limit&#34;,
+    0x2a89: &#34;Fat Burn Heart Rate Upper Limit&#34;,
+    0x2a8a: &#34;First Name&#34;,
+    0x2a8b: &#34;Five Zone Heart Rate Limits&#34;,
+    0x2a8c: &#34;Gender&#34;,
+    0x2a8d: &#34;Heart Rate Max&#34;,
+    0x2a8e: &#34;Height&#34;,
+    0x2a8f: &#34;Hip Circumference&#34;,
+    0x2a90: &#34;Last Name&#34;,
+    0x2a91: &#34;Maximum Recommended Heart Rate&#34;,
+    0x2a92: &#34;Resting Heart Rate&#34;,
+    0x2a93: &#34;Sport Type for Aerobic/Anaerobic Thresholds&#34;,
+    0x2a94: &#34;Three Zone Heart Rate Limits&#34;,
+    0x2a95: &#34;Two Zone Heart Rate Limit&#34;,
+    0x2a96: &#34;VO2 Max&#34;,
+    0x2a97: &#34;Waist Circumference&#34;,
+    0x2a98: &#34;Weight&#34;,
+    0x2a99: &#34;Database Change Increment&#34;,
+    0x2a9a: &#34;User Index&#34;,
+    0x2a9b: &#34;Body Composition Feature&#34;,
+    0x2a9c: &#34;Body Composition Measurement&#34;,
+    0x2a9d: &#34;Weight Measurement&#34;,
+    0x2a9e: &#34;Weight Scale Feature&#34;,
+    0x2a9f: &#34;User Control Point&#34;,
+    0x2aa0: &#34;Magnetic Flux Density - 2D&#34;,
+    0x2aa1: &#34;Magnetic Flux Density - 3D&#34;,
+    0x2aa2: &#34;Language&#34;,
+    0x2aa3: &#34;Barometric Pressure Trend&#34;,
+    0x2aa4: &#34;Bond Management Control Point&#34;,
+    0x2aa5: &#34;Bond Management Feature&#34;,
+    0x2aa6: &#34;Central Address Resolution&#34;,
+    0x2aa7: &#34;CGM Measurement&#34;,
+    0x2aa8: &#34;CGM Feature&#34;,
+    0x2aa9: &#34;CGM Status&#34;,
+    0x2aaa: &#34;CGM Session Start Time&#34;,
+    0x2aab: &#34;CGM Session Run Time&#34;,
+    0x2aac: &#34;CGM Specific Ops Control Point&#34;,
+    0x2aad: &#34;Indoor Positioning Configuration&#34;,
+    0x2aae: &#34;Latitude&#34;,
+    0x2aaf: &#34;Longitude&#34;,
+    0x2ab0: &#34;Local North Coordinate&#34;,
+    0x2ab1: &#34;Local East Coordinate&#34;,
+    0x2ab2: &#34;Floor Number&#34;,
+    0x2ab3: &#34;Altitude&#34;,
+    0x2ab4: &#34;Uncertainty&#34;,
+    0x2ab5: &#34;Location Name&#34;,
+    0x2ab6: &#34;URI&#34;,
+    0x2ab7: &#34;HTTP Headers&#34;,
+    0x2ab8: &#34;HTTP Status Code&#34;,
+    0x2ab9: &#34;HTTP Entity Body&#34;,
+    0x2aba: &#34;HTTP Control Point&#34;,
+    0x2abb: &#34;HTTPS Security&#34;,
+    0x2abc: &#34;TDS Control Point&#34;,
+    0x2abd: &#34;OTS Feature&#34;,
+    0x2abe: &#34;Object Name&#34;,
+    0x2abf: &#34;Object Type&#34;,
+    0x2ac0: &#34;Object Size&#34;,
+    0x2ac1: &#34;Object First-Created&#34;,
+    0x2ac2: &#34;Object Last-Modified&#34;,
+    0x2ac3: &#34;Object ID&#34;,
+    0x2ac4: &#34;Object Properties&#34;,
+    0x2ac5: &#34;Object Action Control Point&#34;,
+    0x2ac6: &#34;Object List Control Point&#34;,
+    0x2ac7: &#34;Object List Filter&#34;,
+    0x2ac8: &#34;Object Changed&#34;,
+    # vendor defined */
+    0xfeff: &#34;GN Netcom&#34;,
+    0xfefe: &#34;GN ReSound A/S&#34;,
+    0xfefd: &#34;Gimbal, Inc.&#34;,
+    0xfefc: &#34;Gimbal, Inc.&#34;,
+    0xfefb: &#34;Stollmann E+V GmbH&#34;,
+    0xfefa: &#34;PayPal, Inc.&#34;,
+    0xfef9: &#34;PayPal, Inc.&#34;,
+    0xfef8: &#34;Aplix Corporation&#34;,
+    0xfef7: &#34;Aplix Corporation&#34;,
+    0xfef6: &#34;Wicentric, Inc.&#34;,
+    0xfef5: &#34;Dialog Semiconductor GmbH&#34;,
+    0xfef4: &#34;Google&#34;,
+    0xfef3: &#34;Google&#34;,
+    0xfef2: &#34;CSR&#34;,
+    0xfef1: &#34;CSR&#34;,
+    0xfef0: &#34;Intel&#34;,
+    0xfeef: &#34;Polar Electro Oy&#34;,
+    0xfeee: &#34;Polar Electro Oy&#34;,
+    0xfeed: &#34;Tile, Inc.&#34;,
+    0xfeec: &#34;Tile, Inc.&#34;,
+    0xfeeb: &#34;Swirl Networks, Inc.&#34;,
+    0xfeea: &#34;Swirl Networks, Inc.&#34;,
+    0xfee9: &#34;Quintic Corp.&#34;,
+    0xfee8: &#34;Quintic Corp.&#34;,
+    0xfee7: &#34;Tencent Holdings Limited&#34;,
+    0xfee6: &#34;Seed Labs, Inc.&#34;,
+    0xfee5: &#34;Nordic Semiconductor ASA&#34;,
+    0xfee4: &#34;Nordic Semiconductor ASA&#34;,
+    0xfee3: &#34;Anki, Inc.&#34;,
+    0xfee2: &#34;Anki, Inc.&#34;,
+    0xfee1: &#34;Anhui Huami Information Technology Co.&#34;,
+    0xfee0: &#34;Anhui Huami Information Technology Co.&#34;,
+    0xfedf: &#34;Design SHIFT&#34;,
+    0xfede: &#34;Coin, Inc.&#34;,
+    0xfedd: &#34;Jawbone&#34;,
+    0xfedc: &#34;Jawbone&#34;,
+    0xfedb: &#34;Perka, Inc.&#34;,
+    0xfeda: &#34;ISSC Technologies Corporation&#34;,
+    0xfed9: &#34;Pebble Technology Corporation&#34;,
+    0xfed8: &#34;Google&#34;,
+    0xfed7: &#34;Broadcom Corporation&#34;,
+    0xfed6: &#34;Broadcom Corporation&#34;,
+    0xfed5: &#34;Plantronics Inc.&#34;,
+    0xfed4: &#34;Apple, Inc.&#34;,
+    0xfed3: &#34;Apple, Inc.&#34;,
+    0xfed2: &#34;Apple, Inc.&#34;,
+    0xfed1: &#34;Apple, Inc.&#34;,
+    0xfed0: &#34;Apple, Inc.&#34;,
+    0xfecf: &#34;Apple, Inc.&#34;,
+    0xfece: &#34;Apple, Inc.&#34;,
+    0xfecd: &#34;Apple, Inc.&#34;,
+    0xfecc: &#34;Apple, Inc.&#34;,
+    0xfecb: &#34;Apple, Inc.&#34;,
+    0xfeca: &#34;Apple, Inc.&#34;,
+    0xfec9: &#34;Apple, Inc.&#34;,
+    0xfec8: &#34;Apple, Inc.&#34;,
+    0xfec7: &#34;Apple, Inc.&#34;,
+    0xfec6: &#34;Kocomojo, LLC&#34;,
+    0xfec5: &#34;Realtek Semiconductor Corp.&#34;,
+    0xfec4: &#34;PLUS Location Systems&#34;,
+    0xfec3: &#34;360fly, Inc.&#34;,
+    0xfec2: &#34;Blue Spark Technologies, Inc.&#34;,
+    0xfec1: &#34;KDDI Corporation&#34;,
+    0xfec0: &#34;KDDI Corporation&#34;,
+    0xfebf: &#34;Nod, Inc.&#34;,
+    0xfebe: &#34;Bose Corporation&#34;,
+    0xfebd: &#34;Clover Network, Inc.&#34;,
+    0xfebc: &#34;Dexcom, Inc.&#34;,
+    0xfebb: &#34;adafruit industries&#34;,
+    0xfeba: &#34;Tencent Holdings Limited&#34;,
+    0xfeb9: &#34;LG Electronics&#34;,
+    0xfeb8: &#34;Facebook, Inc.&#34;,
+    0xfeb7: &#34;Facebook, Inc.&#34;,
+    0xfeb6: &#34;Vencer Co, Ltd&#34;,
+    0xfeb5: &#34;WiSilica Inc.&#34;,
+    0xfeb4: &#34;WiSilica Inc.&#34;,
+    0xfeb3: &#34;Taobao&#34;,
+    0xfeb2: &#34;Microsoft Corporation&#34;,
+    0xfeb1: &#34;Electronics Tomorrow Limited&#34;,
+    0xfeb0: &#34;Nest Labs Inc.&#34;,
+    0xfeaf: &#34;Nest Labs Inc.&#34;,
+    0xfeae: &#34;Nokia Corporation&#34;,
+    0xfead: &#34;Nokia Corporation&#34;,
+    0xfeac: &#34;Nokia Corporation&#34;,
+    0xfeab: &#34;Nokia Corporation&#34;,
+    0xfeaa: &#34;Google&#34;,
+    0xfea9: &#34;Savant Systems LLC&#34;,
+    0xfea8: &#34;Savant Systems LLC&#34;,
+    0xfea7: &#34;UTC Fire and Security&#34;,
+    0xfea6: &#34;GoPro, Inc.&#34;,
+    0xfea5: &#34;GoPro, Inc.&#34;,
+    0xfea4: &#34;Paxton Access Ltd&#34;,
+    0xfea3: &#34;ITT Industries&#34;,
+    0xfea2: &#34;Intrepid Control Systems, Inc.&#34;,
+    0xfea1: &#34;Intrepid Control Systems, Inc.&#34;,
+    0xfea0: &#34;Google&#34;,
+    0xfe9f: &#34;Google&#34;,
+    0xfe9e: &#34;Dialog Semiconductor B.V.&#34;,
+    0xfe9d: &#34;Mobiquity Networks Inc&#34;,
+    0xfe9c: &#34;GSI Laboratories, Inc.&#34;,
+    0xfe9b: &#34;Samsara Networks, Inc&#34;,
+    0xfe9a: &#34;Estimote&#34;,
+    0xfe99: &#34;Currant, Inc.&#34;,
+    0xfe98: &#34;Currant, Inc.&#34;,
+    0xfe97: &#34;Tesla Motor Inc.&#34;,
+    0xfe96: &#34;Tesla Motor Inc.&#34;,
+    0xfe95: &#34;Xiaomi Inc.&#34;,
+    0xfe94: &#34;OttoQ Inc.&#34;,
+    0xfe93: &#34;OttoQ Inc.&#34;,
+    0xfe92: &#34;Jarden Safety &amp; Security&#34;,
+    0xfe91: &#34;Shanghai Imilab Technology Co.,Ltd&#34;,
+    0xfe90: &#34;JUMA&#34;,
+    0xfe8f: &#34;CSR&#34;,
+    0xfe8e: &#34;ARM Ltd&#34;,
+    0xfe8d: &#34;Interaxon Inc.&#34;,
+    0xfe8c: &#34;TRON Forum&#34;,
+    0xfe8b: &#34;Apple, Inc.&#34;,
+    0xfe8a: &#34;Apple, Inc.&#34;,
+    0xfe89: &#34;B&amp;O Play A/S&#34;,
+    0xfe88: &#34;SALTO SYSTEMS S.L.&#34;,
+    0xfe87: &#34;Qingdao Yeelink Information Technology Co., Ltd.&#34;,
+    0xfe86: &#34;HUAWEI Technologies Co., Ltd.&#34;,
+    0xfe85: &#34;RF Digital Corp&#34;,
+    0xfe84: &#34;RF Digital Corp&#34;,
+    0xfe83: &#34;Blue Bite&#34;,
+    0xfe82: &#34;Medtronic Inc.&#34;,
+    0xfe81: &#34;Medtronic Inc.&#34;,
+    0xfe80: &#34;Doppler Lab&#34;,
+    0xfe7f: &#34;Doppler Lab&#34;,
+    0xfe7e: &#34;Awear Solutions Ltd&#34;,
+    0xfe7d: &#34;Aterica Health Inc.&#34;,
+    0xfe7c: &#34;Stollmann E+V GmbH&#34;,
+    0xfe7b: &#34;Orion Labs, Inc.&#34;,
+    0xfe7a: &#34;Bragi GmbH&#34;,
+    0xfe79: &#34;Zebra Technologies&#34;,
+    0xfe78: &#34;Hewlett-Packard Company&#34;,
+    0xfe77: &#34;Hewlett-Packard Company&#34;,
+    0xfe76: &#34;TangoMe&#34;,
+    0xfe75: &#34;TangoMe&#34;,
+    0xfe74: &#34;unwire&#34;,
+    0xfe73: &#34;St. Jude Medical, Inc.&#34;,
+    0xfe72: &#34;St. Jude Medical, Inc.&#34;,
+    0xfe71: &#34;Plume Design Inc&#34;,
+    0xfe70: &#34;Beijing Jingdong Century Trading Co., Ltd.&#34;,
+    0xfe6f: &#34;LINE Corporation&#34;,
+    0xfe6e: &#34;The University of Tokyo&#34;,
+    0xfe6d: &#34;The University of Tokyo&#34;,
+    0xfe6c: &#34;TASER International, Inc.&#34;,
+    0xfe6b: &#34;TASER International, Inc.&#34;,
+    0xfe6a: &#34;Kontakt Micro-Location Sp. z o.o.&#34;,
+    0xfe69: &#34;Qualcomm Life Inc&#34;,
+    0xfe68: &#34;Qualcomm Life Inc&#34;,
+    0xfe67: &#34;Lab Sensor Solutions&#34;,
+    0xfe66: &#34;Intel Corporation&#34;,
+    # SDO defined */
+    0xfffe: &#34;Alliance for Wireless Power (A4WP)&#34;,
+    0xfffd: &#34;Fast IDentity Online Alliance (FIDO)&#34;,
+}
+
+UUIDS_128BITS = {
+    &#34;a3c87500-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;Eddystone Configuration Service&#34;,
+    &#34;a3c87501-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;Capabilities&#34;,
+    &#34;a3c87502-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;Active Slot&#34;,
+    &#34;a3c87503-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;Advertising Interval&#34;,
+    &#34;a3c87504-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;Radio Tx Power&#34;,
+    &#34;a3c87505-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;(Advanced) Advertised Tx Power&#34;,
+    &#34;a3c87506-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;Lock State&#34;,
+    &#34;a3c87507-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;Unlock&#34;,
+    &#34;a3c87508-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;Public ECDH Key&#34;,
+    &#34;a3c87509-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;EID Identity Key&#34;,
+    &#34;a3c8750a-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;ADV Slot Data&#34;,
+    &#34;a3c8750b-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;(Advanced) Factory reset&#34;,
+    &#34;a3c8750c-8ed3-4bdf-8a39-a01bebede295&#34;: &#34;(Advanced) Remain Connectable&#34;,
+    # BBC micro:bit Bluetooth Profiles */
+    &#34;e95d0753-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Accelerometer Service&#34;,
+    &#34;e95dca4b-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Accelerometer Data&#34;,
+    &#34;e95dfb24-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Accelerometer Period&#34;,
+    &#34;e95df2d8-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Magnetometer Service&#34;,
+    &#34;e95dfb11-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Magnetometer Data&#34;,
+    &#34;e95d386c-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Magnetometer Period&#34;,
+    &#34;e95d9715-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Magnetometer Bearing&#34;,
+    &#34;e95d9882-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Button Service&#34;,
+    &#34;e95dda90-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Button A State&#34;,
+    &#34;e95dda91-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Button B State&#34;,
+    &#34;e95d127b-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit IO PIN Service&#34;,
+    &#34;e95d8d00-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit PIN Data&#34;,
+    &#34;e95d5899-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit PIN AD Configuration&#34;,
+    &#34;e95dd822-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit PWM Control&#34;,
+    &#34;e95dd91d-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit LED Service&#34;,
+    &#34;e95d7b77-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit LED Matrix state&#34;,
+    &#34;e95d93ee-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit LED Text&#34;,
+    &#34;e95d0d2d-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Scrolling Delay&#34;,
+    &#34;e95d93af-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Event Service&#34;,
+    &#34;e95db84c-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Requirements&#34;,
+    &#34;e95d9775-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Event Data&#34;,
+    &#34;e95d23c4-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Client Requirements&#34;,
+    &#34;e95d5404-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Client Events&#34;,
+    &#34;e95d93b0-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit DFU Control Service&#34;,
+    &#34;e95d93b1-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit DFU Control&#34;,
+    &#34;e95d6100-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Temperature Service&#34;,
+    &#34;e95d1b25-251d-470a-a062-fa1922dfa9a8&#34;: &#34;MicroBit Temperature Period&#34;,
+    # Nordic UART Port Emulation */
+    &#34;6e400001-b5a3-f393-e0a9-e50e24dcca9e&#34;: &#34;Nordic UART Service&#34;,
+    &#34;6e400002-b5a3-f393-e0a9-e50e24dcca9e&#34;: &#34;Nordic UART TX&#34;,
+    &#34;6e400003-b5a3-f393-e0a9-e50e24dcca9e&#34;: &#34;Nordic UART RX&#34;,
+}
+
+# This function takes the handle and returns a dictionnary with
+# the handle value and the characteristics associated.
+# Especially those properties :
+# - Characteristic properties
+# - Characteristic Value Handle
+# - UUID
+# The value is in byte format
+def getHandles(handle, verbose):
+    hexValue = handle.value.hex()
+    charProperty = hexValue[:2]
+    valueHandle = hexValue[4:6] + hexValue[2:4]
+    UUID = hexValue[6:] if len(hexValue) &gt; 10 else hexValue[8:10] + hexValue[6:8]
+    
+    if len(UUID) == 4:
+        if verbose:
+            if UUID in UUIDS_16BITS.keys():
+                UUID = UUIDS_16BITS[int(UUID, 16)]
+
+    else :
+        UUID = getUUIDFormat(UUID)
+        if verbose:
+            if UUID in UUIDS_128BITS.keys():
+                UUID = UUIDS_128BITS[UUID]
+
+
+    characteristics = {
+        &#39;properties&#39;: getProperties(int(charProperty, 16)) if verbose else charProperty,
+        &#39;Value Handle&#39;: valueHandle,
+        &#39;UUID&#39;: UUID
+    }
+
+    ret = {
+        &#39;handle&#39;: handle.handle,
+        &#39;value&#39;: characteristics
+    }
+    
+    return ret
+
+def getUUIDFormat(uuid):
+    UUID = uuid[-2:]
+    for i in range(2, len(uuid), 2):
+        UUID += uuid[-i-2:-i]
+
+    UUID = UUID[:8] + &#39;-&#39; + UUID[8:12] + &#39;-&#39; + UUID[12:16] + &#39;-&#39; + UUID[16:20] + &#39;-&#39; + UUID[20:]
+    
+    return UUID
+
+
+# This function takes a value containing the whole flag
+# and details which subflag is up
+def getFlags(flag):
+    ret = []
+    mask = 1
+    for k in flags.keys():
+        if flags[k] == &#39;RFU1&#39;: 
+            mask = 7 # The mask is 111
+        if flags[k] == &#39;RFU2&#39;: 
+            mask = 3 # The mask 11
+
+        # Check if the current flag is on
+        if (flag &gt;&gt; k) &amp; mask:
+            ret.append(flags[k])
+
+    return ret
+            
+# This function takes a value containing the whole flag
+# and details which subflag is up
+def getProperties(value):
+    ret = []
+    mask = 1
+    for k in properties.keys():
+        shift = 7 - k
+        # Check if the current flag is on
+        if (value &gt;&gt; shift) &amp; mask:
+            #print(f&#39;value: {value} -- shift: {shift} -- value &gt;&gt; shift: {value &gt;&gt; shift}&#39;)
+            ret.append(properties[k])
+    return ret</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="iotmap.sniffer.extractors.bleConstants.getFlags"><code class="name flex">
+<span>def <span class="ident">getFlags</span></span>(<span>flag)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getFlags(flag):
+    ret = []
+    mask = 1
+    for k in flags.keys():
+        if flags[k] == &#39;RFU1&#39;: 
+            mask = 7 # The mask is 111
+        if flags[k] == &#39;RFU2&#39;: 
+            mask = 3 # The mask 11
+
+        # Check if the current flag is on
+        if (flag &gt;&gt; k) &amp; mask:
+            ret.append(flags[k])
+
+    return ret</code></pre>
+</details>
+</dd>
+<dt id="iotmap.sniffer.extractors.bleConstants.getHandles"><code class="name flex">
+<span>def <span class="ident">getHandles</span></span>(<span>handle, verbose)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getHandles(handle, verbose):
+    hexValue = handle.value.hex()
+    charProperty = hexValue[:2]
+    valueHandle = hexValue[4:6] + hexValue[2:4]
+    UUID = hexValue[6:] if len(hexValue) &gt; 10 else hexValue[8:10] + hexValue[6:8]
+    
+    if len(UUID) == 4:
+        if verbose:
+            if UUID in UUIDS_16BITS.keys():
+                UUID = UUIDS_16BITS[int(UUID, 16)]
+
+    else :
+        UUID = getUUIDFormat(UUID)
+        if verbose:
+            if UUID in UUIDS_128BITS.keys():
+                UUID = UUIDS_128BITS[UUID]
+
+
+    characteristics = {
+        &#39;properties&#39;: getProperties(int(charProperty, 16)) if verbose else charProperty,
+        &#39;Value Handle&#39;: valueHandle,
+        &#39;UUID&#39;: UUID
+    }
+
+    ret = {
+        &#39;handle&#39;: handle.handle,
+        &#39;value&#39;: characteristics
+    }
+    
+    return ret</code></pre>
+</details>
+</dd>
+<dt id="iotmap.sniffer.extractors.bleConstants.getProperties"><code class="name flex">
+<span>def <span class="ident">getProperties</span></span>(<span>value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getProperties(value):
+    ret = []
+    mask = 1
+    for k in properties.keys():
+        shift = 7 - k
+        # Check if the current flag is on
+        if (value &gt;&gt; shift) &amp; mask:
+            #print(f&#39;value: {value} -- shift: {shift} -- value &gt;&gt; shift: {value &gt;&gt; shift}&#39;)
+            ret.append(properties[k])
+    return ret</code></pre>
+</details>
+</dd>
+<dt id="iotmap.sniffer.extractors.bleConstants.getUUIDFormat"><code class="name flex">
+<span>def <span class="ident">getUUIDFormat</span></span>(<span>uuid)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getUUIDFormat(uuid):
+    UUID = uuid[-2:]
+    for i in range(2, len(uuid), 2):
+        UUID += uuid[-i-2:-i]
+
+    UUID = UUID[:8] + &#39;-&#39; + UUID[8:12] + &#39;-&#39; + UUID[12:16] + &#39;-&#39; + UUID[16:20] + &#39;-&#39; + UUID[20:]
+    
+    return UUID</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="iotmap.sniffer.extractors" href="index.html">iotmap.sniffer.extractors</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="iotmap.sniffer.extractors.bleConstants.getFlags" href="#iotmap.sniffer.extractors.bleConstants.getFlags">getFlags</a></code></li>
+<li><code><a title="iotmap.sniffer.extractors.bleConstants.getHandles" href="#iotmap.sniffer.extractors.bleConstants.getHandles">getHandles</a></code></li>
+<li><code><a title="iotmap.sniffer.extractors.bleConstants.getProperties" href="#iotmap.sniffer.extractors.bleConstants.getProperties">getProperties</a></code></li>
+<li><code><a title="iotmap.sniffer.extractors.bleConstants.getUUIDFormat" href="#iotmap.sniffer.extractors.bleConstants.getUUIDFormat">getUUIDFormat</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

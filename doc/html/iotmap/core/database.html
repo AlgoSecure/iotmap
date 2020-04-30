@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>iotmap.core.database API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>iotmap.core.database</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from utils.utils import command, cls_commands, readNodesFile
+from utils.utils import check_protocol, unify_pcaps
+from utils.utils import main_help, formatArray
+from utils.completer import IMCompleter
+from terminaltables import AsciiTable
+
+from scapy.layers.dot15d4 import *
+from scapy.layers.zigbee import *
+from scapy.layers.sixlowpan import *
+from scapy.utils import *
+
+import subprocess
+import os
+
+@cls_commands
+class Database:
+    def __init__(self, prompt_session, dbController):
+        self.name = &#39;database&#39;
+        self.description = &#34;Database mode.&#34;
+        self.prompt = f&#39;IoTMap database &gt; &#39;
+        self.completer = IMCompleter(self)
+
+        self.prompt_session = prompt_session
+        self.dbc = dbController
+        
+    @command
+    def importPcaps(self, pcap: list, protocol: list, output: str, thread: int, nodesFile: str=None):
+        &#34;&#34;&#34;
+        Import the pcap file into the database
+
+        Usage: import_pcap (&lt;protocol&gt; &lt;pcap&gt;)... [--output &lt;filename&gt;] [--thread &lt;nbThread&gt;] [--nodesFile &lt;nodesFile&gt;] 
+
+        Options:
+            -h, --help                   Print this message.
+            -o, --output &lt;filename&gt;      Output file to store the result.
+            -t, --thread &lt;nbThread&gt;      Thread number to use [default: 1].
+            -n, --nodesFile &lt;nodesFile&gt;  File that contains a list of nodes used in communications. 
+        
+        Arguments:
+            protocol                   Name of the IoT protocol. 
+            pcap                       Pcap file from the specific protocol defined in the previous arg.
+        
+        Examples:
+            import_pcap zigbee file1.pcap zigbee file2.pcap os4i file3.pcap --thread 2 -o zigbee-os4i.csv
+            import_pcap btle file1.pcap os4i file3.pcap -t 2 -o btle-os4i.csv
+            import_pcap os4i file.pcap --thread 3 --debug --output os4i.csv
+        &#34;&#34;&#34;
+        print(f&#34;[i] Pcaps: {pcap}\nProtocols: {protocol}\nOutput: {output}\nThread: {thread}&#34;)
+        if check_protocol(protocol):
+            try:
+                pcaps_list = unify_pcaps(protocol, pcap)
+                print(f&#34;[i] Pcaps_list: {pcaps_list}\nOutput: {output}\nThread: {thread}&#34;)
+                self.dbc.update(pcaps_list, output, thread, nodesFile)
+
+            except FileNotFoundError:
+                print(&#34;File not found&#34;)
+        else:
+            print(f&#34;{protocol} is not a protocol available&#34;)
+            
+
+    @command
+    def importDB(self, dump_db: str):
+        &#34;&#34;&#34;
+        Import a neo4j dump into the database 
+
+        Usage: load_dump &lt;dump_db&gt; [-h]
+
+        Options:
+            -h, --help  print this help menu
+
+        Arguments:
+            dumb_db    absolute path to the dump file
+        &#34;&#34;&#34;
+
+        # TODO: Add a new test to check if the file given in input is
+        # a good dump file for neo4j
+        if not os.path.isfile(dump_db):
+            error = f&#39;The {dump_db} file does not exist.&#39;
+            print(error)
+
+            return
+        
+        neo4j = &#34;./database/neo4j-community/bin/neo4j&#34;
+        neo4j_admin = &#34;./database/neo4j-community/bin/neo4j-admin&#34;
+
+        process = subprocess.Popen(f&#34;{neo4j} stop&#34;, shell=True, stdout=subprocess.PIPE, 
+                                   stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+        process = subprocess.Popen(f&#34;{neo4j_admin} load  --from={dump_db} --database=graph.db&#34;, 
+                                   shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+        # TODO : Test if no error occured
+        
+        # Restart the server
+        process = subprocess.Popen(f&#34;{neo4j} start&#34;, shell=True, stdout=subprocess.PIPE, 
+                                   stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+    @command
+    def exportDB(self, path: str):
+        &#34;&#34;&#34;
+        Export the content of the database to &#39;path&#39;
+
+        Usage: export &lt;path&gt; [-h]
+
+        Options:
+            -h, --help  print this help menu
+
+        Arguments:
+            path  abolute path where to export the database 
+        &#34;&#34;&#34;
+        
+        # The only way is to stop the neo4j server, dump the base
+        # and restart the server       
+        neo4j = &#34;./database/neo4j-community/bin/neo4j&#34;
+        neo4j_admin = &#34;./database/neo4j-community/bin/neo4j-admin&#34;
+
+        process = subprocess.Popen(f&#34;{neo4j} stop&#34;, shell=True, stdout=subprocess.PIPE, 
+                                   stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+        process = subprocess.Popen(f&#34;{neo4j_admin} dump --database=graph.db --to={path}&#34;, shell=True,
+                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+        # TODO : Test if no error occured
+        
+        # Restart the server
+        process = subprocess.Popen(f&#34;{neo4j} start&#34;, shell=True, stdout=subprocess.PIPE, 
+                                   stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+    @command
+    def clearDatabase(self):
+        &#34;&#34;&#34;
+        Erase the whole database
+
+        Usage: clear [-h]
+
+        Options:
+            -h, --help  print this help menu
+        &#34;&#34;&#34;
+
+        self.dbc.delNodes(2)
+
+
+    @command
+    def removeNode(self, nodeID:int):
+        &#34;&#34;&#34;
+        Remove the node with nodeID from the database
+
+        Usage: removeNode --nodeID &lt;nodeID&gt; 
+
+        Options:
+            -h, --help             Print this message.
+            -i, --nodeID &lt;nodeID&gt;  ID of the node to remove.
+        &#34;&#34;&#34;
+
+        ret = self.dbc.removeNode(nodeID)
+
+        print(ret)
+
+    # List all nodes stored in the database
+    @command
+    def getNodes(self):
+        &#34;&#34;&#34;
+        List the nodes stored in the database
+
+        Usage: listNodes [-h]
+
+        Options:
+            -h, --help             Print this message.
+        &#34;&#34;&#34;
+
+        nodes = self.dbc.getNodes()
+
+        table_data = [[&#34;id&#34;, &#34;dl addresses&#34;, &#34;nwk addresses&#34;]]
+        for node in nodes:
+            table_data.append(node)
+            table = AsciiTable(table_data)
+            table.inner_column_border = False
+            table.inner_footing_row_border = False
+            table.inner_heading_row_border = True
+            table.inner_row_border = False
+            table.outer_border = False
+        
+        print(f&#34;{table.table}&#34;)
+
+    # Merge two nodes together
+    @command
+    def mergeNodes(self, node1:int, node2:int):
+        &#34;&#34;&#34;
+        Merge the dl and nwk addresses of two nodes into a single one
+
+        Usage: mergeNodes --node1 &lt;node1&gt; --node2 &lt;node2&gt;
+
+        Options:
+            -h, --help       Print this message.
+            --node1 &lt;node1&gt;  The first node to merge.
+            --node2 &lt;node2&gt;  The second node to merge.      
+        Remarks:
+            node{1,2} correspond to the id of the node. This id can be obtained
+            with the command listNode
+        &#34;&#34;&#34;
+
+        n1 = self.dbc.getNode(node1)
+        n2 = self.dbc.getNode(node2)
+
+        if n1 == [] or n2 == []:
+            print(&#34;IDs given in arguments don&#39;t correspond to a node&#34;)
+            return
+
+        maxID = self.dbc.maxID()
+
+        node = [maxID[0] + 1]
+        for i in range(1, len(n1)):
+            if type(n1[i]) is list:
+                node.append(list(set(n1[i] + n2[i])))
+
+
+        self.dbc.import_nodes(node)
+
+        return
+
+    # TODO : The must will be to add a sub content node to manage this.
+    @command
+    def addNodes(self, filename:str=None, dl:str=None, nwk:str=None, id:int=None):
+        &#34;&#34;&#34;
+        Import a list of nodes into the db
+
+        Usage: import_nodes (--filename &lt;filename&gt; | --dl &lt;dl&gt; --nwk &lt;nwk&gt; --id &lt;id&gt;)
+
+        Options:
+            -h, --help                 Print this message.
+            -f, --filename &lt;filename&gt;  File containing the list of nodes with their DL and NWK addresses.
+            -d, --dl &lt;dl&gt;              Data link addresses of the node.
+            -n, --nwk &lt;nwk&gt;            Network addresses of the node. 
+            -i, --id &lt;id&gt;              An identifier for the node.
+        
+        Remarks:
+        The file format must follow this example:
+        ID node, dl addresses, nwk addresses
+        In the case of multiple addresses for DL and/or NWK addresses, let&#39;s separate them with 
+        a &#39;;&#39; (semicolon)
+        addNode -d aaa:bbb:cccc;1.2.3.4 -n ddd:eee:fff;5.6.7.8 -i 1
+        &#34;&#34;&#34;
+        nodes = []
+
+        if filename is not None:
+            nodes = readNodesFile(filename)
+
+        else:
+            nodes.append([id, dl, nwk])
+
+        self.dbc.importNodes(nodes)
+    
+    @command
+    def help(self):
+        &#34;&#34;&#34;
+        Print this help menu 
+
+        Usage: help
+        &#34;&#34;&#34;        
+        msg = main_help()
+
+        msg += f&#34;&#34;&#34;
+Database commands
+=================
+
+        Interact with the neo4j database.
+
+List of available commands :\n&#34;&#34;&#34;
+
+        for x in self._cmd_list:
+            msg += f&#39;\t{x}\n&#39;
+
+        msg += f&#34;&#34;&#34;
+For more information about any commands hit : 
+        &lt;command name&gt; -h
+        &#34;&#34;&#34;
+        
+        print(msg)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="iotmap.core.database.Database"><code class="flex name class">
+<span>class <span class="ident">Database</span></span>
+<span>(</span><span>prompt_session, dbController)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Database:
+    def __init__(self, prompt_session, dbController):
+        self.name = &#39;database&#39;
+        self.description = &#34;Database mode.&#34;
+        self.prompt = f&#39;IoTMap database &gt; &#39;
+        self.completer = IMCompleter(self)
+
+        self.prompt_session = prompt_session
+        self.dbc = dbController
+        
+    @command
+    def importPcaps(self, pcap: list, protocol: list, output: str, thread: int, nodesFile: str=None):
+        &#34;&#34;&#34;
+        Import the pcap file into the database
+
+        Usage: import_pcap (&lt;protocol&gt; &lt;pcap&gt;)... [--output &lt;filename&gt;] [--thread &lt;nbThread&gt;] [--nodesFile &lt;nodesFile&gt;] 
+
+        Options:
+            -h, --help                   Print this message.
+            -o, --output &lt;filename&gt;      Output file to store the result.
+            -t, --thread &lt;nbThread&gt;      Thread number to use [default: 1].
+            -n, --nodesFile &lt;nodesFile&gt;  File that contains a list of nodes used in communications. 
+        
+        Arguments:
+            protocol                   Name of the IoT protocol. 
+            pcap                       Pcap file from the specific protocol defined in the previous arg.
+        
+        Examples:
+            import_pcap zigbee file1.pcap zigbee file2.pcap os4i file3.pcap --thread 2 -o zigbee-os4i.csv
+            import_pcap btle file1.pcap os4i file3.pcap -t 2 -o btle-os4i.csv
+            import_pcap os4i file.pcap --thread 3 --debug --output os4i.csv
+        &#34;&#34;&#34;
+        print(f&#34;[i] Pcaps: {pcap}\nProtocols: {protocol}\nOutput: {output}\nThread: {thread}&#34;)
+        if check_protocol(protocol):
+            try:
+                pcaps_list = unify_pcaps(protocol, pcap)
+                print(f&#34;[i] Pcaps_list: {pcaps_list}\nOutput: {output}\nThread: {thread}&#34;)
+                self.dbc.update(pcaps_list, output, thread, nodesFile)
+
+            except FileNotFoundError:
+                print(&#34;File not found&#34;)
+        else:
+            print(f&#34;{protocol} is not a protocol available&#34;)
+            
+
+    @command
+    def importDB(self, dump_db: str):
+        &#34;&#34;&#34;
+        Import a neo4j dump into the database 
+
+        Usage: load_dump &lt;dump_db&gt; [-h]
+
+        Options:
+            -h, --help  print this help menu
+
+        Arguments:
+            dumb_db    absolute path to the dump file
+        &#34;&#34;&#34;
+
+        # TODO: Add a new test to check if the file given in input is
+        # a good dump file for neo4j
+        if not os.path.isfile(dump_db):
+            error = f&#39;The {dump_db} file does not exist.&#39;
+            print(error)
+
+            return
+        
+        neo4j = &#34;./database/neo4j-community/bin/neo4j&#34;
+        neo4j_admin = &#34;./database/neo4j-community/bin/neo4j-admin&#34;
+
+        process = subprocess.Popen(f&#34;{neo4j} stop&#34;, shell=True, stdout=subprocess.PIPE, 
+                                   stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+        process = subprocess.Popen(f&#34;{neo4j_admin} load  --from={dump_db} --database=graph.db&#34;, 
+                                   shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+        # TODO : Test if no error occured
+        
+        # Restart the server
+        process = subprocess.Popen(f&#34;{neo4j} start&#34;, shell=True, stdout=subprocess.PIPE, 
+                                   stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+    @command
+    def exportDB(self, path: str):
+        &#34;&#34;&#34;
+        Export the content of the database to &#39;path&#39;
+
+        Usage: export &lt;path&gt; [-h]
+
+        Options:
+            -h, --help  print this help menu
+
+        Arguments:
+            path  abolute path where to export the database 
+        &#34;&#34;&#34;
+        
+        # The only way is to stop the neo4j server, dump the base
+        # and restart the server       
+        neo4j = &#34;./database/neo4j-community/bin/neo4j&#34;
+        neo4j_admin = &#34;./database/neo4j-community/bin/neo4j-admin&#34;
+
+        process = subprocess.Popen(f&#34;{neo4j} stop&#34;, shell=True, stdout=subprocess.PIPE, 
+                                   stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+        process = subprocess.Popen(f&#34;{neo4j_admin} dump --database=graph.db --to={path}&#34;, shell=True,
+                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+        # TODO : Test if no error occured
+        
+        # Restart the server
+        process = subprocess.Popen(f&#34;{neo4j} start&#34;, shell=True, stdout=subprocess.PIPE, 
+                                   stderr=subprocess.PIPE)
+        output, error = process.communicate()
+        
+    @command
+    def clearDatabase(self):
+        &#34;&#34;&#34;
+        Erase the whole database
+
+        Usage: clear [-h]
+
+        Options:
+            -h, --help  print this help menu
+        &#34;&#34;&#34;
+
+        self.dbc.delNodes(2)
+
+
+    @command
+    def removeNode(self, nodeID:int):
+        &#34;&#34;&#34;
+        Remove the node with nodeID from the database
+
+        Usage: removeNode --nodeID &lt;nodeID&gt; 
+
+        Options:
+            -h, --help             Print this message.
+            -i, --nodeID &lt;nodeID&gt;  ID of the node to remove.
+        &#34;&#34;&#34;
+
+        ret = self.dbc.removeNode(nodeID)
+
+        print(ret)
+
+    # List all nodes stored in the database
+    @command
+    def getNodes(self):
+        &#34;&#34;&#34;
+        List the nodes stored in the database
+
+        Usage: listNodes [-h]
+
+        Options:
+            -h, --help             Print this message.
+        &#34;&#34;&#34;
+
+        nodes = self.dbc.getNodes()
+
+        table_data = [[&#34;id&#34;, &#34;dl addresses&#34;, &#34;nwk addresses&#34;]]
+        for node in nodes:
+            table_data.append(node)
+            table = AsciiTable(table_data)
+            table.inner_column_border = False
+            table.inner_footing_row_border = False
+            table.inner_heading_row_border = True
+            table.inner_row_border = False
+            table.outer_border = False
+        
+        print(f&#34;{table.table}&#34;)
+
+    # Merge two nodes together
+    @command
+    def mergeNodes(self, node1:int, node2:int):
+        &#34;&#34;&#34;
+        Merge the dl and nwk addresses of two nodes into a single one
+
+        Usage: mergeNodes --node1 &lt;node1&gt; --node2 &lt;node2&gt;
+
+        Options:
+            -h, --help       Print this message.
+            --node1 &lt;node1&gt;  The first node to merge.
+            --node2 &lt;node2&gt;  The second node to merge.      
+        Remarks:
+            node{1,2} correspond to the id of the node. This id can be obtained
+            with the command listNode
+        &#34;&#34;&#34;
+
+        n1 = self.dbc.getNode(node1)
+        n2 = self.dbc.getNode(node2)
+
+        if n1 == [] or n2 == []:
+            print(&#34;IDs given in arguments don&#39;t correspond to a node&#34;)
+            return
+
+        maxID = self.dbc.maxID()
+
+        node = [maxID[0] + 1]
+        for i in range(1, len(n1)):
+            if type(n1[i]) is list:
+                node.append(list(set(n1[i] + n2[i])))
+
+
+        self.dbc.import_nodes(node)
+
+        return
+
+    # TODO : The must will be to add a sub content node to manage this.
+    @command
+    def addNodes(self, filename:str=None, dl:str=None, nwk:str=None, id:int=None):
+        &#34;&#34;&#34;
+        Import a list of nodes into the db
+
+        Usage: import_nodes (--filename &lt;filename&gt; | --dl &lt;dl&gt; --nwk &lt;nwk&gt; --id &lt;id&gt;)
+
+        Options:
+            -h, --help                 Print this message.
+            -f, --filename &lt;filename&gt;  File containing the list of nodes with their DL and NWK addresses.
+            -d, --dl &lt;dl&gt;              Data link addresses of the node.
+            -n, --nwk &lt;nwk&gt;            Network addresses of the node. 
+            -i, --id &lt;id&gt;              An identifier for the node.
+        
+        Remarks:
+        The file format must follow this example:
+        ID node, dl addresses, nwk addresses
+        In the case of multiple addresses for DL and/or NWK addresses, let&#39;s separate them with 
+        a &#39;;&#39; (semicolon)
+        addNode -d aaa:bbb:cccc;1.2.3.4 -n ddd:eee:fff;5.6.7.8 -i 1
+        &#34;&#34;&#34;
+        nodes = []
+
+        if filename is not None:
+            nodes = readNodesFile(filename)
+
+        else:
+            nodes.append([id, dl, nwk])
+
+        self.dbc.importNodes(nodes)
+    
+    @command
+    def help(self):
+        &#34;&#34;&#34;
+        Print this help menu 
+
+        Usage: help
+        &#34;&#34;&#34;        
+        msg = main_help()
+
+        msg += f&#34;&#34;&#34;
+Database commands
+=================
+
+        Interact with the neo4j database.
+
+List of available commands :\n&#34;&#34;&#34;
+
+        for x in self._cmd_list:
+            msg += f&#39;\t{x}\n&#39;
+
+        msg += f&#34;&#34;&#34;
+For more information about any commands hit : 
+        &lt;command name&gt; -h
+        &#34;&#34;&#34;
+        
+        print(msg)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="iotmap.core.database.Database.addNodes"><code class="name flex">
+<span>def <span class="ident">addNodes</span></span>(<span>self, filename: str = None, dl: str = None, nwk: str = None, id: int = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Import a list of nodes into the db</p>
+<p>Usage: import_nodes (&ndash;filename <filename> | &ndash;dl <dl> &ndash;nwk <nwk> &ndash;id <id>)</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+Print this message.
+-f, &ndash;filename <filename>
+File containing the list of nodes with their DL and NWK addresses.
+-d, &ndash;dl <dl>
+Data link addresses of the node.
+-n, &ndash;nwk <nwk>
+Network addresses of the node.
+-i, &ndash;id <id>
+An identifier for the node.</p>
+<p>Remarks:
+The file format must follow this example:
+ID node, dl addresses, nwk addresses
+In the case of multiple addresses for DL and/or NWK addresses, let's separate them with
+a ';' (semicolon)
+addNode -d aaa:bbb:cccc;1.2.3.4 -n ddd:eee:fff;5.6.7.8 -i 1</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def addNodes(self, filename:str=None, dl:str=None, nwk:str=None, id:int=None):
+    &#34;&#34;&#34;
+    Import a list of nodes into the db
+
+    Usage: import_nodes (--filename &lt;filename&gt; | --dl &lt;dl&gt; --nwk &lt;nwk&gt; --id &lt;id&gt;)
+
+    Options:
+        -h, --help                 Print this message.
+        -f, --filename &lt;filename&gt;  File containing the list of nodes with their DL and NWK addresses.
+        -d, --dl &lt;dl&gt;              Data link addresses of the node.
+        -n, --nwk &lt;nwk&gt;            Network addresses of the node. 
+        -i, --id &lt;id&gt;              An identifier for the node.
+    
+    Remarks:
+    The file format must follow this example:
+    ID node, dl addresses, nwk addresses
+    In the case of multiple addresses for DL and/or NWK addresses, let&#39;s separate them with 
+    a &#39;;&#39; (semicolon)
+    addNode -d aaa:bbb:cccc;1.2.3.4 -n ddd:eee:fff;5.6.7.8 -i 1
+    &#34;&#34;&#34;
+    nodes = []
+
+    if filename is not None:
+        nodes = readNodesFile(filename)
+
+    else:
+        nodes.append([id, dl, nwk])
+
+    self.dbc.importNodes(nodes)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.database.Database.clearDatabase"><code class="name flex">
+<span>def <span class="ident">clearDatabase</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Erase the whole database</p>
+<p>Usage: clear [-h]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+print this help menu</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def clearDatabase(self):
+    &#34;&#34;&#34;
+    Erase the whole database
+
+    Usage: clear [-h]
+
+    Options:
+        -h, --help  print this help menu
+    &#34;&#34;&#34;
+
+    self.dbc.delNodes(2)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.database.Database.exportDB"><code class="name flex">
+<span>def <span class="ident">exportDB</span></span>(<span>self, path: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Export the content of the database to 'path'</p>
+<p>Usage: export <path> [-h]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+print this help menu</p>
+<h2 id="arguments">Arguments</h2>
+<p>path
+abolute path where to export the database</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def exportDB(self, path: str):
+    &#34;&#34;&#34;
+    Export the content of the database to &#39;path&#39;
+
+    Usage: export &lt;path&gt; [-h]
+
+    Options:
+        -h, --help  print this help menu
+
+    Arguments:
+        path  abolute path where to export the database 
+    &#34;&#34;&#34;
+    
+    # The only way is to stop the neo4j server, dump the base
+    # and restart the server       
+    neo4j = &#34;./database/neo4j-community/bin/neo4j&#34;
+    neo4j_admin = &#34;./database/neo4j-community/bin/neo4j-admin&#34;
+
+    process = subprocess.Popen(f&#34;{neo4j} stop&#34;, shell=True, stdout=subprocess.PIPE, 
+                               stderr=subprocess.PIPE)
+    output, error = process.communicate()
+    
+    process = subprocess.Popen(f&#34;{neo4j_admin} dump --database=graph.db --to={path}&#34;, shell=True,
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, error = process.communicate()
+    
+    # TODO : Test if no error occured
+    
+    # Restart the server
+    process = subprocess.Popen(f&#34;{neo4j} start&#34;, shell=True, stdout=subprocess.PIPE, 
+                               stderr=subprocess.PIPE)
+    output, error = process.communicate()</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.database.Database.getNodes"><code class="name flex">
+<span>def <span class="ident">getNodes</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List the nodes stored in the database</p>
+<p>Usage: listNodes [-h]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+Print this message.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def getNodes(self):
+    &#34;&#34;&#34;
+    List the nodes stored in the database
+
+    Usage: listNodes [-h]
+
+    Options:
+        -h, --help             Print this message.
+    &#34;&#34;&#34;
+
+    nodes = self.dbc.getNodes()
+
+    table_data = [[&#34;id&#34;, &#34;dl addresses&#34;, &#34;nwk addresses&#34;]]
+    for node in nodes:
+        table_data.append(node)
+        table = AsciiTable(table_data)
+        table.inner_column_border = False
+        table.inner_footing_row_border = False
+        table.inner_heading_row_border = True
+        table.inner_row_border = False
+        table.outer_border = False
+    
+    print(f&#34;{table.table}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.database.Database.help"><code class="name flex">
+<span>def <span class="ident">help</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print this help menu </p>
+<p>Usage: help</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    @command
+    def help(self):
+        &#34;&#34;&#34;
+        Print this help menu 
+
+        Usage: help
+        &#34;&#34;&#34;        
+        msg = main_help()
+
+        msg += f&#34;&#34;&#34;
+Database commands
+=================
+
+        Interact with the neo4j database.
+
+List of available commands :\n&#34;&#34;&#34;
+
+        for x in self._cmd_list:
+            msg += f&#39;\t{x}\n&#39;
+
+        msg += f&#34;&#34;&#34;
+For more information about any commands hit : 
+        &lt;command name&gt; -h
+        &#34;&#34;&#34;
+        
+        print(msg)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.database.Database.importDB"><code class="name flex">
+<span>def <span class="ident">importDB</span></span>(<span>self, dump_db: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Import a neo4j dump into the database </p>
+<p>Usage: load_dump <dump_db> [-h]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+print this help menu</p>
+<h2 id="arguments">Arguments</h2>
+<p>dumb_db
+absolute path to the dump file</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def importDB(self, dump_db: str):
+    &#34;&#34;&#34;
+    Import a neo4j dump into the database 
+
+    Usage: load_dump &lt;dump_db&gt; [-h]
+
+    Options:
+        -h, --help  print this help menu
+
+    Arguments:
+        dumb_db    absolute path to the dump file
+    &#34;&#34;&#34;
+
+    # TODO: Add a new test to check if the file given in input is
+    # a good dump file for neo4j
+    if not os.path.isfile(dump_db):
+        error = f&#39;The {dump_db} file does not exist.&#39;
+        print(error)
+
+        return
+    
+    neo4j = &#34;./database/neo4j-community/bin/neo4j&#34;
+    neo4j_admin = &#34;./database/neo4j-community/bin/neo4j-admin&#34;
+
+    process = subprocess.Popen(f&#34;{neo4j} stop&#34;, shell=True, stdout=subprocess.PIPE, 
+                               stderr=subprocess.PIPE)
+    output, error = process.communicate()
+    
+    process = subprocess.Popen(f&#34;{neo4j_admin} load  --from={dump_db} --database=graph.db&#34;, 
+                               shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, error = process.communicate()
+    
+    # TODO : Test if no error occured
+    
+    # Restart the server
+    process = subprocess.Popen(f&#34;{neo4j} start&#34;, shell=True, stdout=subprocess.PIPE, 
+                               stderr=subprocess.PIPE)
+    output, error = process.communicate()</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.database.Database.importPcaps"><code class="name flex">
+<span>def <span class="ident">importPcaps</span></span>(<span>self, pcap: list, protocol: list, output: str, thread: int, nodesFile: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Import the pcap file into the database</p>
+<p>Usage: import_pcap (<protocol> <pcap>)&hellip; [&ndash;output <filename>] [&ndash;thread <nbThread>] [&ndash;nodesFile <nodesFile>] </p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+Print this message.
+-o, &ndash;output <filename>
+Output file to store the result.
+-t, &ndash;thread <nbThread>
+Thread number to use [default: 1].
+-n, &ndash;nodesFile <nodesFile>
+File that contains a list of nodes used in communications. </p>
+<h2 id="arguments">Arguments</h2>
+<p>protocol
+Name of the IoT protocol.
+pcap
+Pcap file from the specific protocol defined in the previous arg.</p>
+<h2 id="examples">Examples</h2>
+<p>import_pcap zigbee file1.pcap zigbee file2.pcap os4i file3.pcap &ndash;thread 2 -o zigbee-os4i.csv
+import_pcap btle file1.pcap os4i file3.pcap -t 2 -o btle-os4i.csv
+import_pcap os4i file.pcap &ndash;thread 3 &ndash;debug &ndash;output os4i.csv</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def importPcaps(self, pcap: list, protocol: list, output: str, thread: int, nodesFile: str=None):
+    &#34;&#34;&#34;
+    Import the pcap file into the database
+
+    Usage: import_pcap (&lt;protocol&gt; &lt;pcap&gt;)... [--output &lt;filename&gt;] [--thread &lt;nbThread&gt;] [--nodesFile &lt;nodesFile&gt;] 
+
+    Options:
+        -h, --help                   Print this message.
+        -o, --output &lt;filename&gt;      Output file to store the result.
+        -t, --thread &lt;nbThread&gt;      Thread number to use [default: 1].
+        -n, --nodesFile &lt;nodesFile&gt;  File that contains a list of nodes used in communications. 
+    
+    Arguments:
+        protocol                   Name of the IoT protocol. 
+        pcap                       Pcap file from the specific protocol defined in the previous arg.
+    
+    Examples:
+        import_pcap zigbee file1.pcap zigbee file2.pcap os4i file3.pcap --thread 2 -o zigbee-os4i.csv
+        import_pcap btle file1.pcap os4i file3.pcap -t 2 -o btle-os4i.csv
+        import_pcap os4i file.pcap --thread 3 --debug --output os4i.csv
+    &#34;&#34;&#34;
+    print(f&#34;[i] Pcaps: {pcap}\nProtocols: {protocol}\nOutput: {output}\nThread: {thread}&#34;)
+    if check_protocol(protocol):
+        try:
+            pcaps_list = unify_pcaps(protocol, pcap)
+            print(f&#34;[i] Pcaps_list: {pcaps_list}\nOutput: {output}\nThread: {thread}&#34;)
+            self.dbc.update(pcaps_list, output, thread, nodesFile)
+
+        except FileNotFoundError:
+            print(&#34;File not found&#34;)
+    else:
+        print(f&#34;{protocol} is not a protocol available&#34;)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.database.Database.mergeNodes"><code class="name flex">
+<span>def <span class="ident">mergeNodes</span></span>(<span>self, node1: int, node2: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Merge the dl and nwk addresses of two nodes into a single one</p>
+<p>Usage: mergeNodes &ndash;node1 <node1> &ndash;node2 <node2></p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+Print this message.
+&ndash;node1 <node1>
+The first node to merge.
+&ndash;node2 <node2>
+The second node to merge.
+</p>
+<h2 id="remarks">Remarks</h2>
+<p>node{1,2} correspond to the id of the node. This id can be obtained
+with the command listNode</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def mergeNodes(self, node1:int, node2:int):
+    &#34;&#34;&#34;
+    Merge the dl and nwk addresses of two nodes into a single one
+
+    Usage: mergeNodes --node1 &lt;node1&gt; --node2 &lt;node2&gt;
+
+    Options:
+        -h, --help       Print this message.
+        --node1 &lt;node1&gt;  The first node to merge.
+        --node2 &lt;node2&gt;  The second node to merge.      
+    Remarks:
+        node{1,2} correspond to the id of the node. This id can be obtained
+        with the command listNode
+    &#34;&#34;&#34;
+
+    n1 = self.dbc.getNode(node1)
+    n2 = self.dbc.getNode(node2)
+
+    if n1 == [] or n2 == []:
+        print(&#34;IDs given in arguments don&#39;t correspond to a node&#34;)
+        return
+
+    maxID = self.dbc.maxID()
+
+    node = [maxID[0] + 1]
+    for i in range(1, len(n1)):
+        if type(n1[i]) is list:
+            node.append(list(set(n1[i] + n2[i])))
+
+
+    self.dbc.import_nodes(node)
+
+    return</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.database.Database.removeNode"><code class="name flex">
+<span>def <span class="ident">removeNode</span></span>(<span>self, nodeID: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove the node with nodeID from the database</p>
+<p>Usage: removeNode &ndash;nodeID <nodeID> </p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+Print this message.
+-i, &ndash;nodeID <nodeID>
+ID of the node to remove.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def removeNode(self, nodeID:int):
+    &#34;&#34;&#34;
+    Remove the node with nodeID from the database
+
+    Usage: removeNode --nodeID &lt;nodeID&gt; 
+
+    Options:
+        -h, --help             Print this message.
+        -i, --nodeID &lt;nodeID&gt;  ID of the node to remove.
+    &#34;&#34;&#34;
+
+    ret = self.dbc.removeNode(nodeID)
+
+    print(ret)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="iotmap.core" href="index.html">iotmap.core</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="iotmap.core.database.Database" href="#iotmap.core.database.Database">Database</a></code></h4>
+<ul class="two-column">
+<li><code><a title="iotmap.core.database.Database.addNodes" href="#iotmap.core.database.Database.addNodes">addNodes</a></code></li>
+<li><code><a title="iotmap.core.database.Database.clearDatabase" href="#iotmap.core.database.Database.clearDatabase">clearDatabase</a></code></li>
+<li><code><a title="iotmap.core.database.Database.exportDB" href="#iotmap.core.database.Database.exportDB">exportDB</a></code></li>
+<li><code><a title="iotmap.core.database.Database.getNodes" href="#iotmap.core.database.Database.getNodes">getNodes</a></code></li>
+<li><code><a title="iotmap.core.database.Database.help" href="#iotmap.core.database.Database.help">help</a></code></li>
+<li><code><a title="iotmap.core.database.Database.importDB" href="#iotmap.core.database.Database.importDB">importDB</a></code></li>
+<li><code><a title="iotmap.core.database.Database.importPcaps" href="#iotmap.core.database.Database.importPcaps">importPcaps</a></code></li>
+<li><code><a title="iotmap.core.database.Database.mergeNodes" href="#iotmap.core.database.Database.mergeNodes">mergeNodes</a></code></li>
+<li><code><a title="iotmap.core.database.Database.removeNode" href="#iotmap.core.database.Database.removeNode">removeNode</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>iotmap.core.modelling API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>iotmap.core.modelling</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from utils.utils import command, cls_commands
+from utils.utils import main_help, formatArray, compare2arrays
+from utils.completer import IMCompleter
+from terminaltables import AsciiTable
+import csv
+
+import subprocess
+import ast
+
+# from scapy.layers.dot15d4 import *
+# from scapy.layers.zigbee import *
+# from scapy.layers.sixlowpan import *
+# from scapy.utils import *
+
+@cls_commands
+class Modelling:
+    def __init__(self, prompt_session, dbController, options):
+        self.name = &#39;modelling&#39;
+        self.description = &#34;Modelling mode.&#34;
+        self.prompt = &#39;IoTMap modelling &gt; &#39;
+        self.completer = IMCompleter(self)
+        self.dbc = dbController
+        self.graphs = {}
+        self.prompt_session = prompt_session
+        
+        self.options = {
+            &#39;level&#39;: {
+                &#39;Current Settings&#39;: options[&#39;level&#39;],
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Set the number of layers of the graph [default: 4].&#39;,
+                &#39;type&#39;: int
+            },
+            #We can add multiple options such as type of application, protocol-based modelling, etc.
+            &#39;csvFile&#39;: {
+                &#39;Current Settings&#39;: None,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;CSV file containing packets converted into unified format.&#39;,
+                &#39;type&#39;: str
+            },
+            &#39;tdelta1&#39;: {
+                &#39;Current Settings&#39;: .6,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for an object to respond to a request. This value is used to build the transport graph.&#39;,
+                &#39;type&#39;: float    
+            },
+            &#39;tdelta2&#39;: {
+                &#39;Current Settings&#39;: .7,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for an object to forward a packet. This value is used to build the transport graph.&#39;,
+                &#39;type&#39;: float
+            },
+            &#39;adelta&#39;: {
+                &#39;Current Settings&#39;: 1.5,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for a controller to forward a packet. This value is used to build the application graph.&#39;,
+                &#39;type&#39;: float
+            }
+        }
+
+        
+        self.prompt_session = prompt_session
+        
+        self.options = {
+            &#39;level&#39;: {
+                &#39;Current Settings&#39;: options[&#39;level&#39;],
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Set the number of layers of the graph [default: 4].&#39;,
+                &#39;type&#39;: int
+            },
+            #We can add multiple options such as type of application, protocol-based modelling, etc.
+            &#39;csvFile&#39;: {
+                &#39;Current Settings&#39;: None,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;CSV file containing packets converted into unified format.&#39;,
+                &#39;type&#39;: str
+            },
+            &#39;tdelta1&#39;: {
+                &#39;Current Settings&#39;: .6,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for an object to respond to a request. This value is used to build the transport graph.&#39;,
+                &#39;type&#39;: float    
+            },
+            &#39;tdelta2&#39;: {
+                &#39;Current Settings&#39;: .7,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for an object to forward a packet. This value is used to build the transport graph.&#39;,
+                &#39;type&#39;: float
+            },
+            &#39;adelta&#39;: {
+                &#39;Current Settings&#39;: 1.5,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for a controller to forward a packet. This value is used to build the application graph.&#39;,
+                &#39;type&#39;: float
+            }
+        }
+
+        self.updateGraphOptions()
+               
+    @command
+    def set(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Set an option to the value &#39;value&#39;        
+
+        Usage: set &lt;name&gt; &lt;value&gt; [-h]
+
+        Options:
+            -h, --help  print this help menu
+
+        Arguments:
+            name   option name
+            value  option value
+        &#34;&#34;&#34;
+
+        try:
+            self.options[name][&#39;Current Settings&#39;] = self.options[name][&#39;type&#39;](value)
+            self.updateGraphOptions()
+            print (f&#34;{name} set to {value}&#34;)
+        except KeyError:
+            print(f&#34;Unknown option &#39;{name}&#39;&#34;)
+
+    @command
+    def option(self):
+        &#34;&#34;&#34;
+        Print the options required by the module
+
+        Usage: options [-h]
+
+        Options:
+            -h, --help  print this help menu
+        &#34;&#34;&#34;
+            
+        table_data = [
+            [&#34;Name&#34;, &#34;Current Settings&#34;, &#34;Required&#34;, &#34;Description&#34;]
+        ]
+        
+        for name, options in self.options.items():
+            table_data.append([name, options[&#34;Current Settings&#34;], options[&#34;Require&#34;], options[&#34;Description&#34;]])
+            
+        table = AsciiTable(table_data)
+        table.inner_column_border = False
+        table.inner_footing_row_border = False
+        table.inner_heading_row_border = True
+        table.inner_row_border = False
+        table.outer_border = False
+        
+        print (f&#39;\nModule Options ({self.name}):\n\n{table.table}\n&#39;)
+            
+
+    @command
+    def run(self):
+        &#34;&#34;&#34;
+        Generate a graph based on the traffic intercepted and store in the database. Level number defined in 
+        the options indicates the number of layers displayed in this graph. 
+
+        Usage: run [-h]
+
+        Options:
+            -h, --help  print this help menu
+        &#34;&#34;&#34;
+        
+        level = int(self.options[&#34;level&#34;][&#34;Current Settings&#34;])
+        filename = self.options[&#34;csvFile&#34;][&#34;Current Settings&#34;]
+        if level == 2 and filename is None:
+            print(&#34;You want to (re)build the dl graph but no csvFile is provided. You must define a value to csvFile before run level 2 of the modelling&#34;)
+        else:
+            print(self.graphs[level][&#39;options&#39;])
+            self.graphs[level][&#39;func&#39;](*self.graphs[level][&#39;options&#39;])
+            results = self.dbc.getResults()
+            print(f&#34;Actual Results: {results}&#34;)
+        
+    @command
+    def help(self):
+        &#34;&#34;&#34;
+        Print this help menu 
+
+        Usage: help
+        &#34;&#34;&#34;        
+        # Print the global commands
+        # and the context-aware commands
+        msg = main_help()
+
+        msg += f&#34;&#34;&#34;
+Modelling commands
+==================
+
+        Map the network of IoT devices detected by sniffing.
+
+List of available commands :\n&#34;&#34;&#34;
+
+        for x in self._cmd_list:
+            msg += f&#39;\t{x}\n&#39;
+
+        msg += f&#34;&#34;&#34;
+For more information about any commands hit : 
+        &lt;command name&gt; -h
+        &#34;&#34;&#34;
+        
+        print(msg)
+
+
+
+    @command
+    def dlGraph(self, filename:str=None):
+        &#34;&#34;&#34;
+        Generate the first graph of the modelling. If uppers layers have already been generated, this function
+        deletes all upper layers. 
+
+        Usage: dlGraph [-h] [--filename filename]
+
+        Options:
+            -h, --help               Print this help menu
+            -f, --filename filename  File with packets at unified format to generate the graph.
+        &#34;&#34;&#34;
+
+        # TODO: make a file checking
+        # Check if the file is correctly formed
+
+        self.dbc.dlGraph(filename)
+
+    @command
+    def nwkGraph(self, filename:str=None):
+        &#34;&#34;&#34;
+        Generate the network graph of the modelling. If uppers layers have already been generated, this function
+        deletes all upper layers. 
+
+        Usage: nwkGraph [-h] [--filename filename]
+
+        Options:
+            -h, --help               Print this help menu
+            -f, --filename filename  File with packets at unified format to generate the graph.
+        &#34;&#34;&#34;
+
+        # TODO: make a file checking
+        # Check if the file is correctly formed
+        self.dbc.nwkGraph(filename)
+
+    @command
+    def transGraph(self, delta: float, delta2: float,  filename:str=None):
+        &#34;&#34;&#34;
+        Generate the network graph of the modelling. If uppers layers have already been generated, this function
+        deletes all upper layers. 
+
+        Usage: nwkGraph [-h] [--delta &lt;delta1&gt;] [--delta2 &lt;delta2&gt;] [--filename &lt;filename&gt;]
+
+        Options:
+            -h, --help               Print this help menu.
+            -d, --delta delta1       Delta1 is the delay for an object to respond to a request [Default: 0.6].
+            -e, --delta2 delta2      Delta2 is the delay for an object to forward a packet [Default: 0.7].
+            -f, --filename filename  File with packets at unified format to generate the graph.
+        &#34;&#34;&#34;
+
+        # TODO: make a file checking
+        # Check if the file is correctly formed
+        self.dbc.transGraph(delta, delta2, filename)
+
+    @command
+    def appGraph(self, delta: float, filename:str=None):
+        &#34;&#34;&#34;
+        Generate the network graph of the modelling. If uppers layers have already been generated, this function
+        deletes all upper layers. 
+
+        Usage: nwkGraph [-h] [--delta &lt;delta&gt;] [--filename &lt;filename&gt;]
+
+        Options:
+            -h, --help               Print this help menu.
+            -d, --delta delta        Delta is the delay for a controller to forward a packet [Default: 1.5].
+            -f, --filename filename  File with packets at unified format to generate the graph.
+
+        Remarks:
+            If you use the --filename options, IoTMap gonna uses the tdelta1 and tdelta2 values defined in 
+            options. 
+            To display those values use the option command: &#34;IoTMap modelling &gt; option&#34;.
+            To modify the value, use the set command: &#34;IoTMap modelling &gt; set &lt;name&gt; &lt;value&gt;&#34;.
+        &#34;&#34;&#34;
+
+        # TODO: make a file checking
+        # Check if the file is correctly formed
+        tdelta = self.options[&#39;tdelta1&#39;][&#39;Current Settings&#39;]
+        tdelta2 = self.options[&#39;tdelta2&#39;][&#39;Current Settings&#39;]
+        self.dbc.appGraph(delta, tdelta, tdelta2, filename)
+
+    @command
+    def compareTo(self, filename:str, level:int=4):
+        &#34;&#34;&#34;
+        Compare the result of the current run of the modelling (with the level you want) and a file 
+        that contains expected results.
+        This function returns the difference between the expected result and the current run of the modelling
+
+        Usage: compareTo [-h] (--filename &lt;filename&gt;) [--level &lt;level&gt;]
+
+        Options:
+            -h, --help               Print this help menu.
+            -l, --level level        Set the number of layers of the graph [default: 4].
+            -f, --filename filename  Csv File containing expected results to compare with.
+        &#34;&#34;&#34;
+        try:
+            with open(filename, &#39;r&#39;) as csvFile:
+                csvData = []
+                for line in csvFile.readlines():
+                    csvData.append(line.strip())
+        except IOError as ioe:
+            #print(f&#34;CSVFile: {csvData}&#34;)
+            print(f&#39;Error while opening the file...\n{ioe}&#39;)
+            return False
+        except :
+            #print(f&#34;CSVFile: {csvData}&#34;)
+            print(f&#39;Error while opening into CSV file...&#39;)
+            return False
+
+        retTab = formatArray(csvData)
+
+        current = self.dbc.getResults()
+
+        missing, extra = compare2arrays(retTab, current)
+
+        print(f&#34;Expected Results: {retTab}\n\nCurrent: {current}\n\nMissings: {missing}\n\nExtra: {extra}&#34;)
+        
+        # Now we gonna extract the difference between the expected result and the current one
+        # We must display missing and extra elements compare to the expected result
+        #print(f&#34;ER - C: {res}&#34;)
+        #print(f&#34;C: {set(current) - set(retTab)}&#34;)
+
+    def updateGraphOptions(self):
+        self.graphs = {
+            1: {
+                &#39;func&#39;: self.dbc.dlGraph,
+                &#39;options&#39;: [self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+            },
+            2: {
+                &#39;func&#39;: self.dbc.nwkGraph,
+                &#39;options&#39;: [self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+            },
+            3: {
+                &#39;func&#39;: self.dbc.transGraph,
+                &#39;options&#39;: [self.options[&#34;tdelta1&#34;][&#39;Current Settings&#39;],
+                            self.options[&#34;tdelta2&#34;][&#39;Current Settings&#39;],
+                            self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+            },
+            4: {
+                &#39;func&#39;: self.dbc.appGraph,
+                &#39;options&#39;: [self.options[&#34;adelta&#34;][&#39;Current Settings&#39;],
+                            self.options[&#34;tdelta1&#34;][&#39;Current Settings&#39;],
+                            self.options[&#34;tdelta2&#34;][&#39;Current Settings&#39;],
+                            self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+            }
+        }
+        </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="iotmap.core.modelling.Modelling"><code class="flex name class">
+<span>class <span class="ident">Modelling</span></span>
+<span>(</span><span>prompt_session, dbController, options)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Modelling:
+    def __init__(self, prompt_session, dbController, options):
+        self.name = &#39;modelling&#39;
+        self.description = &#34;Modelling mode.&#34;
+        self.prompt = &#39;IoTMap modelling &gt; &#39;
+        self.completer = IMCompleter(self)
+        self.dbc = dbController
+        self.graphs = {}
+        self.prompt_session = prompt_session
+        
+        self.options = {
+            &#39;level&#39;: {
+                &#39;Current Settings&#39;: options[&#39;level&#39;],
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Set the number of layers of the graph [default: 4].&#39;,
+                &#39;type&#39;: int
+            },
+            #We can add multiple options such as type of application, protocol-based modelling, etc.
+            &#39;csvFile&#39;: {
+                &#39;Current Settings&#39;: None,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;CSV file containing packets converted into unified format.&#39;,
+                &#39;type&#39;: str
+            },
+            &#39;tdelta1&#39;: {
+                &#39;Current Settings&#39;: .6,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for an object to respond to a request. This value is used to build the transport graph.&#39;,
+                &#39;type&#39;: float    
+            },
+            &#39;tdelta2&#39;: {
+                &#39;Current Settings&#39;: .7,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for an object to forward a packet. This value is used to build the transport graph.&#39;,
+                &#39;type&#39;: float
+            },
+            &#39;adelta&#39;: {
+                &#39;Current Settings&#39;: 1.5,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for a controller to forward a packet. This value is used to build the application graph.&#39;,
+                &#39;type&#39;: float
+            }
+        }
+
+        
+        self.prompt_session = prompt_session
+        
+        self.options = {
+            &#39;level&#39;: {
+                &#39;Current Settings&#39;: options[&#39;level&#39;],
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Set the number of layers of the graph [default: 4].&#39;,
+                &#39;type&#39;: int
+            },
+            #We can add multiple options such as type of application, protocol-based modelling, etc.
+            &#39;csvFile&#39;: {
+                &#39;Current Settings&#39;: None,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;CSV file containing packets converted into unified format.&#39;,
+                &#39;type&#39;: str
+            },
+            &#39;tdelta1&#39;: {
+                &#39;Current Settings&#39;: .6,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for an object to respond to a request. This value is used to build the transport graph.&#39;,
+                &#39;type&#39;: float    
+            },
+            &#39;tdelta2&#39;: {
+                &#39;Current Settings&#39;: .7,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for an object to forward a packet. This value is used to build the transport graph.&#39;,
+                &#39;type&#39;: float
+            },
+            &#39;adelta&#39;: {
+                &#39;Current Settings&#39;: 1.5,
+                &#39;Require&#39;: False,
+                &#39;Description&#39;: &#39;Delay for a controller to forward a packet. This value is used to build the application graph.&#39;,
+                &#39;type&#39;: float
+            }
+        }
+
+        self.updateGraphOptions()
+               
+    @command
+    def set(self, name: str, value: str):
+        &#34;&#34;&#34;
+        Set an option to the value &#39;value&#39;        
+
+        Usage: set &lt;name&gt; &lt;value&gt; [-h]
+
+        Options:
+            -h, --help  print this help menu
+
+        Arguments:
+            name   option name
+            value  option value
+        &#34;&#34;&#34;
+
+        try:
+            self.options[name][&#39;Current Settings&#39;] = self.options[name][&#39;type&#39;](value)
+            self.updateGraphOptions()
+            print (f&#34;{name} set to {value}&#34;)
+        except KeyError:
+            print(f&#34;Unknown option &#39;{name}&#39;&#34;)
+
+    @command
+    def option(self):
+        &#34;&#34;&#34;
+        Print the options required by the module
+
+        Usage: options [-h]
+
+        Options:
+            -h, --help  print this help menu
+        &#34;&#34;&#34;
+            
+        table_data = [
+            [&#34;Name&#34;, &#34;Current Settings&#34;, &#34;Required&#34;, &#34;Description&#34;]
+        ]
+        
+        for name, options in self.options.items():
+            table_data.append([name, options[&#34;Current Settings&#34;], options[&#34;Require&#34;], options[&#34;Description&#34;]])
+            
+        table = AsciiTable(table_data)
+        table.inner_column_border = False
+        table.inner_footing_row_border = False
+        table.inner_heading_row_border = True
+        table.inner_row_border = False
+        table.outer_border = False
+        
+        print (f&#39;\nModule Options ({self.name}):\n\n{table.table}\n&#39;)
+            
+
+    @command
+    def run(self):
+        &#34;&#34;&#34;
+        Generate a graph based on the traffic intercepted and store in the database. Level number defined in 
+        the options indicates the number of layers displayed in this graph. 
+
+        Usage: run [-h]
+
+        Options:
+            -h, --help  print this help menu
+        &#34;&#34;&#34;
+        
+        level = int(self.options[&#34;level&#34;][&#34;Current Settings&#34;])
+        filename = self.options[&#34;csvFile&#34;][&#34;Current Settings&#34;]
+        if level == 2 and filename is None:
+            print(&#34;You want to (re)build the dl graph but no csvFile is provided. You must define a value to csvFile before run level 2 of the modelling&#34;)
+        else:
+            print(self.graphs[level][&#39;options&#39;])
+            self.graphs[level][&#39;func&#39;](*self.graphs[level][&#39;options&#39;])
+            results = self.dbc.getResults()
+            print(f&#34;Actual Results: {results}&#34;)
+        
+    @command
+    def help(self):
+        &#34;&#34;&#34;
+        Print this help menu 
+
+        Usage: help
+        &#34;&#34;&#34;        
+        # Print the global commands
+        # and the context-aware commands
+        msg = main_help()
+
+        msg += f&#34;&#34;&#34;
+Modelling commands
+==================
+
+        Map the network of IoT devices detected by sniffing.
+
+List of available commands :\n&#34;&#34;&#34;
+
+        for x in self._cmd_list:
+            msg += f&#39;\t{x}\n&#39;
+
+        msg += f&#34;&#34;&#34;
+For more information about any commands hit : 
+        &lt;command name&gt; -h
+        &#34;&#34;&#34;
+        
+        print(msg)
+
+
+
+    @command
+    def dlGraph(self, filename:str=None):
+        &#34;&#34;&#34;
+        Generate the first graph of the modelling. If uppers layers have already been generated, this function
+        deletes all upper layers. 
+
+        Usage: dlGraph [-h] [--filename filename]
+
+        Options:
+            -h, --help               Print this help menu
+            -f, --filename filename  File with packets at unified format to generate the graph.
+        &#34;&#34;&#34;
+
+        # TODO: make a file checking
+        # Check if the file is correctly formed
+
+        self.dbc.dlGraph(filename)
+
+    @command
+    def nwkGraph(self, filename:str=None):
+        &#34;&#34;&#34;
+        Generate the network graph of the modelling. If uppers layers have already been generated, this function
+        deletes all upper layers. 
+
+        Usage: nwkGraph [-h] [--filename filename]
+
+        Options:
+            -h, --help               Print this help menu
+            -f, --filename filename  File with packets at unified format to generate the graph.
+        &#34;&#34;&#34;
+
+        # TODO: make a file checking
+        # Check if the file is correctly formed
+        self.dbc.nwkGraph(filename)
+
+    @command
+    def transGraph(self, delta: float, delta2: float,  filename:str=None):
+        &#34;&#34;&#34;
+        Generate the network graph of the modelling. If uppers layers have already been generated, this function
+        deletes all upper layers. 
+
+        Usage: nwkGraph [-h] [--delta &lt;delta1&gt;] [--delta2 &lt;delta2&gt;] [--filename &lt;filename&gt;]
+
+        Options:
+            -h, --help               Print this help menu.
+            -d, --delta delta1       Delta1 is the delay for an object to respond to a request [Default: 0.6].
+            -e, --delta2 delta2      Delta2 is the delay for an object to forward a packet [Default: 0.7].
+            -f, --filename filename  File with packets at unified format to generate the graph.
+        &#34;&#34;&#34;
+
+        # TODO: make a file checking
+        # Check if the file is correctly formed
+        self.dbc.transGraph(delta, delta2, filename)
+
+    @command
+    def appGraph(self, delta: float, filename:str=None):
+        &#34;&#34;&#34;
+        Generate the network graph of the modelling. If uppers layers have already been generated, this function
+        deletes all upper layers. 
+
+        Usage: nwkGraph [-h] [--delta &lt;delta&gt;] [--filename &lt;filename&gt;]
+
+        Options:
+            -h, --help               Print this help menu.
+            -d, --delta delta        Delta is the delay for a controller to forward a packet [Default: 1.5].
+            -f, --filename filename  File with packets at unified format to generate the graph.
+
+        Remarks:
+            If you use the --filename options, IoTMap gonna uses the tdelta1 and tdelta2 values defined in 
+            options. 
+            To display those values use the option command: &#34;IoTMap modelling &gt; option&#34;.
+            To modify the value, use the set command: &#34;IoTMap modelling &gt; set &lt;name&gt; &lt;value&gt;&#34;.
+        &#34;&#34;&#34;
+
+        # TODO: make a file checking
+        # Check if the file is correctly formed
+        tdelta = self.options[&#39;tdelta1&#39;][&#39;Current Settings&#39;]
+        tdelta2 = self.options[&#39;tdelta2&#39;][&#39;Current Settings&#39;]
+        self.dbc.appGraph(delta, tdelta, tdelta2, filename)
+
+    @command
+    def compareTo(self, filename:str, level:int=4):
+        &#34;&#34;&#34;
+        Compare the result of the current run of the modelling (with the level you want) and a file 
+        that contains expected results.
+        This function returns the difference between the expected result and the current run of the modelling
+
+        Usage: compareTo [-h] (--filename &lt;filename&gt;) [--level &lt;level&gt;]
+
+        Options:
+            -h, --help               Print this help menu.
+            -l, --level level        Set the number of layers of the graph [default: 4].
+            -f, --filename filename  Csv File containing expected results to compare with.
+        &#34;&#34;&#34;
+        try:
+            with open(filename, &#39;r&#39;) as csvFile:
+                csvData = []
+                for line in csvFile.readlines():
+                    csvData.append(line.strip())
+        except IOError as ioe:
+            #print(f&#34;CSVFile: {csvData}&#34;)
+            print(f&#39;Error while opening the file...\n{ioe}&#39;)
+            return False
+        except :
+            #print(f&#34;CSVFile: {csvData}&#34;)
+            print(f&#39;Error while opening into CSV file...&#39;)
+            return False
+
+        retTab = formatArray(csvData)
+
+        current = self.dbc.getResults()
+
+        missing, extra = compare2arrays(retTab, current)
+
+        print(f&#34;Expected Results: {retTab}\n\nCurrent: {current}\n\nMissings: {missing}\n\nExtra: {extra}&#34;)
+        
+        # Now we gonna extract the difference between the expected result and the current one
+        # We must display missing and extra elements compare to the expected result
+        #print(f&#34;ER - C: {res}&#34;)
+        #print(f&#34;C: {set(current) - set(retTab)}&#34;)
+
+    def updateGraphOptions(self):
+        self.graphs = {
+            1: {
+                &#39;func&#39;: self.dbc.dlGraph,
+                &#39;options&#39;: [self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+            },
+            2: {
+                &#39;func&#39;: self.dbc.nwkGraph,
+                &#39;options&#39;: [self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+            },
+            3: {
+                &#39;func&#39;: self.dbc.transGraph,
+                &#39;options&#39;: [self.options[&#34;tdelta1&#34;][&#39;Current Settings&#39;],
+                            self.options[&#34;tdelta2&#34;][&#39;Current Settings&#39;],
+                            self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+            },
+            4: {
+                &#39;func&#39;: self.dbc.appGraph,
+                &#39;options&#39;: [self.options[&#34;adelta&#34;][&#39;Current Settings&#39;],
+                            self.options[&#34;tdelta1&#34;][&#39;Current Settings&#39;],
+                            self.options[&#34;tdelta2&#34;][&#39;Current Settings&#39;],
+                            self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+            }
+        }</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="iotmap.core.modelling.Modelling.appGraph"><code class="name flex">
+<span>def <span class="ident">appGraph</span></span>(<span>self, delta: float, filename: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate the network graph of the modelling. If uppers layers have already been generated, this function
+deletes all upper layers. </p>
+<p>Usage: nwkGraph [-h] [&ndash;delta <delta>] [&ndash;filename <filename>]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+Print this help menu.
+-d, &ndash;delta delta
+Delta is the delay for a controller to forward a packet [Default: 1.5].
+-f, &ndash;filename filename
+File with packets at unified format to generate the graph.</p>
+<h2 id="remarks">Remarks</h2>
+<p>If you use the &ndash;filename options, IoTMap gonna uses the tdelta1 and tdelta2 values defined in
+options.
+To display those values use the option command: "IoTMap modelling &gt; option".
+To modify the value, use the set command: "IoTMap modelling &gt; set <name> <value>".</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def appGraph(self, delta: float, filename:str=None):
+    &#34;&#34;&#34;
+    Generate the network graph of the modelling. If uppers layers have already been generated, this function
+    deletes all upper layers. 
+
+    Usage: nwkGraph [-h] [--delta &lt;delta&gt;] [--filename &lt;filename&gt;]
+
+    Options:
+        -h, --help               Print this help menu.
+        -d, --delta delta        Delta is the delay for a controller to forward a packet [Default: 1.5].
+        -f, --filename filename  File with packets at unified format to generate the graph.
+
+    Remarks:
+        If you use the --filename options, IoTMap gonna uses the tdelta1 and tdelta2 values defined in 
+        options. 
+        To display those values use the option command: &#34;IoTMap modelling &gt; option&#34;.
+        To modify the value, use the set command: &#34;IoTMap modelling &gt; set &lt;name&gt; &lt;value&gt;&#34;.
+    &#34;&#34;&#34;
+
+    # TODO: make a file checking
+    # Check if the file is correctly formed
+    tdelta = self.options[&#39;tdelta1&#39;][&#39;Current Settings&#39;]
+    tdelta2 = self.options[&#39;tdelta2&#39;][&#39;Current Settings&#39;]
+    self.dbc.appGraph(delta, tdelta, tdelta2, filename)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.modelling.Modelling.compareTo"><code class="name flex">
+<span>def <span class="ident">compareTo</span></span>(<span>self, filename: str, level: int = 4)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compare the result of the current run of the modelling (with the level you want) and a file
+that contains expected results.
+This function returns the difference between the expected result and the current run of the modelling</p>
+<p>Usage: compareTo [-h] (&ndash;filename <filename>) [&ndash;level <level>]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+Print this help menu.
+-l, &ndash;level level
+Set the number of layers of the graph [default: 4].
+-f, &ndash;filename filename
+Csv File containing expected results to compare with.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def compareTo(self, filename:str, level:int=4):
+    &#34;&#34;&#34;
+    Compare the result of the current run of the modelling (with the level you want) and a file 
+    that contains expected results.
+    This function returns the difference between the expected result and the current run of the modelling
+
+    Usage: compareTo [-h] (--filename &lt;filename&gt;) [--level &lt;level&gt;]
+
+    Options:
+        -h, --help               Print this help menu.
+        -l, --level level        Set the number of layers of the graph [default: 4].
+        -f, --filename filename  Csv File containing expected results to compare with.
+    &#34;&#34;&#34;
+    try:
+        with open(filename, &#39;r&#39;) as csvFile:
+            csvData = []
+            for line in csvFile.readlines():
+                csvData.append(line.strip())
+    except IOError as ioe:
+        #print(f&#34;CSVFile: {csvData}&#34;)
+        print(f&#39;Error while opening the file...\n{ioe}&#39;)
+        return False
+    except :
+        #print(f&#34;CSVFile: {csvData}&#34;)
+        print(f&#39;Error while opening into CSV file...&#39;)
+        return False
+
+    retTab = formatArray(csvData)
+
+    current = self.dbc.getResults()
+
+    missing, extra = compare2arrays(retTab, current)
+
+    print(f&#34;Expected Results: {retTab}\n\nCurrent: {current}\n\nMissings: {missing}\n\nExtra: {extra}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.modelling.Modelling.dlGraph"><code class="name flex">
+<span>def <span class="ident">dlGraph</span></span>(<span>self, filename: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate the first graph of the modelling. If uppers layers have already been generated, this function
+deletes all upper layers. </p>
+<p>Usage: dlGraph [-h] [&ndash;filename filename]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+Print this help menu
+-f, &ndash;filename filename
+File with packets at unified format to generate the graph.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def dlGraph(self, filename:str=None):
+    &#34;&#34;&#34;
+    Generate the first graph of the modelling. If uppers layers have already been generated, this function
+    deletes all upper layers. 
+
+    Usage: dlGraph [-h] [--filename filename]
+
+    Options:
+        -h, --help               Print this help menu
+        -f, --filename filename  File with packets at unified format to generate the graph.
+    &#34;&#34;&#34;
+
+    # TODO: make a file checking
+    # Check if the file is correctly formed
+
+    self.dbc.dlGraph(filename)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.modelling.Modelling.help"><code class="name flex">
+<span>def <span class="ident">help</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print this help menu </p>
+<p>Usage: help</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    @command
+    def help(self):
+        &#34;&#34;&#34;
+        Print this help menu 
+
+        Usage: help
+        &#34;&#34;&#34;        
+        # Print the global commands
+        # and the context-aware commands
+        msg = main_help()
+
+        msg += f&#34;&#34;&#34;
+Modelling commands
+==================
+
+        Map the network of IoT devices detected by sniffing.
+
+List of available commands :\n&#34;&#34;&#34;
+
+        for x in self._cmd_list:
+            msg += f&#39;\t{x}\n&#39;
+
+        msg += f&#34;&#34;&#34;
+For more information about any commands hit : 
+        &lt;command name&gt; -h
+        &#34;&#34;&#34;
+        
+        print(msg)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.modelling.Modelling.nwkGraph"><code class="name flex">
+<span>def <span class="ident">nwkGraph</span></span>(<span>self, filename: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate the network graph of the modelling. If uppers layers have already been generated, this function
+deletes all upper layers. </p>
+<p>Usage: nwkGraph [-h] [&ndash;filename filename]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+Print this help menu
+-f, &ndash;filename filename
+File with packets at unified format to generate the graph.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def nwkGraph(self, filename:str=None):
+    &#34;&#34;&#34;
+    Generate the network graph of the modelling. If uppers layers have already been generated, this function
+    deletes all upper layers. 
+
+    Usage: nwkGraph [-h] [--filename filename]
+
+    Options:
+        -h, --help               Print this help menu
+        -f, --filename filename  File with packets at unified format to generate the graph.
+    &#34;&#34;&#34;
+
+    # TODO: make a file checking
+    # Check if the file is correctly formed
+    self.dbc.nwkGraph(filename)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.modelling.Modelling.option"><code class="name flex">
+<span>def <span class="ident">option</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Print the options required by the module</p>
+<p>Usage: options [-h]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+print this help menu</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def option(self):
+    &#34;&#34;&#34;
+    Print the options required by the module
+
+    Usage: options [-h]
+
+    Options:
+        -h, --help  print this help menu
+    &#34;&#34;&#34;
+        
+    table_data = [
+        [&#34;Name&#34;, &#34;Current Settings&#34;, &#34;Required&#34;, &#34;Description&#34;]
+    ]
+    
+    for name, options in self.options.items():
+        table_data.append([name, options[&#34;Current Settings&#34;], options[&#34;Require&#34;], options[&#34;Description&#34;]])
+        
+    table = AsciiTable(table_data)
+    table.inner_column_border = False
+    table.inner_footing_row_border = False
+    table.inner_heading_row_border = True
+    table.inner_row_border = False
+    table.outer_border = False
+    
+    print (f&#39;\nModule Options ({self.name}):\n\n{table.table}\n&#39;)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.modelling.Modelling.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a graph based on the traffic intercepted and store in the database. Level number defined in
+the options indicates the number of layers displayed in this graph. </p>
+<p>Usage: run [-h]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+print this help menu</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def run(self):
+    &#34;&#34;&#34;
+    Generate a graph based on the traffic intercepted and store in the database. Level number defined in 
+    the options indicates the number of layers displayed in this graph. 
+
+    Usage: run [-h]
+
+    Options:
+        -h, --help  print this help menu
+    &#34;&#34;&#34;
+    
+    level = int(self.options[&#34;level&#34;][&#34;Current Settings&#34;])
+    filename = self.options[&#34;csvFile&#34;][&#34;Current Settings&#34;]
+    if level == 2 and filename is None:
+        print(&#34;You want to (re)build the dl graph but no csvFile is provided. You must define a value to csvFile before run level 2 of the modelling&#34;)
+    else:
+        print(self.graphs[level][&#39;options&#39;])
+        self.graphs[level][&#39;func&#39;](*self.graphs[level][&#39;options&#39;])
+        results = self.dbc.getResults()
+        print(f&#34;Actual Results: {results}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.modelling.Modelling.set"><code class="name flex">
+<span>def <span class="ident">set</span></span>(<span>self, name: str, value: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set an option to the value 'value'
+</p>
+<p>Usage: set <name> <value> [-h]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+print this help menu</p>
+<h2 id="arguments">Arguments</h2>
+<p>name
+option name
+value
+option value</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def set(self, name: str, value: str):
+    &#34;&#34;&#34;
+    Set an option to the value &#39;value&#39;        
+
+    Usage: set &lt;name&gt; &lt;value&gt; [-h]
+
+    Options:
+        -h, --help  print this help menu
+
+    Arguments:
+        name   option name
+        value  option value
+    &#34;&#34;&#34;
+
+    try:
+        self.options[name][&#39;Current Settings&#39;] = self.options[name][&#39;type&#39;](value)
+        self.updateGraphOptions()
+        print (f&#34;{name} set to {value}&#34;)
+    except KeyError:
+        print(f&#34;Unknown option &#39;{name}&#39;&#34;)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.modelling.Modelling.transGraph"><code class="name flex">
+<span>def <span class="ident">transGraph</span></span>(<span>self, delta: float, delta2: float, filename: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate the network graph of the modelling. If uppers layers have already been generated, this function
+deletes all upper layers. </p>
+<p>Usage: nwkGraph [-h] [&ndash;delta <delta1>] [&ndash;delta2 <delta2>] [&ndash;filename <filename>]</p>
+<h2 id="options">Options</h2>
+<p>-h, &ndash;help
+Print this help menu.
+-d, &ndash;delta delta1
+Delta1 is the delay for an object to respond to a request [Default: 0.6].
+-e, &ndash;delta2 delta2
+Delta2 is the delay for an object to forward a packet [Default: 0.7].
+-f, &ndash;filename filename
+File with packets at unified format to generate the graph.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@command
+def transGraph(self, delta: float, delta2: float,  filename:str=None):
+    &#34;&#34;&#34;
+    Generate the network graph of the modelling. If uppers layers have already been generated, this function
+    deletes all upper layers. 
+
+    Usage: nwkGraph [-h] [--delta &lt;delta1&gt;] [--delta2 &lt;delta2&gt;] [--filename &lt;filename&gt;]
+
+    Options:
+        -h, --help               Print this help menu.
+        -d, --delta delta1       Delta1 is the delay for an object to respond to a request [Default: 0.6].
+        -e, --delta2 delta2      Delta2 is the delay for an object to forward a packet [Default: 0.7].
+        -f, --filename filename  File with packets at unified format to generate the graph.
+    &#34;&#34;&#34;
+
+    # TODO: make a file checking
+    # Check if the file is correctly formed
+    self.dbc.transGraph(delta, delta2, filename)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.modelling.Modelling.updateGraphOptions"><code class="name flex">
+<span>def <span class="ident">updateGraphOptions</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def updateGraphOptions(self):
+    self.graphs = {
+        1: {
+            &#39;func&#39;: self.dbc.dlGraph,
+            &#39;options&#39;: [self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+        },
+        2: {
+            &#39;func&#39;: self.dbc.nwkGraph,
+            &#39;options&#39;: [self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+        },
+        3: {
+            &#39;func&#39;: self.dbc.transGraph,
+            &#39;options&#39;: [self.options[&#34;tdelta1&#34;][&#39;Current Settings&#39;],
+                        self.options[&#34;tdelta2&#34;][&#39;Current Settings&#39;],
+                        self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+        },
+        4: {
+            &#39;func&#39;: self.dbc.appGraph,
+            &#39;options&#39;: [self.options[&#34;adelta&#34;][&#39;Current Settings&#39;],
+                        self.options[&#34;tdelta1&#34;][&#39;Current Settings&#39;],
+                        self.options[&#34;tdelta2&#34;][&#39;Current Settings&#39;],
+                        self.options[&#34;csvFile&#34;][&#39;Current Settings&#39;]]
+        }
+    }</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="iotmap.core" href="index.html">iotmap.core</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="iotmap.core.modelling.Modelling" href="#iotmap.core.modelling.Modelling">Modelling</a></code></h4>
+<ul class="two-column">
+<li><code><a title="iotmap.core.modelling.Modelling.appGraph" href="#iotmap.core.modelling.Modelling.appGraph">appGraph</a></code></li>
+<li><code><a title="iotmap.core.modelling.Modelling.compareTo" href="#iotmap.core.modelling.Modelling.compareTo">compareTo</a></code></li>
+<li><code><a title="iotmap.core.modelling.Modelling.dlGraph" href="#iotmap.core.modelling.Modelling.dlGraph">dlGraph</a></code></li>
+<li><code><a title="iotmap.core.modelling.Modelling.help" href="#iotmap.core.modelling.Modelling.help">help</a></code></li>
+<li><code><a title="iotmap.core.modelling.Modelling.nwkGraph" href="#iotmap.core.modelling.Modelling.nwkGraph">nwkGraph</a></code></li>
+<li><code><a title="iotmap.core.modelling.Modelling.option" href="#iotmap.core.modelling.Modelling.option">option</a></code></li>
+<li><code><a title="iotmap.core.modelling.Modelling.run" href="#iotmap.core.modelling.Modelling.run">run</a></code></li>
+<li><code><a title="iotmap.core.modelling.Modelling.set" href="#iotmap.core.modelling.Modelling.set">set</a></code></li>
+<li><code><a title="iotmap.core.modelling.Modelling.transGraph" href="#iotmap.core.modelling.Modelling.transGraph">transGraph</a></code></li>
+<li><code><a title="iotmap.core.modelling.Modelling.updateGraphOptions" href="#iotmap.core.modelling.Modelling.updateGraphOptions">updateGraphOptions</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

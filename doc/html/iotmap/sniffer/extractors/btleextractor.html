@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>iotmap.sniffer.extractors.btleextractor API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>iotmap.sniffer.extractors.btleextractor</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from scapy.layers.bluetooth4LE import *
+from scapy.layers.bluetooth import *
+from .bleConstants import *
+
+class BTLEextractor():
+    &#34;&#34;&#34;
+    BTLE extractor. Extracts informations from BTLE packets. 
+    Call extract_pkt_layers to get the packet informations in a list.
+    &#34;&#34;&#34;
+    def __init__(self, args):
+        self.index = 0
+        self.verbose = args[0]
+
+    
+    def extract_pkt_layers(self, pkt):
+        &#34;&#34;&#34;
+        Extracts all layers specific information from header.
+        Returns [src, dst, transmission] list containing all relevant informations.
+        &#34;&#34;&#34;
+        layers = {}
+        layers[&#39;time&#39;] = float(pkt.time)
+
+        # This layer is only available if the pcap is in ll_phdr format
+        if BTLE_RF in pkt:
+            layers[&#39;RFlayer&#39;] = self.extract_pkt_rflayer(pkt)
+        
+        layers[&#39;layer2&#39;] = self.extract_pkt_layer2(pkt)
+
+        # A ctrlPDU packet contains no more layers
+        if hasattr(layers, &#39;ctrlPDU&#39;):
+            return layers
+
+        # Currently I don&#39;t know if it exists another type of packet that
+        # does not contain more layers
+        if L2CAP_Hdr in pkt:
+            layers[&#39;layer3&#39;] = self.extract_pkt_layer3(pkt)
+
+            check_response = False
+            
+            if (layers[&#39;layer3&#39;][&#39;cid&#39;] != 2720 or \
+                layers[&#39;layer3&#39;][&#39;cid&#39;] != &#39;L2CAP Fragement&#39;):
+                layers[&#39;layer4&#39;] = self.extract_pkt_layer4(pkt)
+                layers[&#39;src&#39;] = &#39;Master&#39;
+                layers[&#39;dst&#39;] = &#39;Slave&#39;
+
+                if layers[&#39;layer4&#39;] != {}:
+                    if self.verbose:
+                        if &#39;Response&#39; in layers[&#39;layer4&#39;][&#39;opcode&#39;] or \
+                           &#39;Handle&#39; in layers[&#39;layer4&#39;][&#39;opcode&#39;]:
+                            check_response = True
+                    else:
+                        check_response = layers[&#39;layer4&#39;][&#39;opcode&#39;] in [0x09, 0x0b, 0x1d]
+                        
+                    if check_response is True:
+                        layers[&#39;src&#39;], layers[&#39;dst&#39;] = layers[&#39;dst&#39;], layers[&#39;src&#39;]
+                        
+        return layers
+            
+    def extract_pkt_rflayer(self, pkt):
+        &#34;&#34;&#34;
+        Extracts BT4LE specific information from radio frequence
+        Called by extract_pkt_info(). 
+        This layer contains BTLE_RF
+        &#34;&#34;&#34;
+
+        rfFields = {}
+        rfFields[&#34;rf_channel&#34;] = pkt.rf_channel
+        rfFields[&#34;signal&#34;] = pkt.signal
+        rfFields[&#34;noise&#34;] = pkt.noise
+        rfFields[&#34;flags&#34;] = getFlags(pkt.flags.value) if self.verbose else pkt.flags.value
+        rfFields[&#34;access_address_offenses&#34;] = pkt.access_address_offenses
+        rfFields[&#34;reference_access_address&#34;] = pkt.reference_access_address
+        
+        return rfFields
+
+    def extract_pkt_layer2(self, pkt):
+        &#34;&#34;&#34;
+        Extracts BT4LE specific information from header to update node/transmission state
+        Called by extract_pkt_info(). 
+        This layer contains BTLE, BTLE_DATA and if exist CtrlPDU 
+        &#34;&#34;&#34;
+        dataheader, layer2 = {}, {}
+        layer2[&#39;access_addr&#39;] = hex(pkt.access_addr)
+        layer2[&#39;crc&#39;] = hex(pkt.crc)
+        
+        if BTLE_ADV in pkt:
+            dataheader[&#39;RxAdd&#39;] = RxTxAdd[pkt.RxAdd] if self.verbose == 1 else pkt.RxAdd
+            dataheader[&#39;TxAdd&#39;] = RxTxAdd[pkt.TxAdd] if self.verbose == 1 else pkt.TxAdd
+            dataheader[&#39;RFU&#39;] = pkt.RFU
+            dataheader[&#39;TxAdd&#39;] = PDUType[pkt.PDU_type] if self.verbose == 1 else pkt.PDU_type
+            dataheader[&#39;Length&#39;] = hex(pkt.Length)
+
+        if BTLE_CONNECT_REQ in pkt:
+            dataheader[&#39;Master&#39;] = pkt.InitA
+            dataheader[&#39;Slave&#39;] = pkt.AdvA
+            #dataheader[&#39;AA&#39;] = pkt.AA
+            layer2[&#39;access_addr&#39;] = hex(pkt.AA)
+            layer2[&#39;crc&#39;] = hex(pkt.crc_init)
+            dataheader[&#39;win_size&#39;] = hex(pkt.win_size)
+            dataheader[&#39;win_offset&#39;] = hex(pkt.win_offset)
+            dataheader[&#39;interval&#39;] = hex(pkt.interval)
+            dataheader[&#39;channelMap&#39;] = hex(pkt.chM)
+            dataheader[&#39;hop&#39;] = pkt.hop
+
+        if BTLE_DATA in pkt:
+            dataheader[&#39;RFU&#39;] = pkt.RFU
+            dataheader[&#39;LLID&#39;] = LLID[pkt.LLID] if self.verbose == 1 else pkt.LLID
+            dataheader[&#39;MD&#39;] = pkt.MD
+            dataheader[&#39;SN&#39;] = pkt.SN
+            dataheader[&#39;len&#39;] = pkt.len
+        
+        layer2[&#39;data header&#39;] = dataheader
+
+        if CtrlPDU in pkt:
+            ctrlPDU = {
+                &#39;optcode&#39;: optCode[pkt.optcode] if self.verbose == 1 else pkt.optcode,
+                &#39;version&#39;: pkt.version,
+                &#39;company&#39;: pkt.Company,
+                &#39;subvers&#39;: pkt.subversion
+            }
+
+            layer2[&#39;ctrlPDU&#39;] = ctrlPDU
+
+        return layer2
+
+    def extract_pkt_layer3(self, pkt):
+        &#34;&#34;&#34;
+        Extracts BT4LE specific information from L2CAP layer
+        Called by extract_pkt_info(). 
+        &#34;&#34;&#34;
+        l2capHdr = pkt.getlayer(L2CAP_Hdr)
+        layer3 = {
+            &#39;len&#39;: l2capHdr.len,
+            &#39;cid&#39;: CID[l2capHdr.cid] if self.verbose else l2capHdr.cid
+        }
+
+        return layer3
+
+    def extract_pkt_layer4(self, pkt):
+        &#34;&#34;&#34;
+        Extracts BT4LE specific information from ATT layer
+        Called by extract_pkt_info(). 
+        &#34;&#34;&#34;
+        layer4 = {}
+        if hasattr(pkt, &#39;opcode&#39;):
+            layer4 = {
+                &#39;opcode&#39;: opCode[pkt.opcode] if self.verbose else pkt.opcode,
+                &#39;gatt_handle&#39;: &#39;&#39; if pkt.opcode != 0x0a else hex(pkt.gatt_handle),
+                &#39;start&#39;: &#39;&#39; if pkt.opcode != 0x08 else hex(pkt.start),
+                &#39;end&#39;: &#39;&#39; if pkt.opcode != 0x08 else hex(pkt.end),
+                &#39;uuid&#39;: &#39;&#39; if pkt.opcode != 0x08 else hex(pkt.uuid),
+                &#39;len&#39;: &#39;&#39; if pkt.opcode != 0x09 else hex(pkt[4].len),
+                &#39;handles&#39;: &#39;&#39; if pkt.opcode != 0x09 else [getHandles(h, self.verbose) for h in pkt.handles],
+                &#39;request&#39;: &#39;&#39; if pkt.opcode != 0x01 else hex(pkt.request),
+                &#39;handle&#39;: &#39;&#39; if pkt.opcode != 0x01 else hex(pkt.handle),
+                &#39;ecode&#39;: &#39;&#39; if pkt.opcode != 0x01 else hex(pkt.ecode),
+                &#39;value&#39;: &#39;&#39; if pkt.opcode != 0x0b else pkt.value.hex()
+            }
+
+        return layer4</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="iotmap.sniffer.extractors.btleextractor.BTLEextractor"><code class="flex name class">
+<span>class <span class="ident">BTLEextractor</span></span>
+<span>(</span><span>args)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>BTLE extractor. Extracts informations from BTLE packets.
+Call extract_pkt_layers to get the packet informations in a list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BTLEextractor():
+    &#34;&#34;&#34;
+    BTLE extractor. Extracts informations from BTLE packets. 
+    Call extract_pkt_layers to get the packet informations in a list.
+    &#34;&#34;&#34;
+    def __init__(self, args):
+        self.index = 0
+        self.verbose = args[0]
+
+    
+    def extract_pkt_layers(self, pkt):
+        &#34;&#34;&#34;
+        Extracts all layers specific information from header.
+        Returns [src, dst, transmission] list containing all relevant informations.
+        &#34;&#34;&#34;
+        layers = {}
+        layers[&#39;time&#39;] = float(pkt.time)
+
+        # This layer is only available if the pcap is in ll_phdr format
+        if BTLE_RF in pkt:
+            layers[&#39;RFlayer&#39;] = self.extract_pkt_rflayer(pkt)
+        
+        layers[&#39;layer2&#39;] = self.extract_pkt_layer2(pkt)
+
+        # A ctrlPDU packet contains no more layers
+        if hasattr(layers, &#39;ctrlPDU&#39;):
+            return layers
+
+        # Currently I don&#39;t know if it exists another type of packet that
+        # does not contain more layers
+        if L2CAP_Hdr in pkt:
+            layers[&#39;layer3&#39;] = self.extract_pkt_layer3(pkt)
+
+            check_response = False
+            
+            if (layers[&#39;layer3&#39;][&#39;cid&#39;] != 2720 or \
+                layers[&#39;layer3&#39;][&#39;cid&#39;] != &#39;L2CAP Fragement&#39;):
+                layers[&#39;layer4&#39;] = self.extract_pkt_layer4(pkt)
+                layers[&#39;src&#39;] = &#39;Master&#39;
+                layers[&#39;dst&#39;] = &#39;Slave&#39;
+
+                if layers[&#39;layer4&#39;] != {}:
+                    if self.verbose:
+                        if &#39;Response&#39; in layers[&#39;layer4&#39;][&#39;opcode&#39;] or \
+                           &#39;Handle&#39; in layers[&#39;layer4&#39;][&#39;opcode&#39;]:
+                            check_response = True
+                    else:
+                        check_response = layers[&#39;layer4&#39;][&#39;opcode&#39;] in [0x09, 0x0b, 0x1d]
+                        
+                    if check_response is True:
+                        layers[&#39;src&#39;], layers[&#39;dst&#39;] = layers[&#39;dst&#39;], layers[&#39;src&#39;]
+                        
+        return layers
+            
+    def extract_pkt_rflayer(self, pkt):
+        &#34;&#34;&#34;
+        Extracts BT4LE specific information from radio frequence
+        Called by extract_pkt_info(). 
+        This layer contains BTLE_RF
+        &#34;&#34;&#34;
+
+        rfFields = {}
+        rfFields[&#34;rf_channel&#34;] = pkt.rf_channel
+        rfFields[&#34;signal&#34;] = pkt.signal
+        rfFields[&#34;noise&#34;] = pkt.noise
+        rfFields[&#34;flags&#34;] = getFlags(pkt.flags.value) if self.verbose else pkt.flags.value
+        rfFields[&#34;access_address_offenses&#34;] = pkt.access_address_offenses
+        rfFields[&#34;reference_access_address&#34;] = pkt.reference_access_address
+        
+        return rfFields
+
+    def extract_pkt_layer2(self, pkt):
+        &#34;&#34;&#34;
+        Extracts BT4LE specific information from header to update node/transmission state
+        Called by extract_pkt_info(). 
+        This layer contains BTLE, BTLE_DATA and if exist CtrlPDU 
+        &#34;&#34;&#34;
+        dataheader, layer2 = {}, {}
+        layer2[&#39;access_addr&#39;] = hex(pkt.access_addr)
+        layer2[&#39;crc&#39;] = hex(pkt.crc)
+        
+        if BTLE_ADV in pkt:
+            dataheader[&#39;RxAdd&#39;] = RxTxAdd[pkt.RxAdd] if self.verbose == 1 else pkt.RxAdd
+            dataheader[&#39;TxAdd&#39;] = RxTxAdd[pkt.TxAdd] if self.verbose == 1 else pkt.TxAdd
+            dataheader[&#39;RFU&#39;] = pkt.RFU
+            dataheader[&#39;TxAdd&#39;] = PDUType[pkt.PDU_type] if self.verbose == 1 else pkt.PDU_type
+            dataheader[&#39;Length&#39;] = hex(pkt.Length)
+
+        if BTLE_CONNECT_REQ in pkt:
+            dataheader[&#39;Master&#39;] = pkt.InitA
+            dataheader[&#39;Slave&#39;] = pkt.AdvA
+            #dataheader[&#39;AA&#39;] = pkt.AA
+            layer2[&#39;access_addr&#39;] = hex(pkt.AA)
+            layer2[&#39;crc&#39;] = hex(pkt.crc_init)
+            dataheader[&#39;win_size&#39;] = hex(pkt.win_size)
+            dataheader[&#39;win_offset&#39;] = hex(pkt.win_offset)
+            dataheader[&#39;interval&#39;] = hex(pkt.interval)
+            dataheader[&#39;channelMap&#39;] = hex(pkt.chM)
+            dataheader[&#39;hop&#39;] = pkt.hop
+
+        if BTLE_DATA in pkt:
+            dataheader[&#39;RFU&#39;] = pkt.RFU
+            dataheader[&#39;LLID&#39;] = LLID[pkt.LLID] if self.verbose == 1 else pkt.LLID
+            dataheader[&#39;MD&#39;] = pkt.MD
+            dataheader[&#39;SN&#39;] = pkt.SN
+            dataheader[&#39;len&#39;] = pkt.len
+        
+        layer2[&#39;data header&#39;] = dataheader
+
+        if CtrlPDU in pkt:
+            ctrlPDU = {
+                &#39;optcode&#39;: optCode[pkt.optcode] if self.verbose == 1 else pkt.optcode,
+                &#39;version&#39;: pkt.version,
+                &#39;company&#39;: pkt.Company,
+                &#39;subvers&#39;: pkt.subversion
+            }
+
+            layer2[&#39;ctrlPDU&#39;] = ctrlPDU
+
+        return layer2
+
+    def extract_pkt_layer3(self, pkt):
+        &#34;&#34;&#34;
+        Extracts BT4LE specific information from L2CAP layer
+        Called by extract_pkt_info(). 
+        &#34;&#34;&#34;
+        l2capHdr = pkt.getlayer(L2CAP_Hdr)
+        layer3 = {
+            &#39;len&#39;: l2capHdr.len,
+            &#39;cid&#39;: CID[l2capHdr.cid] if self.verbose else l2capHdr.cid
+        }
+
+        return layer3
+
+    def extract_pkt_layer4(self, pkt):
+        &#34;&#34;&#34;
+        Extracts BT4LE specific information from ATT layer
+        Called by extract_pkt_info(). 
+        &#34;&#34;&#34;
+        layer4 = {}
+        if hasattr(pkt, &#39;opcode&#39;):
+            layer4 = {
+                &#39;opcode&#39;: opCode[pkt.opcode] if self.verbose else pkt.opcode,
+                &#39;gatt_handle&#39;: &#39;&#39; if pkt.opcode != 0x0a else hex(pkt.gatt_handle),
+                &#39;start&#39;: &#39;&#39; if pkt.opcode != 0x08 else hex(pkt.start),
+                &#39;end&#39;: &#39;&#39; if pkt.opcode != 0x08 else hex(pkt.end),
+                &#39;uuid&#39;: &#39;&#39; if pkt.opcode != 0x08 else hex(pkt.uuid),
+                &#39;len&#39;: &#39;&#39; if pkt.opcode != 0x09 else hex(pkt[4].len),
+                &#39;handles&#39;: &#39;&#39; if pkt.opcode != 0x09 else [getHandles(h, self.verbose) for h in pkt.handles],
+                &#39;request&#39;: &#39;&#39; if pkt.opcode != 0x01 else hex(pkt.request),
+                &#39;handle&#39;: &#39;&#39; if pkt.opcode != 0x01 else hex(pkt.handle),
+                &#39;ecode&#39;: &#39;&#39; if pkt.opcode != 0x01 else hex(pkt.ecode),
+                &#39;value&#39;: &#39;&#39; if pkt.opcode != 0x0b else pkt.value.hex()
+            }
+
+        return layer4</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layer2"><code class="name flex">
+<span>def <span class="ident">extract_pkt_layer2</span></span>(<span>self, pkt)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extracts BT4LE specific information from header to update node/transmission state
+Called by extract_pkt_info().
+This layer contains BTLE, BTLE_DATA and if exist CtrlPDU</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_pkt_layer2(self, pkt):
+    &#34;&#34;&#34;
+    Extracts BT4LE specific information from header to update node/transmission state
+    Called by extract_pkt_info(). 
+    This layer contains BTLE, BTLE_DATA and if exist CtrlPDU 
+    &#34;&#34;&#34;
+    dataheader, layer2 = {}, {}
+    layer2[&#39;access_addr&#39;] = hex(pkt.access_addr)
+    layer2[&#39;crc&#39;] = hex(pkt.crc)
+    
+    if BTLE_ADV in pkt:
+        dataheader[&#39;RxAdd&#39;] = RxTxAdd[pkt.RxAdd] if self.verbose == 1 else pkt.RxAdd
+        dataheader[&#39;TxAdd&#39;] = RxTxAdd[pkt.TxAdd] if self.verbose == 1 else pkt.TxAdd
+        dataheader[&#39;RFU&#39;] = pkt.RFU
+        dataheader[&#39;TxAdd&#39;] = PDUType[pkt.PDU_type] if self.verbose == 1 else pkt.PDU_type
+        dataheader[&#39;Length&#39;] = hex(pkt.Length)
+
+    if BTLE_CONNECT_REQ in pkt:
+        dataheader[&#39;Master&#39;] = pkt.InitA
+        dataheader[&#39;Slave&#39;] = pkt.AdvA
+        #dataheader[&#39;AA&#39;] = pkt.AA
+        layer2[&#39;access_addr&#39;] = hex(pkt.AA)
+        layer2[&#39;crc&#39;] = hex(pkt.crc_init)
+        dataheader[&#39;win_size&#39;] = hex(pkt.win_size)
+        dataheader[&#39;win_offset&#39;] = hex(pkt.win_offset)
+        dataheader[&#39;interval&#39;] = hex(pkt.interval)
+        dataheader[&#39;channelMap&#39;] = hex(pkt.chM)
+        dataheader[&#39;hop&#39;] = pkt.hop
+
+    if BTLE_DATA in pkt:
+        dataheader[&#39;RFU&#39;] = pkt.RFU
+        dataheader[&#39;LLID&#39;] = LLID[pkt.LLID] if self.verbose == 1 else pkt.LLID
+        dataheader[&#39;MD&#39;] = pkt.MD
+        dataheader[&#39;SN&#39;] = pkt.SN
+        dataheader[&#39;len&#39;] = pkt.len
+    
+    layer2[&#39;data header&#39;] = dataheader
+
+    if CtrlPDU in pkt:
+        ctrlPDU = {
+            &#39;optcode&#39;: optCode[pkt.optcode] if self.verbose == 1 else pkt.optcode,
+            &#39;version&#39;: pkt.version,
+            &#39;company&#39;: pkt.Company,
+            &#39;subvers&#39;: pkt.subversion
+        }
+
+        layer2[&#39;ctrlPDU&#39;] = ctrlPDU
+
+    return layer2</code></pre>
+</details>
+</dd>
+<dt id="iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layer3"><code class="name flex">
+<span>def <span class="ident">extract_pkt_layer3</span></span>(<span>self, pkt)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extracts BT4LE specific information from L2CAP layer
+Called by extract_pkt_info().</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_pkt_layer3(self, pkt):
+    &#34;&#34;&#34;
+    Extracts BT4LE specific information from L2CAP layer
+    Called by extract_pkt_info(). 
+    &#34;&#34;&#34;
+    l2capHdr = pkt.getlayer(L2CAP_Hdr)
+    layer3 = {
+        &#39;len&#39;: l2capHdr.len,
+        &#39;cid&#39;: CID[l2capHdr.cid] if self.verbose else l2capHdr.cid
+    }
+
+    return layer3</code></pre>
+</details>
+</dd>
+<dt id="iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layer4"><code class="name flex">
+<span>def <span class="ident">extract_pkt_layer4</span></span>(<span>self, pkt)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extracts BT4LE specific information from ATT layer
+Called by extract_pkt_info().</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_pkt_layer4(self, pkt):
+    &#34;&#34;&#34;
+    Extracts BT4LE specific information from ATT layer
+    Called by extract_pkt_info(). 
+    &#34;&#34;&#34;
+    layer4 = {}
+    if hasattr(pkt, &#39;opcode&#39;):
+        layer4 = {
+            &#39;opcode&#39;: opCode[pkt.opcode] if self.verbose else pkt.opcode,
+            &#39;gatt_handle&#39;: &#39;&#39; if pkt.opcode != 0x0a else hex(pkt.gatt_handle),
+            &#39;start&#39;: &#39;&#39; if pkt.opcode != 0x08 else hex(pkt.start),
+            &#39;end&#39;: &#39;&#39; if pkt.opcode != 0x08 else hex(pkt.end),
+            &#39;uuid&#39;: &#39;&#39; if pkt.opcode != 0x08 else hex(pkt.uuid),
+            &#39;len&#39;: &#39;&#39; if pkt.opcode != 0x09 else hex(pkt[4].len),
+            &#39;handles&#39;: &#39;&#39; if pkt.opcode != 0x09 else [getHandles(h, self.verbose) for h in pkt.handles],
+            &#39;request&#39;: &#39;&#39; if pkt.opcode != 0x01 else hex(pkt.request),
+            &#39;handle&#39;: &#39;&#39; if pkt.opcode != 0x01 else hex(pkt.handle),
+            &#39;ecode&#39;: &#39;&#39; if pkt.opcode != 0x01 else hex(pkt.ecode),
+            &#39;value&#39;: &#39;&#39; if pkt.opcode != 0x0b else pkt.value.hex()
+        }
+
+    return layer4</code></pre>
+</details>
+</dd>
+<dt id="iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layers"><code class="name flex">
+<span>def <span class="ident">extract_pkt_layers</span></span>(<span>self, pkt)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extracts all layers specific information from header.
+Returns [src, dst, transmission] list containing all relevant informations.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_pkt_layers(self, pkt):
+    &#34;&#34;&#34;
+    Extracts all layers specific information from header.
+    Returns [src, dst, transmission] list containing all relevant informations.
+    &#34;&#34;&#34;
+    layers = {}
+    layers[&#39;time&#39;] = float(pkt.time)
+
+    # This layer is only available if the pcap is in ll_phdr format
+    if BTLE_RF in pkt:
+        layers[&#39;RFlayer&#39;] = self.extract_pkt_rflayer(pkt)
+    
+    layers[&#39;layer2&#39;] = self.extract_pkt_layer2(pkt)
+
+    # A ctrlPDU packet contains no more layers
+    if hasattr(layers, &#39;ctrlPDU&#39;):
+        return layers
+
+    # Currently I don&#39;t know if it exists another type of packet that
+    # does not contain more layers
+    if L2CAP_Hdr in pkt:
+        layers[&#39;layer3&#39;] = self.extract_pkt_layer3(pkt)
+
+        check_response = False
+        
+        if (layers[&#39;layer3&#39;][&#39;cid&#39;] != 2720 or \
+            layers[&#39;layer3&#39;][&#39;cid&#39;] != &#39;L2CAP Fragement&#39;):
+            layers[&#39;layer4&#39;] = self.extract_pkt_layer4(pkt)
+            layers[&#39;src&#39;] = &#39;Master&#39;
+            layers[&#39;dst&#39;] = &#39;Slave&#39;
+
+            if layers[&#39;layer4&#39;] != {}:
+                if self.verbose:
+                    if &#39;Response&#39; in layers[&#39;layer4&#39;][&#39;opcode&#39;] or \
+                       &#39;Handle&#39; in layers[&#39;layer4&#39;][&#39;opcode&#39;]:
+                        check_response = True
+                else:
+                    check_response = layers[&#39;layer4&#39;][&#39;opcode&#39;] in [0x09, 0x0b, 0x1d]
+                    
+                if check_response is True:
+                    layers[&#39;src&#39;], layers[&#39;dst&#39;] = layers[&#39;dst&#39;], layers[&#39;src&#39;]
+                    
+    return layers</code></pre>
+</details>
+</dd>
+<dt id="iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_rflayer"><code class="name flex">
+<span>def <span class="ident">extract_pkt_rflayer</span></span>(<span>self, pkt)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extracts BT4LE specific information from radio frequence
+Called by extract_pkt_info().
+This layer contains BTLE_RF</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_pkt_rflayer(self, pkt):
+    &#34;&#34;&#34;
+    Extracts BT4LE specific information from radio frequence
+    Called by extract_pkt_info(). 
+    This layer contains BTLE_RF
+    &#34;&#34;&#34;
+
+    rfFields = {}
+    rfFields[&#34;rf_channel&#34;] = pkt.rf_channel
+    rfFields[&#34;signal&#34;] = pkt.signal
+    rfFields[&#34;noise&#34;] = pkt.noise
+    rfFields[&#34;flags&#34;] = getFlags(pkt.flags.value) if self.verbose else pkt.flags.value
+    rfFields[&#34;access_address_offenses&#34;] = pkt.access_address_offenses
+    rfFields[&#34;reference_access_address&#34;] = pkt.reference_access_address
+    
+    return rfFields</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="iotmap.sniffer.extractors" href="index.html">iotmap.sniffer.extractors</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="iotmap.sniffer.extractors.btleextractor.BTLEextractor" href="#iotmap.sniffer.extractors.btleextractor.BTLEextractor">BTLEextractor</a></code></h4>
+<ul class="">
+<li><code><a title="iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layer2" href="#iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layer2">extract_pkt_layer2</a></code></li>
+<li><code><a title="iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layer3" href="#iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layer3">extract_pkt_layer3</a></code></li>
+<li><code><a title="iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layer4" href="#iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layer4">extract_pkt_layer4</a></code></li>
+<li><code><a title="iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layers" href="#iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_layers">extract_pkt_layers</a></code></li>
+<li><code><a title="iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_rflayer" href="#iotmap.sniffer.extractors.btleextractor.BTLEextractor.extract_pkt_rflayer">extract_pkt_rflayer</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

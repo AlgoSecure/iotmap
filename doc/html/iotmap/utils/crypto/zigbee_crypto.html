@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>iotmap.utils.crypto.zigbee_crypto API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>iotmap.utils.crypto.zigbee_crypto</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from scapy.layers.dot15d4 import *
+from scapy.layers.zigbee import *
+from scapy.utils import conf, raw
+
+# This package is very important to convert a string
+# to a byte string with the format b&#39;\xBB\xAA&#39;
+from binascii import unhexlify
+from Cryptodome.Cipher import AES # Replaces Crypto module, since it doesn&#39;t have CCM_MODE, which is used later
+
+conf.dot15d4_protocol=&#34;zigbee&#34;
+
+DOT154_CRYPT_ENC_MIC32 = 0x05
+
+# Display
+# For debug purpose
+# class bcolors:
+#     HEADER = &#39;\033[95m&#39;
+#     OKBLUE = &#39;\033[94m&#39;
+#     OKGREEN = &#39;\033[92m&#39;
+#     WARNING = &#39;\033[93m&#39;
+#     FAIL = &#39;\033[91m&#39;
+#     ENDC = &#39;\033[0m&#39;
+#     BOLD = &#39;\033[1m&#39;
+#     UNDERLINE = &#39;\033[4m&#39;
+
+
+def zigbee_decrypt(pktorig, key_net):
+    &#34;&#34;&#34;
+    Decrypts Zigbee packets. Or at least, it should ....
+    &#34;&#34;&#34;
+    doMicCheck = False
+
+    #print(&#34;\n############################################################\n\n&gt; Starting 4 parameters extraction&#34;)
+    
+    pkt = pktorig.copy()
+
+    # Set key in byte format
+    key = unhexlify(key_net)
+
+    # 1. Get MIC using scapy black magic to rebuild the packet correctly
+    pkt.nwk_seclevel = DOT154_CRYPT_ENC_MIC32
+    pkt.data += pkt.mic
+    pkt.mic = pkt.data[-4:]
+    mic = pkt.mic
+    pkt.data = pkt.data[:-4] # Reset pkt after MIC extracted
+
+    # 2. Get ciphertext
+    ciphertext = pkt[ZigbeeSecurityHeader].data
+
+    # 3. Get nonce using two ways. The zbdecrypt way seems to be the right one. The second is another found on another project
+    using_zb_nonce = True
+    if using_zb_nonce:
+        extended_src = pkt[ZigbeeSecurityHeader].source
+        if extended_src is None:
+            return None
+        nonce = struct.pack(&#39;Q&#39;,*struct.unpack(&#39;&gt;Q&#39;, extended_src.to_bytes(8, byteorder=&#34;big&#34;))) + struct.pack(&#39;I&#39;, pkt[ZigbeeSecurityHeader].fc) + struct.pack(&#39;B&#39;, bytes(pkt[ZigbeeSecurityHeader])[0])
+        # sys.byteorder MUST BE byteorder=&#34;big&#34;
+    else:
+        # Get NONCE : create NONCE (for crypt) and zigbeeData (for MIC) according to packet type ----------&gt; Whatever that means
+        sec_ctrl_byte = str(pkt[ZigbeeSecurityHeader])[0]
+        if ZigbeeAppDataPayload in pkt:
+            nonce = str(struct.pack(&#39;L&#39;,pkt[ZigbeeNWK].ext_src))+str(struct.pack(&#39;I&#39;,pkt[ZigbeeSecurityHeader].fc)) + sec_ctrl_byte
+        else:
+            nonce = str(struct.pack(&#39;L&#39;,pkt[ZigbeeSecurityHeader].source))+str(struct.pack(&#39;I&#39;,pkt[ZigbeeSecurityHeader].fc)) + sec_ctrl_byte
+
+    # 4. Get ZigbeeData, aka the content of the ZigbeeNWK header.
+    data_len = len(ciphertext) + len(mic)
+    if ZigbeeAppDataPayload in pkt:
+        if data_len &gt; 0:
+            header = bytes(pkt[ZigbeeAppDataPayload])[:-data_len]
+        else:
+            header = bytes(pkt[ZigbeeAppDataPayload])
+    else:
+        if data_len &gt; 0:
+            header = bytes(pkt[ZigbeeNWK])[:-data_len]
+        else:
+            header = bytes(pkt[ZigbeeNWK])
+
+    # # Print the 4 extracted parameters
+    # For debug purpose
+    
+    # print(key)
+    # hexdump(key)
+    # print(&#34;\n--------------------\n\n&#34; + bcolors.FAIL + &#34;1. NONCE : ?????????? Most likely the cause of the issue. Length is good (13, function says 7 to 13) but probably bad content. Changing little/big endian doesn&#39;t correct the decryption.\n&#34; + bcolors.ENDC)
+    # print(f&#34;Nonce : {nonce} ; Length : {len(nonce)}&#34;)
+
+    # print(&#34;\n--------------------\n\n&#34; + bcolors.OKGREEN + &#34;2. MIC : validated\n&#34; + bcolors.ENDC)
+    # print(f&#34;MIC : {pkt.mic} ; Length : {len(pkt.mic)}&#34;)
+
+    # print(&#34;\n--------------------\n\n&#34; + bcolors.WARNING + &#34;3. Ciphertext : More or less validated. MIC isn&#39;t part of what&#39;s considered &#39;Ciphertext&#39; which makes sense.\n&#34; + bcolors.ENDC)
+    # print(f&#34;Ciphertext : {ciphertext} ; Length : {len(ciphertext)}&#34;)
+    # hexdump(ciphertext)
+
+    # print(&#34;\n--------------------\n\n&#34; + bcolors.OKGREEN + &#34;4. ZigbeeData : Validated (ends right before the part that is encrypted)\n&#34; + bcolors.ENDC)
+    # print(f&#34;ZigbeeData : {header} ; Length : {len(header)}&#34;)
+    # hexdump(header)
+
+
+    ###########################
+    # Decryption
+    cipher = AES.new(key, AES.MODE_CCM, nonce=nonce, mac_len=4) # Create cipher
+    cipher.update(header) # ???? It doesn&#39;t change anything, but it was in the original code.
+    payload = cipher.decrypt(ciphertext) # Decrypt the ciphertext
+    
+    # Verify MIC
+    try:
+        cipher.verify(mic)
+        micCheck = True
+    except ValueError:
+        micCheck = False
+
+    # print(&#34;\n\n############################################################\n&#34; + bcolors.HEADER + &#34;Decrypted packet :\n&#34; + bcolors.ENDC)
+    # hexdump(text)
+
+    frametype = pkt[ZigbeeNWK].frametype
+    if frametype == 0 and micCheck == 1:
+        payload = ZigbeeAppDataPayload(payload)
+    elif frametype == 1 and micCheck == 1:
+        payload = ZigbeeNWKCommandPayload(payload)
+    else:
+        payload = raw(payload)
+
+    if doMicCheck == False:
+        return payload
+    else:
+        if micCheck == 1: return (payload, True)
+        else:             return (payload, False)
+            </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="iotmap.utils.crypto.zigbee_crypto.zigbee_decrypt"><code class="name flex">
+<span>def <span class="ident">zigbee_decrypt</span></span>(<span>pktorig, key_net)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Decrypts Zigbee packets. Or at least, it should ....</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def zigbee_decrypt(pktorig, key_net):
+    &#34;&#34;&#34;
+    Decrypts Zigbee packets. Or at least, it should ....
+    &#34;&#34;&#34;
+    doMicCheck = False
+
+    #print(&#34;\n############################################################\n\n&gt; Starting 4 parameters extraction&#34;)
+    
+    pkt = pktorig.copy()
+
+    # Set key in byte format
+    key = unhexlify(key_net)
+
+    # 1. Get MIC using scapy black magic to rebuild the packet correctly
+    pkt.nwk_seclevel = DOT154_CRYPT_ENC_MIC32
+    pkt.data += pkt.mic
+    pkt.mic = pkt.data[-4:]
+    mic = pkt.mic
+    pkt.data = pkt.data[:-4] # Reset pkt after MIC extracted
+
+    # 2. Get ciphertext
+    ciphertext = pkt[ZigbeeSecurityHeader].data
+
+    # 3. Get nonce using two ways. The zbdecrypt way seems to be the right one. The second is another found on another project
+    using_zb_nonce = True
+    if using_zb_nonce:
+        extended_src = pkt[ZigbeeSecurityHeader].source
+        if extended_src is None:
+            return None
+        nonce = struct.pack(&#39;Q&#39;,*struct.unpack(&#39;&gt;Q&#39;, extended_src.to_bytes(8, byteorder=&#34;big&#34;))) + struct.pack(&#39;I&#39;, pkt[ZigbeeSecurityHeader].fc) + struct.pack(&#39;B&#39;, bytes(pkt[ZigbeeSecurityHeader])[0])
+        # sys.byteorder MUST BE byteorder=&#34;big&#34;
+    else:
+        # Get NONCE : create NONCE (for crypt) and zigbeeData (for MIC) according to packet type ----------&gt; Whatever that means
+        sec_ctrl_byte = str(pkt[ZigbeeSecurityHeader])[0]
+        if ZigbeeAppDataPayload in pkt:
+            nonce = str(struct.pack(&#39;L&#39;,pkt[ZigbeeNWK].ext_src))+str(struct.pack(&#39;I&#39;,pkt[ZigbeeSecurityHeader].fc)) + sec_ctrl_byte
+        else:
+            nonce = str(struct.pack(&#39;L&#39;,pkt[ZigbeeSecurityHeader].source))+str(struct.pack(&#39;I&#39;,pkt[ZigbeeSecurityHeader].fc)) + sec_ctrl_byte
+
+    # 4. Get ZigbeeData, aka the content of the ZigbeeNWK header.
+    data_len = len(ciphertext) + len(mic)
+    if ZigbeeAppDataPayload in pkt:
+        if data_len &gt; 0:
+            header = bytes(pkt[ZigbeeAppDataPayload])[:-data_len]
+        else:
+            header = bytes(pkt[ZigbeeAppDataPayload])
+    else:
+        if data_len &gt; 0:
+            header = bytes(pkt[ZigbeeNWK])[:-data_len]
+        else:
+            header = bytes(pkt[ZigbeeNWK])
+
+    # # Print the 4 extracted parameters
+    # For debug purpose
+    
+    # print(key)
+    # hexdump(key)
+    # print(&#34;\n--------------------\n\n&#34; + bcolors.FAIL + &#34;1. NONCE : ?????????? Most likely the cause of the issue. Length is good (13, function says 7 to 13) but probably bad content. Changing little/big endian doesn&#39;t correct the decryption.\n&#34; + bcolors.ENDC)
+    # print(f&#34;Nonce : {nonce} ; Length : {len(nonce)}&#34;)
+
+    # print(&#34;\n--------------------\n\n&#34; + bcolors.OKGREEN + &#34;2. MIC : validated\n&#34; + bcolors.ENDC)
+    # print(f&#34;MIC : {pkt.mic} ; Length : {len(pkt.mic)}&#34;)
+
+    # print(&#34;\n--------------------\n\n&#34; + bcolors.WARNING + &#34;3. Ciphertext : More or less validated. MIC isn&#39;t part of what&#39;s considered &#39;Ciphertext&#39; which makes sense.\n&#34; + bcolors.ENDC)
+    # print(f&#34;Ciphertext : {ciphertext} ; Length : {len(ciphertext)}&#34;)
+    # hexdump(ciphertext)
+
+    # print(&#34;\n--------------------\n\n&#34; + bcolors.OKGREEN + &#34;4. ZigbeeData : Validated (ends right before the part that is encrypted)\n&#34; + bcolors.ENDC)
+    # print(f&#34;ZigbeeData : {header} ; Length : {len(header)}&#34;)
+    # hexdump(header)
+
+
+    ###########################
+    # Decryption
+    cipher = AES.new(key, AES.MODE_CCM, nonce=nonce, mac_len=4) # Create cipher
+    cipher.update(header) # ???? It doesn&#39;t change anything, but it was in the original code.
+    payload = cipher.decrypt(ciphertext) # Decrypt the ciphertext
+    
+    # Verify MIC
+    try:
+        cipher.verify(mic)
+        micCheck = True
+    except ValueError:
+        micCheck = False
+
+    # print(&#34;\n\n############################################################\n&#34; + bcolors.HEADER + &#34;Decrypted packet :\n&#34; + bcolors.ENDC)
+    # hexdump(text)
+
+    frametype = pkt[ZigbeeNWK].frametype
+    if frametype == 0 and micCheck == 1:
+        payload = ZigbeeAppDataPayload(payload)
+    elif frametype == 1 and micCheck == 1:
+        payload = ZigbeeNWKCommandPayload(payload)
+    else:
+        payload = raw(payload)
+
+    if doMicCheck == False:
+        return payload
+    else:
+        if micCheck == 1: return (payload, True)
+        else:             return (payload, False)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="iotmap.utils.crypto" href="index.html">iotmap.utils.crypto</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="iotmap.utils.crypto.zigbee_crypto.zigbee_decrypt" href="#iotmap.utils.crypto.zigbee_crypto.zigbee_decrypt">zigbee_decrypt</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

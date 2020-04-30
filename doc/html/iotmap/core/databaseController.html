@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>iotmap.core.databaseController API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>iotmap.core.databaseController</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import time
+import sys
+import csv
+import subprocess
+import logging
+import functools
+from utils.utils import readNodesFile 
+from utils.buildNode import createNode
+from database.nodesdatabase import NodesDatabase
+from neo4j import GraphDatabase
+from shlex import split
+from docopt import docopt, DocoptExit
+
+from sniffer.gen_packet import gen_packet
+
+# def setNodeProperties(nameID, dlsrc, nwksrc, label, role):
+#     properties = {
+#         &#34;label&#34;: label,
+#         &#34;nameID&#34;: nameID,
+#         &#34;dlsrc&#34;: dlsrc,
+#         &#34;nwksrc&#34;: nwksrc,
+#         &#34;role&#34;: role
+#     }
+    
+#     return properties
+
+# nodes = {
+#     &#39;n1&#39;: setNodeProperties(0, [&#39;0x0&#39;], [&#39;0x0&#39;], 2, []),
+#     &#39;n2&#39;: setNodeProperties(1, [&#39;0x7b65&#39;], [&#39;0x7b65&#39;], 2, []),
+#     &#39;n3&#39;: setNodeProperties(2, [&#39;0x3181&#39;], [&#39;0x3181&#39;], 2, []),
+#     &#39;n4&#39;: setNodeProperties(3, [&#39;b8:27:eb:8c:b2:4f&#39;, &#39;0xbeef&#39;], [&#39;b8:27:eb:8c:b2:4f&#39;, &#39;0xbeef&#39;], 2, []),
+#     &#39;n5&#39;: setNodeProperties(4, [&#39;00:12:4b:00:12:04:cb:03&#39;, &#39;00:12:4b:00:12:04:cb&#39;], [&#39;fe80::212:4b00:1204:cb03&#39;, &#39;fe80::212:4b:00:12:04:cb&#39;], 2, []),
+#     &#39;n6&#39;: setNodeProperties(5, [&#39;dc:d0:17:9d:1d:5d&#39;], [&#39;dc:d0:17:9d:1d:5d&#39;], 2, []),
+#     &#39;n7&#39;: setNodeProperties(6, [&#39;b8:27:eb:36:1b:9d&#39;, &#39;00:12:4b:00:0e:0d:82&#39;], [&#39;b8:27:eb:36:1b:9d&#39;, &#39;bbbb::ba27:ebff:fe9c:b137&#39;], 2, []),
+#     &#39;n8&#39;: setNodeProperties(7, [&#39;e0:14:9e:14:11:72&#39;], [&#39;e0:14:9e:14:11:72&#39;], 2, []),
+#     &#39;n9&#39;: setNodeProperties(8, [&#39;00:12:4b:00:16:65:27:07&#39;, &#39;00:12:4b:00:16:65:27&#39;], [&#39;::212:4b00:1665:2707&#39;, &#39;fe80::212:4b:00:16:65:27&#39;], 2, []),
+#     &#39;n10&#39;: setNodeProperties(9, [&#39;00:12:4b:00:12:77:98:06&#39;, &#39;00:12:4b:00:12:77:98&#39;], [&#39;::212:4b00:1277:9806&#39;, &#39;fe80::212:4b:00:12:77:98&#39;], 2, []),
+#     &#39;n11&#39;: setNodeProperties(10, [&#39;00:12:4b:00:0e:0d:82:57&#39;, &#39;00:12:4b:00:0e:0d:82&#39;], [&#39;::212:4b00:e0d:8257&#39;], 2, []),
+#     &#39;n12&#39;: setNodeProperties(11, [&#39;00:12:4b:00:12:04:c9:2d&#39;, &#39;00:12:4b:00:12:04:c9&#39;], [&#39;::212:4b00:1204:c92d&#39;, &#39;fd00::212:4b00:1204:c92d&#39;], 2, []),
+#     &#39;n13&#39;: setNodeProperties(12, [&#39;00:12:4b:00:12:04:ce:a4&#39;, &#39;00:12:4b:00:12:04:ce&#39;], [&#39;::212:4b00:1204:cea4&#39;, &#39;fe80::212:4b:00:12:04:ce&#39;, &#39;fd00::212:4b00:1204:cea4&#39;], 2, []),
+# }
+
+class DBController(object):
+    def __init__(self):
+        #self.db = NodesDatabase(&#34;bolt:http://localhost:7474&#34;, &#34;neo4j&#34;, &#34;spliot&#34;) # or port 7474
+        self.db = NodesDatabase(&#34;bolt:http://localhost:7687&#34;, &#34;neo4j&#34;, &#34;iotmap&#34;) # or port 7474
+
+    # Return a dictionnary of TX transmissions
+    def loadCSV(self, csvfile):
+        nodeTX = {}
+        # tnodes = []
+        # nodes = {}
+        i = 0
+        # If file type is str then it is a file to open
+        # if it is a list type, then the csvfile is directly gave as args
+        for line in csvfile:
+            try:
+                #print(f&#34;{line}&#34;)
+                protocol, t, dls, dld, nwks, nwkd, appt, p = line
+            except:
+                logging.debug(f&#34;An error occurs, something&#39;s wrong with the csv file {csvfile} &#34;)
+                return None
+            
+            nodeTX[f&#39;nodeTX{i}&#39;] = self.setTxProperties(protocol, float(t), dls, dld, nwks, nwkd, int(appt), p)
+            i += 1
+
+        #return nodeTX, nodes
+        return nodeTX
+
+    # This function takes array of nodes in parameters
+    # Define the right properties of each node of the array
+    # Import the result into the database
+    def importNodes(self, listNodes):
+        nodes = []
+        i = 0
+        for node in listNodes:  
+            nameID, dlsrc, nwksrc = node
+            nodes.append([nameID, dlsrc, nwksrc, 2, []])
+            i += 1
+
+        self.db.create_nodes(nodes)
+    
+
+    def setTxProperties(self, protocol, timestamp, dlsrc, dldst, nwksrc, nwkdst, apptype, data):
+        properties = {
+            &#34;protocol&#34;: protocol,     # Protocol used to communicate 
+            &#34;timestamp&#34;: timestamp,
+            &#34;dlsrc&#34;: dlsrc,           # Data link src address
+            &#34;dldst&#34;: dldst,           # Data link dst address
+            # Network layer
+            &#34;nwksrc&#34;: nwksrc,         # Nwk src address
+            &#34;nwkdst&#34;: nwkdst,         # Nwk dst address
+            # transport layer
+            &#34;apptype&#34;: apptype,       # Id of the cluster
+            # Application layer
+            &#34;data&#34;: data
+        }
+
+        return properties
+
+
+    # Called by the import_pcap function in the module Database
+    # It consists of converting protocol-based pcap to a single
+    # file with a unified format
+    # Then use the result to create the nodes and the transmission
+    # TODO: Currently the nodes properties are hardcoded but a function will
+    # arrive to extract each address from the pcap and provide the set of nodes
+    def update(self, pcaps_list, output, nbThread, nodesFile):
+        csvData = []
+        for protocol in pcaps_list.keys():
+            for pcap in pcaps_list[protocol]:
+                csvData += gen_packet(pcap, protocol.upper(), nbThread, True)
+
+        # Let order the list by timestamp
+        csvData.sort(key=lambda x: x[1])
+
+        try:
+            logging.info(f&#34;[i] Writting into {output} file&#34;)
+            with open(output, &#39;w&#39;) as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerows(csvData)
+            
+            logging.info(f&#34;[i] Result wrote in {output}&#34;)
+        except IOError as ioe:
+            #print(f&#34;CSVFile: {csvData}&#34;)
+            logging.error(f&#39;Error while opening the file...\n{ioe}&#39;)
+            return False
+        except csv.Error as csve:
+            #print(f&#34;CSVFile: {csvData}&#34;)
+            logging.error(f&#39;Error while writting into CSV file...\n{csve}&#39;)
+            return False
+        except :
+            #print(f&#34;CSVFile: {csvData}&#34;)
+            logging.error(f&#39;Error while writting into CSV file...&#39;)
+            return False
+
+        if nodesFile is None:
+            nodes = self.extractNodes(csvData)
+            self.db.create_nodes(nodes)
+        else:
+            nodes = readNodesFile(nodesFile)
+            self.importNodes(nodes)          
+            
+        nodesTx = self.loadCSV(csvData)
+        self.db.create_nodesTX(nodesTx)
+        return True
+
+
+    # This function builds the first graph only (data link graph or point-to-point communications)
+    def dlGraph(self, filename=None):
+        # If filename is provided then we erase the database and
+        # use the content of the file as data
+        print(f&#39;{filename}&#39;)
+        if filename is not None:
+            #self.delNodes(2)
+            self.db.removeTX()
+            with open(filename, &#39;r&#39;) as csvFile:
+                csvData = list(csv.reader(csvFile, delimiter=&#39;,&#39;))
+
+            nodesTx = self.loadCSV(csvData)
+            #self.db.create_nodes(nodes)
+            self.db.create_nodesTX(nodesTx)
+
+            return True
+        # Check if transmissions are not already stored in the database
+        else:
+            return None
+
+    # This function builds the network graph (end-to-end communications)
+    # Build the dlGraph if it does not exist
+    def nwkGraph(self, filename=None):
+        # If filename is provided then we erase the database and
+        # use the content of the file as data
+        if filename is not None:
+            self.dlGraph(filename)
+        # Check if nwk transmissions are not already stored in the database
+        #else:
+            #self.delNodes(3)
+            
+        self.db.nwkGraph()
+
+
+    # This function builds the transport graph (Role of the nodes in the network)
+    # Build the dlGraph and the nwkGraph if they do not exist
+    def transGraph(self, delta, delta2, filename):
+        # If filename is provided then we erase the database and
+        # use the content of the file as data
+        if filename is not None:
+            self.nwkGraph(filename)
+        # Check if trans transmissions are not already stored in the database
+        #else:
+            #self.delNodes(4)
+            
+        self.db.transGraph(delta, delta2)
+
+    # This function builds the application graph (Currently only Interaction pattern)
+    # Build the 3 previous graphs if they do not exist
+    def appGraph(self, delta, tdelta1, tdelta2, filename):
+        # If filename is provided then we erase the database and
+        # use the content of the file as data
+        if filename is not None:
+            self.transGraph(tdelta1, tdelta2, filename)
+        # Check if trans transmissions are not already stored in the database
+        #else:
+        #    self.delNodes(5)
+            
+        self.db.appGraph(delta)
+
+        
+    def delNodes(self, label):
+        self.db.del_nodes(label)
+
+    def getResults(self):
+        return self.db.getResults()
+
+    # Extract and list potential nodes found in 
+    # the file of transmissions
+    # csvData is an array containing transmission information
+    # We use a protocol-specific function to create a node based on its dl address
+    def extractNodes(self, csvData):
+        nodes = []
+        for line in csvData:
+            protocol, dlsrc, dldst = csvData[0], csvData[2], csvData[3]
+            n1 = createNode(protocol, dlsrc)
+            n2 = createNode(protocol, dldst)
+            if n1 not in nodes:
+                nodes.append(n1)
+            if n2 not in nodes:
+                nodes.append(n2)
+
+        return nodes
+
+    # Get all nodes already stored in the database
+    def getNodes(self):
+        nodes = self.db.getNodes()
+
+        return nodes
+
+    def getNode(self, nodeID):
+        node = self.db.getNode(nodeID)
+
+        return node
+
+    def maxID(self):
+        return self.db.maxID()
+
+    def removeNode(self, nodeID):
+        ret = self.db.removeNode(nodeID)
+
+        return ret</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="iotmap.core.databaseController.DBController"><code class="flex name class">
+<span>class <span class="ident">DBController</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DBController(object):
+    def __init__(self):
+        #self.db = NodesDatabase(&#34;bolt:http://localhost:7474&#34;, &#34;neo4j&#34;, &#34;spliot&#34;) # or port 7474
+        self.db = NodesDatabase(&#34;bolt:http://localhost:7687&#34;, &#34;neo4j&#34;, &#34;iotmap&#34;) # or port 7474
+
+    # Return a dictionnary of TX transmissions
+    def loadCSV(self, csvfile):
+        nodeTX = {}
+        # tnodes = []
+        # nodes = {}
+        i = 0
+        # If file type is str then it is a file to open
+        # if it is a list type, then the csvfile is directly gave as args
+        for line in csvfile:
+            try:
+                #print(f&#34;{line}&#34;)
+                protocol, t, dls, dld, nwks, nwkd, appt, p = line
+            except:
+                logging.debug(f&#34;An error occurs, something&#39;s wrong with the csv file {csvfile} &#34;)
+                return None
+            
+            nodeTX[f&#39;nodeTX{i}&#39;] = self.setTxProperties(protocol, float(t), dls, dld, nwks, nwkd, int(appt), p)
+            i += 1
+
+        #return nodeTX, nodes
+        return nodeTX
+
+    # This function takes array of nodes in parameters
+    # Define the right properties of each node of the array
+    # Import the result into the database
+    def importNodes(self, listNodes):
+        nodes = []
+        i = 0
+        for node in listNodes:  
+            nameID, dlsrc, nwksrc = node
+            nodes.append([nameID, dlsrc, nwksrc, 2, []])
+            i += 1
+
+        self.db.create_nodes(nodes)
+    
+
+    def setTxProperties(self, protocol, timestamp, dlsrc, dldst, nwksrc, nwkdst, apptype, data):
+        properties = {
+            &#34;protocol&#34;: protocol,     # Protocol used to communicate 
+            &#34;timestamp&#34;: timestamp,
+            &#34;dlsrc&#34;: dlsrc,           # Data link src address
+            &#34;dldst&#34;: dldst,           # Data link dst address
+            # Network layer
+            &#34;nwksrc&#34;: nwksrc,         # Nwk src address
+            &#34;nwkdst&#34;: nwkdst,         # Nwk dst address
+            # transport layer
+            &#34;apptype&#34;: apptype,       # Id of the cluster
+            # Application layer
+            &#34;data&#34;: data
+        }
+
+        return properties
+
+
+    # Called by the import_pcap function in the module Database
+    # It consists of converting protocol-based pcap to a single
+    # file with a unified format
+    # Then use the result to create the nodes and the transmission
+    # TODO: Currently the nodes properties are hardcoded but a function will
+    # arrive to extract each address from the pcap and provide the set of nodes
+    def update(self, pcaps_list, output, nbThread, nodesFile):
+        csvData = []
+        for protocol in pcaps_list.keys():
+            for pcap in pcaps_list[protocol]:
+                csvData += gen_packet(pcap, protocol.upper(), nbThread, True)
+
+        # Let order the list by timestamp
+        csvData.sort(key=lambda x: x[1])
+
+        try:
+            logging.info(f&#34;[i] Writting into {output} file&#34;)
+            with open(output, &#39;w&#39;) as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerows(csvData)
+            
+            logging.info(f&#34;[i] Result wrote in {output}&#34;)
+        except IOError as ioe:
+            #print(f&#34;CSVFile: {csvData}&#34;)
+            logging.error(f&#39;Error while opening the file...\n{ioe}&#39;)
+            return False
+        except csv.Error as csve:
+            #print(f&#34;CSVFile: {csvData}&#34;)
+            logging.error(f&#39;Error while writting into CSV file...\n{csve}&#39;)
+            return False
+        except :
+            #print(f&#34;CSVFile: {csvData}&#34;)
+            logging.error(f&#39;Error while writting into CSV file...&#39;)
+            return False
+
+        if nodesFile is None:
+            nodes = self.extractNodes(csvData)
+            self.db.create_nodes(nodes)
+        else:
+            nodes = readNodesFile(nodesFile)
+            self.importNodes(nodes)          
+            
+        nodesTx = self.loadCSV(csvData)
+        self.db.create_nodesTX(nodesTx)
+        return True
+
+
+    # This function builds the first graph only (data link graph or point-to-point communications)
+    def dlGraph(self, filename=None):
+        # If filename is provided then we erase the database and
+        # use the content of the file as data
+        print(f&#39;{filename}&#39;)
+        if filename is not None:
+            #self.delNodes(2)
+            self.db.removeTX()
+            with open(filename, &#39;r&#39;) as csvFile:
+                csvData = list(csv.reader(csvFile, delimiter=&#39;,&#39;))
+
+            nodesTx = self.loadCSV(csvData)
+            #self.db.create_nodes(nodes)
+            self.db.create_nodesTX(nodesTx)
+
+            return True
+        # Check if transmissions are not already stored in the database
+        else:
+            return None
+
+    # This function builds the network graph (end-to-end communications)
+    # Build the dlGraph if it does not exist
+    def nwkGraph(self, filename=None):
+        # If filename is provided then we erase the database and
+        # use the content of the file as data
+        if filename is not None:
+            self.dlGraph(filename)
+        # Check if nwk transmissions are not already stored in the database
+        #else:
+            #self.delNodes(3)
+            
+        self.db.nwkGraph()
+
+
+    # This function builds the transport graph (Role of the nodes in the network)
+    # Build the dlGraph and the nwkGraph if they do not exist
+    def transGraph(self, delta, delta2, filename):
+        # If filename is provided then we erase the database and
+        # use the content of the file as data
+        if filename is not None:
+            self.nwkGraph(filename)
+        # Check if trans transmissions are not already stored in the database
+        #else:
+            #self.delNodes(4)
+            
+        self.db.transGraph(delta, delta2)
+
+    # This function builds the application graph (Currently only Interaction pattern)
+    # Build the 3 previous graphs if they do not exist
+    def appGraph(self, delta, tdelta1, tdelta2, filename):
+        # If filename is provided then we erase the database and
+        # use the content of the file as data
+        if filename is not None:
+            self.transGraph(tdelta1, tdelta2, filename)
+        # Check if trans transmissions are not already stored in the database
+        #else:
+        #    self.delNodes(5)
+            
+        self.db.appGraph(delta)
+
+        
+    def delNodes(self, label):
+        self.db.del_nodes(label)
+
+    def getResults(self):
+        return self.db.getResults()
+
+    # Extract and list potential nodes found in 
+    # the file of transmissions
+    # csvData is an array containing transmission information
+    # We use a protocol-specific function to create a node based on its dl address
+    def extractNodes(self, csvData):
+        nodes = []
+        for line in csvData:
+            protocol, dlsrc, dldst = csvData[0], csvData[2], csvData[3]
+            n1 = createNode(protocol, dlsrc)
+            n2 = createNode(protocol, dldst)
+            if n1 not in nodes:
+                nodes.append(n1)
+            if n2 not in nodes:
+                nodes.append(n2)
+
+        return nodes
+
+    # Get all nodes already stored in the database
+    def getNodes(self):
+        nodes = self.db.getNodes()
+
+        return nodes
+
+    def getNode(self, nodeID):
+        node = self.db.getNode(nodeID)
+
+        return node
+
+    def maxID(self):
+        return self.db.maxID()
+
+    def removeNode(self, nodeID):
+        ret = self.db.removeNode(nodeID)
+
+        return ret</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="iotmap.core.databaseController.DBController.appGraph"><code class="name flex">
+<span>def <span class="ident">appGraph</span></span>(<span>self, delta, tdelta1, tdelta2, filename)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def appGraph(self, delta, tdelta1, tdelta2, filename):
+    # If filename is provided then we erase the database and
+    # use the content of the file as data
+    if filename is not None:
+        self.transGraph(tdelta1, tdelta2, filename)
+    # Check if trans transmissions are not already stored in the database
+    #else:
+    #    self.delNodes(5)
+        
+    self.db.appGraph(delta)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.delNodes"><code class="name flex">
+<span>def <span class="ident">delNodes</span></span>(<span>self, label)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delNodes(self, label):
+    self.db.del_nodes(label)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.dlGraph"><code class="name flex">
+<span>def <span class="ident">dlGraph</span></span>(<span>self, filename=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dlGraph(self, filename=None):
+    # If filename is provided then we erase the database and
+    # use the content of the file as data
+    print(f&#39;{filename}&#39;)
+    if filename is not None:
+        #self.delNodes(2)
+        self.db.removeTX()
+        with open(filename, &#39;r&#39;) as csvFile:
+            csvData = list(csv.reader(csvFile, delimiter=&#39;,&#39;))
+
+        nodesTx = self.loadCSV(csvData)
+        #self.db.create_nodes(nodes)
+        self.db.create_nodesTX(nodesTx)
+
+        return True
+    # Check if transmissions are not already stored in the database
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.extractNodes"><code class="name flex">
+<span>def <span class="ident">extractNodes</span></span>(<span>self, csvData)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extractNodes(self, csvData):
+    nodes = []
+    for line in csvData:
+        protocol, dlsrc, dldst = csvData[0], csvData[2], csvData[3]
+        n1 = createNode(protocol, dlsrc)
+        n2 = createNode(protocol, dldst)
+        if n1 not in nodes:
+            nodes.append(n1)
+        if n2 not in nodes:
+            nodes.append(n2)
+
+    return nodes</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.getNode"><code class="name flex">
+<span>def <span class="ident">getNode</span></span>(<span>self, nodeID)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getNode(self, nodeID):
+    node = self.db.getNode(nodeID)
+
+    return node</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.getNodes"><code class="name flex">
+<span>def <span class="ident">getNodes</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getNodes(self):
+    nodes = self.db.getNodes()
+
+    return nodes</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.getResults"><code class="name flex">
+<span>def <span class="ident">getResults</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getResults(self):
+    return self.db.getResults()</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.importNodes"><code class="name flex">
+<span>def <span class="ident">importNodes</span></span>(<span>self, listNodes)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def importNodes(self, listNodes):
+    nodes = []
+    i = 0
+    for node in listNodes:  
+        nameID, dlsrc, nwksrc = node
+        nodes.append([nameID, dlsrc, nwksrc, 2, []])
+        i += 1
+
+    self.db.create_nodes(nodes)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.loadCSV"><code class="name flex">
+<span>def <span class="ident">loadCSV</span></span>(<span>self, csvfile)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loadCSV(self, csvfile):
+    nodeTX = {}
+    # tnodes = []
+    # nodes = {}
+    i = 0
+    # If file type is str then it is a file to open
+    # if it is a list type, then the csvfile is directly gave as args
+    for line in csvfile:
+        try:
+            #print(f&#34;{line}&#34;)
+            protocol, t, dls, dld, nwks, nwkd, appt, p = line
+        except:
+            logging.debug(f&#34;An error occurs, something&#39;s wrong with the csv file {csvfile} &#34;)
+            return None
+        
+        nodeTX[f&#39;nodeTX{i}&#39;] = self.setTxProperties(protocol, float(t), dls, dld, nwks, nwkd, int(appt), p)
+        i += 1
+
+    #return nodeTX, nodes
+    return nodeTX</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.maxID"><code class="name flex">
+<span>def <span class="ident">maxID</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def maxID(self):
+    return self.db.maxID()</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.nwkGraph"><code class="name flex">
+<span>def <span class="ident">nwkGraph</span></span>(<span>self, filename=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def nwkGraph(self, filename=None):
+    # If filename is provided then we erase the database and
+    # use the content of the file as data
+    if filename is not None:
+        self.dlGraph(filename)
+    # Check if nwk transmissions are not already stored in the database
+    #else:
+        #self.delNodes(3)
+        
+    self.db.nwkGraph()</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.removeNode"><code class="name flex">
+<span>def <span class="ident">removeNode</span></span>(<span>self, nodeID)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def removeNode(self, nodeID):
+    ret = self.db.removeNode(nodeID)
+
+    return ret</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.setTxProperties"><code class="name flex">
+<span>def <span class="ident">setTxProperties</span></span>(<span>self, protocol, timestamp, dlsrc, dldst, nwksrc, nwkdst, apptype, data)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setTxProperties(self, protocol, timestamp, dlsrc, dldst, nwksrc, nwkdst, apptype, data):
+    properties = {
+        &#34;protocol&#34;: protocol,     # Protocol used to communicate 
+        &#34;timestamp&#34;: timestamp,
+        &#34;dlsrc&#34;: dlsrc,           # Data link src address
+        &#34;dldst&#34;: dldst,           # Data link dst address
+        # Network layer
+        &#34;nwksrc&#34;: nwksrc,         # Nwk src address
+        &#34;nwkdst&#34;: nwkdst,         # Nwk dst address
+        # transport layer
+        &#34;apptype&#34;: apptype,       # Id of the cluster
+        # Application layer
+        &#34;data&#34;: data
+    }
+
+    return properties</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.transGraph"><code class="name flex">
+<span>def <span class="ident">transGraph</span></span>(<span>self, delta, delta2, filename)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def transGraph(self, delta, delta2, filename):
+    # If filename is provided then we erase the database and
+    # use the content of the file as data
+    if filename is not None:
+        self.nwkGraph(filename)
+    # Check if trans transmissions are not already stored in the database
+    #else:
+        #self.delNodes(4)
+        
+    self.db.transGraph(delta, delta2)</code></pre>
+</details>
+</dd>
+<dt id="iotmap.core.databaseController.DBController.update"><code class="name flex">
+<span>def <span class="ident">update</span></span>(<span>self, pcaps_list, output, nbThread, nodesFile)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update(self, pcaps_list, output, nbThread, nodesFile):
+    csvData = []
+    for protocol in pcaps_list.keys():
+        for pcap in pcaps_list[protocol]:
+            csvData += gen_packet(pcap, protocol.upper(), nbThread, True)
+
+    # Let order the list by timestamp
+    csvData.sort(key=lambda x: x[1])
+
+    try:
+        logging.info(f&#34;[i] Writting into {output} file&#34;)
+        with open(output, &#39;w&#39;) as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerows(csvData)
+        
+        logging.info(f&#34;[i] Result wrote in {output}&#34;)
+    except IOError as ioe:
+        #print(f&#34;CSVFile: {csvData}&#34;)
+        logging.error(f&#39;Error while opening the file...\n{ioe}&#39;)
+        return False
+    except csv.Error as csve:
+        #print(f&#34;CSVFile: {csvData}&#34;)
+        logging.error(f&#39;Error while writting into CSV file...\n{csve}&#39;)
+        return False
+    except :
+        #print(f&#34;CSVFile: {csvData}&#34;)
+        logging.error(f&#39;Error while writting into CSV file...&#39;)
+        return False
+
+    if nodesFile is None:
+        nodes = self.extractNodes(csvData)
+        self.db.create_nodes(nodes)
+    else:
+        nodes = readNodesFile(nodesFile)
+        self.importNodes(nodes)          
+        
+    nodesTx = self.loadCSV(csvData)
+    self.db.create_nodesTX(nodesTx)
+    return True</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="iotmap.core" href="index.html">iotmap.core</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="iotmap.core.databaseController.DBController" href="#iotmap.core.databaseController.DBController">DBController</a></code></h4>
+<ul class="two-column">
+<li><code><a title="iotmap.core.databaseController.DBController.appGraph" href="#iotmap.core.databaseController.DBController.appGraph">appGraph</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.delNodes" href="#iotmap.core.databaseController.DBController.delNodes">delNodes</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.dlGraph" href="#iotmap.core.databaseController.DBController.dlGraph">dlGraph</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.extractNodes" href="#iotmap.core.databaseController.DBController.extractNodes">extractNodes</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.getNode" href="#iotmap.core.databaseController.DBController.getNode">getNode</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.getNodes" href="#iotmap.core.databaseController.DBController.getNodes">getNodes</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.getResults" href="#iotmap.core.databaseController.DBController.getResults">getResults</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.importNodes" href="#iotmap.core.databaseController.DBController.importNodes">importNodes</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.loadCSV" href="#iotmap.core.databaseController.DBController.loadCSV">loadCSV</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.maxID" href="#iotmap.core.databaseController.DBController.maxID">maxID</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.nwkGraph" href="#iotmap.core.databaseController.DBController.nwkGraph">nwkGraph</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.removeNode" href="#iotmap.core.databaseController.DBController.removeNode">removeNode</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.setTxProperties" href="#iotmap.core.databaseController.DBController.setTxProperties">setTxProperties</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.transGraph" href="#iotmap.core.databaseController.DBController.transGraph">transGraph</a></code></li>
+<li><code><a title="iotmap.core.databaseController.DBController.update" href="#iotmap.core.databaseController.DBController.update">update</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

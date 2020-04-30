@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>iotmap.iotmap API documentation</title>
+<meta name="description" content="IoTMap …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>iotmap.iotmap</code></h1>
+</header>
+<section id="section-intro">
+<p>IoTMap</p>
+<p>Usage:
+iotmap.py [ database [&ndash;import_pcap <pcapfile> <protocol> | &ndash;clear_database | &ndash;export_db <path> | &ndash;import_db <path>]
+| sniffing [&ndash;channel <channel>] [&ndash;timeout <timeout>] [&ndash;packetnb <packetnb>] [&ndash;protocol <protocol>] [&ndash;nbthread <nbthread>] [&ndash;output <filename>]
+| exploit
+| modelling [&ndash;level <level>] ]</p>
+<p>Options:
+-h, &ndash;help
+Show this help menu.
+-v, &ndash;version
+Show version.</p>
+<pre><code>database                             Use database mode.
+--clear_database                     Clear the current database
+-i, --import_pcap &lt;file&gt; &lt;protocol&gt;  Pcap file to import in the database.
+-e, --export_db &lt;path&gt;               Export the database to PATH.
+-d, --import_db &lt;path&gt;               Load a database dump (this action removes the current database).
+
+sniffing                             Use live sniffing mode.
+-c, --channel &lt;channel&gt;              Channel to sniff [default: 15].
+-t, --timeout &lt;timeout&gt;              Numbers of second to sniff [default: 15].
+-p, --packetnb &lt;packetnb&gt;            Numbers of packets to sniff [default: 100].
+--protocol &lt;protocol&gt;                Protocol to use at the layer 3 [default: zigbee]
+-m, --nbthread nbthread              Number of threads allocated to process the analysis of the communications intercepted [default: 4].
+-o, --output filename                Output file to store the result of the sniffing [default: unified_format.csv].
+
+exploit                              Use exploit mode.
+
+modelling                            Use modelling mode.
+-l level, --level level              Set the number of layers of the graph [default: 4].
+</code></pre>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Usage description for docopt
+&#34;&#34;&#34;
+IoTMap
+
+Usage: 
+    iotmap.py [ database [--import_pcap &lt;pcapfile&gt; &lt;protocol&gt; | --clear_database | --export_db &lt;path&gt; | --import_db &lt;path&gt;]
+              | sniffing [--channel &lt;channel&gt;] [--timeout &lt;timeout&gt;] [--packetnb &lt;packetnb&gt;] [--protocol &lt;protocol&gt;] [--nbthread &lt;nbthread&gt;] [--output &lt;filename&gt;]
+              | exploit 
+              | modelling [--level &lt;level&gt;] ]
+
+Options: 
+    -h, --help                           Show this help menu.
+    -v, --version                        Show version.
+
+    database                             Use database mode.
+    --clear_database                     Clear the current database
+    -i, --import_pcap &lt;file&gt; &lt;protocol&gt;  Pcap file to import in the database.
+    -e, --export_db &lt;path&gt;               Export the database to PATH.
+    -d, --import_db &lt;path&gt;               Load a database dump (this action removes the current database).
+
+    sniffing                             Use live sniffing mode.
+    -c, --channel &lt;channel&gt;              Channel to sniff [default: 15].
+    -t, --timeout &lt;timeout&gt;              Numbers of second to sniff [default: 15].
+    -p, --packetnb &lt;packetnb&gt;            Numbers of packets to sniff [default: 100].
+    --protocol &lt;protocol&gt;                Protocol to use at the layer 3 [default: zigbee]
+    -m, --nbthread nbthread              Number of threads allocated to process the analysis of the communications intercepted [default: 4].
+    -o, --output filename                Output file to store the result of the sniffing [default: unified_format.csv].
+
+    exploit                              Use exploit mode.
+
+    modelling                            Use modelling mode.
+    -l level, --level level              Set the number of layers of the graph [default: 4].
+&#34;&#34;&#34;
+
+
+from core.databaseController import DBController
+import time
+import subprocess
+import functools
+from shlex import split
+from docopt import docopt, DocoptExit
+from prompt_toolkit import PromptSession
+from prompt_toolkit.application import run_in_terminal
+from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
+from prompt_toolkit.completion import WordCompleter, PathCompleter
+from core.sniffing import Sniffing
+from core.database import Database
+from core.modelling import Modelling
+from utils.utils import main_help
+
+
+class IoTMap:
+    def __init__(self):
+        self.name=&#34;main&#34;
+        self.prompt_session = PromptSession(
+            &#39;IoTMap &gt; &#39;,
+            auto_suggest=AutoSuggestFromHistory(),
+            enable_history_search=True,
+            complete_in_thread=True,
+            complete_while_typing=True
+        )
+
+        self.dc = DBController()
+        self.options = self.get_options()
+        
+        self.contexts = [
+            Sniffing(self.prompt_session, self.dc, self.options[&#39;sniffing&#39;]),
+            Database(self.prompt_session, self.dc),
+            Modelling(self.prompt_session, self.dc, self.options[&#39;modelling&#39;]),
+        ]
+
+        self.prompt_session.completer = WordCompleter([ctx.name for ctx in self.contexts] + [&#39;exit&#39;, &#39;help&#39;], ignore_case=True)
+        self.prompt_session.contexts = self.contexts
+        self.prompt_session.path_completer = PathCompleter()
+        self.current_context = self
+
+    # This function returns the options given
+    # by the user
+    def get_options(self):  
+        module_name = [m for m in [&#39;sniffing&#39;, &#39;database&#39;, &#39;modelling&#39;, &#39;exploit&#39;] if args[f&#39;{m}&#39;]]
+        
+        sniffing = {
+            &#39;command&#39;: &#39;run&#39;,
+            &#39;channel&#39;: args[&#39;--channel&#39;],
+            &#39;timeout&#39;: args[&#39;--timeout&#39;],
+            &#39;packetNb&#39;: args[&#39;--packetnb&#39;],
+            &#39;protocol&#39;: args[&#39;--protocol&#39;],
+            &#39;output&#39;: args[&#39;--output&#39;],
+            &#39;nbthread&#39;: args[&#39;--nbthread&#39;],
+        }
+
+        modelling = {
+            &#39;command&#39;: &#39;&#39;,
+            &#39;level&#39;: args[&#39;--level&#39;],
+        }
+        
+        options = {
+            &#39;module&#39;: module_name,
+            &#39;sniffing&#39;: sniffing,
+            &#39;modelling&#39;: modelling,
+        }
+        
+        if args[&#39;database&#39;]:
+            table_opt_db = [&#39;clear_database&#39;, &#39;import_pcap&#39;, &#39;export_db&#39;, &#39;import_db&#39;]
+            cmd_db = [opt for opt in table_opt_db if not(not args[f&#39;--{opt}&#39;])]
+            args_db = &#39;&#39;
+            
+            if cmd_db:
+                cmd_db = str(cmd_db[0])
+                if args[f&#39;--{cmd_db}&#39;] is not True: args_db = args[f&#39;--{cmd_db}&#39;]
+                if cmd_db == &#39;import_pcap&#39;: args_db += f&#39; {args[&#34;&lt;protocol&gt;&#34;]}&#39; 
+            else :
+                cmd_db = &#39;&#39;
+                
+            database = {
+                &#39;command&#39;: f&#39;{cmd_db} {args_db}&#39;
+            }
+            
+            options[&#39;database&#39;] = database
+
+        # if args[&#39;modelling&#39;]:
+        #     options[&#39;modelling&#39;] = {
+        #         &#39;command&#39;: &#39;&#39;,
+        #         &#39;level&#39;: args[&#39;--level&#39;]
+        #     }
+            
+        if args[&#39;exploit&#39;]:
+            options[&#39;exploit&#39;] = {
+                &#39;command&#39;: &#39;exploit&#39;
+            }
+            
+        return options
+
+    # Run command set with the command line and stay on the
+    # good context
+    def run_options(self):
+        module = self.options[&#39;module&#39;][0]
+        self.context_switching(module)
+
+        command = self.options[f&#39;{module}&#39;][&#39;command&#39;].strip()
+        if len(command) &gt; 0:
+            res = self.prompt_session.prompt(accept_default=True, default=command)
+            self.parse_result(res)
+
+    def context_switching(self, func):
+        for context in self.contexts:
+            if context.name == func:
+                self.prompt_session.message = context.prompt
+                self.prompt_session.completer = context.completer
+                self.current_context = context
+                return True
+        return False
+
+    def parse_result(self, result):
+        if len(result):
+            if not self.context_switching(result):
+                command = split(result)
+                try:
+                    bound_cmd_handler = functools.partial(getattr(self.current_context, command[0]), args=command[1:])
+                    run_in_terminal(bound_cmd_handler)
+                except TypeError:
+                    print (f&#34;Error type&#34;)
+                except AttributeError as ae:
+                    print (f&#34;Error with the command &#39;{command[0]}&#39;:\n{ae}&#34;)
+                except DocoptExit as e:
+                    print(str(e))
+                except SystemExit:
+                    pass
+
+    def __call__(self):
+        if self.options[&#39;module&#39;]:
+            self.run_options()
+            
+        while True:
+            result = self.prompt_session.prompt()
+            if result == &#39;help&#39; and self.current_context.name == &#39;main&#39;:
+                print(main_help())
+                continue
+            
+            if result == &#39;exit&#39;:
+                break
+
+            self.parse_result(result)
+
+
+if __name__ == &#39;__main__&#39;:  
+
+    author=&#39;AlgoSecure&#39;
+    version=0.1
+    
+    banner = f&#34;&#34;&#34;\
+                                                                                                                   
+                                                                                                                   
+IIIIIIIIII              TTTTTTTTTTTTTTTTTTTTTTTMMMMMMMM               MMMMMMMM                                     
+I::::::::I              T:::::::::::::::::::::TM:::::::M             M:::::::M                                     
+I::::::::I              T:::::::::::::::::::::TM::::::::M           M::::::::M                                     
+II::::::II              T:::::TT:::::::TT:::::TM:::::::::M         M:::::::::M                                     
+  I::::I     oooooooooooTTTTTT  T:::::T  TTTTTTM::::::::::M       M::::::::::M  aaaaaaaaaaaaa  ppppp   ppppppppp   
+  I::::I   oo:::::::::::oo      T:::::T        M:::::::::::M     M:::::::::::M  a::::::::::::a p::::ppp:::::::::p  
+  I::::I  o:::::::::::::::o     T:::::T        M:::::::M::::M   M::::M:::::::M  aaaaaaaaa:::::ap:::::::::::::::::p 
+  I::::I  o:::::ooooo:::::o     T:::::T        M::::::M M::::M M::::M M::::::M           a::::app::::::ppppp::::::p
+  I::::I  o::::o     o::::o     T:::::T        M::::::M  M::::M::::M  M::::::M    aaaaaaa:::::a p:::::p     p:::::p
+  I::::I  o::::o     o::::o     T:::::T        M::::::M   M:::::::M   M::::::M  aa::::::::::::a p:::::p     p:::::p
+  I::::I  o::::o     o::::o     T:::::T        M::::::M    M:::::M    M::::::M a::::aaaa::::::a p:::::p     p:::::p
+  I::::I  o::::o     o::::o     T:::::T        M::::::M     MMMMM     M::::::Ma::::a    a:::::a p:::::p    p::::::p
+II::::::IIo:::::ooooo:::::o   TT:::::::TT      M::::::M               M::::::Ma::::a    a:::::a p:::::ppppp:::::::p
+I::::::::Io:::::::::::::::o   T:::::::::T      M::::::M               M::::::Ma:::::aaaa::::::a p::::::::::::::::p 
+I::::::::I oo:::::::::::oo    T:::::::::T      M::::::M               M::::::M a::::::::::aa:::ap::::::::::::::pp  
+IIIIIIIIII   ooooooooooo      TTTTTTTTTTT      MMMMMMMM               MMMMMMMM  aaaaaaaaaa  aaaap::::::pppppppp    
+                                                                                                p:::::p            
+                                                                                                p:::::p            
+                                                                                               p:::::::p           
+                                                                                               p:::::::p           
+                                                                                               p:::::::p           
+                                                                                               ppppppppp           
+                                                                                                                   
+
+                                Version={version}
+&#34;&#34;&#34;             
+    args = docopt(__doc__, version=version)
+    
+    print(&#34;Starting the database&#34;)
+    command = &#34;./database/neo4j-community/bin/neo4j start&#34;
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, error = process.communicate()
+    
+    time.sleep(10)
+    print(&#39;Database is available at http://localhost:7474/ \n&#39;)
+    
+    print(banner)
+    
+    iotmap = IoTMap()
+    iotmap()
+    
+    command = &#34;./database/neo4j-community/bin/neo4j stop&#34;
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, error = process.communicate()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="iotmap.iotmap.IoTMap"><code class="flex name class">
+<span>class <span class="ident">IoTMap</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class IoTMap:
+    def __init__(self):
+        self.name=&#34;main&#34;
+        self.prompt_session = PromptSession(
+            &#39;IoTMap &gt; &#39;,
+            auto_suggest=AutoSuggestFromHistory(),
+            enable_history_search=True,
+            complete_in_thread=True,
+            complete_while_typing=True
+        )
+
+        self.dc = DBController()
+        self.options = self.get_options()
+        
+        self.contexts = [
+            Sniffing(self.prompt_session, self.dc, self.options[&#39;sniffing&#39;]),
+            Database(self.prompt_session, self.dc),
+            Modelling(self.prompt_session, self.dc, self.options[&#39;modelling&#39;]),
+        ]
+
+        self.prompt_session.completer = WordCompleter([ctx.name for ctx in self.contexts] + [&#39;exit&#39;, &#39;help&#39;], ignore_case=True)
+        self.prompt_session.contexts = self.contexts
+        self.prompt_session.path_completer = PathCompleter()
+        self.current_context = self
+
+    # This function returns the options given
+    # by the user
+    def get_options(self):  
+        module_name = [m for m in [&#39;sniffing&#39;, &#39;database&#39;, &#39;modelling&#39;, &#39;exploit&#39;] if args[f&#39;{m}&#39;]]
+        
+        sniffing = {
+            &#39;command&#39;: &#39;run&#39;,
+            &#39;channel&#39;: args[&#39;--channel&#39;],
+            &#39;timeout&#39;: args[&#39;--timeout&#39;],
+            &#39;packetNb&#39;: args[&#39;--packetnb&#39;],
+            &#39;protocol&#39;: args[&#39;--protocol&#39;],
+            &#39;output&#39;: args[&#39;--output&#39;],
+            &#39;nbthread&#39;: args[&#39;--nbthread&#39;],
+        }
+
+        modelling = {
+            &#39;command&#39;: &#39;&#39;,
+            &#39;level&#39;: args[&#39;--level&#39;],
+        }
+        
+        options = {
+            &#39;module&#39;: module_name,
+            &#39;sniffing&#39;: sniffing,
+            &#39;modelling&#39;: modelling,
+        }
+        
+        if args[&#39;database&#39;]:
+            table_opt_db = [&#39;clear_database&#39;, &#39;import_pcap&#39;, &#39;export_db&#39;, &#39;import_db&#39;]
+            cmd_db = [opt for opt in table_opt_db if not(not args[f&#39;--{opt}&#39;])]
+            args_db = &#39;&#39;
+            
+            if cmd_db:
+                cmd_db = str(cmd_db[0])
+                if args[f&#39;--{cmd_db}&#39;] is not True: args_db = args[f&#39;--{cmd_db}&#39;]
+                if cmd_db == &#39;import_pcap&#39;: args_db += f&#39; {args[&#34;&lt;protocol&gt;&#34;]}&#39; 
+            else :
+                cmd_db = &#39;&#39;
+                
+            database = {
+                &#39;command&#39;: f&#39;{cmd_db} {args_db}&#39;
+            }
+            
+            options[&#39;database&#39;] = database
+
+        # if args[&#39;modelling&#39;]:
+        #     options[&#39;modelling&#39;] = {
+        #         &#39;command&#39;: &#39;&#39;,
+        #         &#39;level&#39;: args[&#39;--level&#39;]
+        #     }
+            
+        if args[&#39;exploit&#39;]:
+            options[&#39;exploit&#39;] = {
+                &#39;command&#39;: &#39;exploit&#39;
+            }
+            
+        return options
+
+    # Run command set with the command line and stay on the
+    # good context
+    def run_options(self):
+        module = self.options[&#39;module&#39;][0]
+        self.context_switching(module)
+
+        command = self.options[f&#39;{module}&#39;][&#39;command&#39;].strip()
+        if len(command) &gt; 0:
+            res = self.prompt_session.prompt(accept_default=True, default=command)
+            self.parse_result(res)
+
+    def context_switching(self, func):
+        for context in self.contexts:
+            if context.name == func:
+                self.prompt_session.message = context.prompt
+                self.prompt_session.completer = context.completer
+                self.current_context = context
+                return True
+        return False
+
+    def parse_result(self, result):
+        if len(result):
+            if not self.context_switching(result):
+                command = split(result)
+                try:
+                    bound_cmd_handler = functools.partial(getattr(self.current_context, command[0]), args=command[1:])
+                    run_in_terminal(bound_cmd_handler)
+                except TypeError:
+                    print (f&#34;Error type&#34;)
+                except AttributeError as ae:
+                    print (f&#34;Error with the command &#39;{command[0]}&#39;:\n{ae}&#34;)
+                except DocoptExit as e:
+                    print(str(e))
+                except SystemExit:
+                    pass
+
+    def __call__(self):
+        if self.options[&#39;module&#39;]:
+            self.run_options()
+            
+        while True:
+            result = self.prompt_session.prompt()
+            if result == &#39;help&#39; and self.current_context.name == &#39;main&#39;:
+                print(main_help())
+                continue
+            
+            if result == &#39;exit&#39;:
+                break
+
+            self.parse_result(result)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="iotmap.iotmap.IoTMap.context_switching"><code class="name flex">
+<span>def <span class="ident">context_switching</span></span>(<span>self, func)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def context_switching(self, func):
+    for context in self.contexts:
+        if context.name == func:
+            self.prompt_session.message = context.prompt
+            self.prompt_session.completer = context.completer
+            self.current_context = context
+            return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="iotmap.iotmap.IoTMap.get_options"><code class="name flex">
+<span>def <span class="ident">get_options</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_options(self):  
+    module_name = [m for m in [&#39;sniffing&#39;, &#39;database&#39;, &#39;modelling&#39;, &#39;exploit&#39;] if args[f&#39;{m}&#39;]]
+    
+    sniffing = {
+        &#39;command&#39;: &#39;run&#39;,
+        &#39;channel&#39;: args[&#39;--channel&#39;],
+        &#39;timeout&#39;: args[&#39;--timeout&#39;],
+        &#39;packetNb&#39;: args[&#39;--packetnb&#39;],
+        &#39;protocol&#39;: args[&#39;--protocol&#39;],
+        &#39;output&#39;: args[&#39;--output&#39;],
+        &#39;nbthread&#39;: args[&#39;--nbthread&#39;],
+    }
+
+    modelling = {
+        &#39;command&#39;: &#39;&#39;,
+        &#39;level&#39;: args[&#39;--level&#39;],
+    }
+    
+    options = {
+        &#39;module&#39;: module_name,
+        &#39;sniffing&#39;: sniffing,
+        &#39;modelling&#39;: modelling,
+    }
+    
+    if args[&#39;database&#39;]:
+        table_opt_db = [&#39;clear_database&#39;, &#39;import_pcap&#39;, &#39;export_db&#39;, &#39;import_db&#39;]
+        cmd_db = [opt for opt in table_opt_db if not(not args[f&#39;--{opt}&#39;])]
+        args_db = &#39;&#39;
+        
+        if cmd_db:
+            cmd_db = str(cmd_db[0])
+            if args[f&#39;--{cmd_db}&#39;] is not True: args_db = args[f&#39;--{cmd_db}&#39;]
+            if cmd_db == &#39;import_pcap&#39;: args_db += f&#39; {args[&#34;&lt;protocol&gt;&#34;]}&#39; 
+        else :
+            cmd_db = &#39;&#39;
+            
+        database = {
+            &#39;command&#39;: f&#39;{cmd_db} {args_db}&#39;
+        }
+        
+        options[&#39;database&#39;] = database
+
+    # if args[&#39;modelling&#39;]:
+    #     options[&#39;modelling&#39;] = {
+    #         &#39;command&#39;: &#39;&#39;,
+    #         &#39;level&#39;: args[&#39;--level&#39;]
+    #     }
+        
+    if args[&#39;exploit&#39;]:
+        options[&#39;exploit&#39;] = {
+            &#39;command&#39;: &#39;exploit&#39;
+        }
+        
+    return options</code></pre>
+</details>
+</dd>
+<dt id="iotmap.iotmap.IoTMap.parse_result"><code class="name flex">
+<span>def <span class="ident">parse_result</span></span>(<span>self, result)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse_result(self, result):
+    if len(result):
+        if not self.context_switching(result):
+            command = split(result)
+            try:
+                bound_cmd_handler = functools.partial(getattr(self.current_context, command[0]), args=command[1:])
+                run_in_terminal(bound_cmd_handler)
+            except TypeError:
+                print (f&#34;Error type&#34;)
+            except AttributeError as ae:
+                print (f&#34;Error with the command &#39;{command[0]}&#39;:\n{ae}&#34;)
+            except DocoptExit as e:
+                print(str(e))
+            except SystemExit:
+                pass</code></pre>
+</details>
+</dd>
+<dt id="iotmap.iotmap.IoTMap.run_options"><code class="name flex">
+<span>def <span class="ident">run_options</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run_options(self):
+    module = self.options[&#39;module&#39;][0]
+    self.context_switching(module)
+
+    command = self.options[f&#39;{module}&#39;][&#39;command&#39;].strip()
+    if len(command) &gt; 0:
+        res = self.prompt_session.prompt(accept_default=True, default=command)
+        self.parse_result(res)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="iotmap" href="index.html">iotmap</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="iotmap.iotmap.IoTMap" href="#iotmap.iotmap.IoTMap">IoTMap</a></code></h4>
+<ul class="">
+<li><code><a title="iotmap.iotmap.IoTMap.context_switching" href="#iotmap.iotmap.IoTMap.context_switching">context_switching</a></code></li>
+<li><code><a title="iotmap.iotmap.IoTMap.get_options" href="#iotmap.iotmap.IoTMap.get_options">get_options</a></code></li>
+<li><code><a title="iotmap.iotmap.IoTMap.parse_result" href="#iotmap.iotmap.IoTMap.parse_result">parse_result</a></code></li>
+<li><code><a title="iotmap.iotmap.IoTMap.run_options" href="#iotmap.iotmap.IoTMap.run_options">run_options</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

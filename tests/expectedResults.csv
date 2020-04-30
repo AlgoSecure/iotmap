@@ -1,0 +1,16 @@
+[0x7b65],[source],"[b8:27:eb:8c:b2:4f, 0xbeef]",[controller],TRANSEdge
+[0x7b65],[source],[0x0],[sink],TRANSEdge
+[0x3181],"[sink, source]",[0x0],[sink],TRANSEdge
+"[b8:27:eb:8c:b2:4f, 0xbeef]",[controller],[e0:14:9e:14:11:72],[sink],TRANSEdge
+"[b8:27:eb:8c:b2:4f, 0xbeef]",[controller],[0x3181],"[sink, source]",TRANSEdge
+"[fe80::212:4b00:1204:cb03, fe80::212:4b:00:12:04:cb]",[source],"[::212:4b00:1204:cea4, fe80::212:4b:00:12:04:ce, fd00::212:4b00:1204:cea4]",[controller],TRANSEdge
+"[fe80::212:4b00:1204:cb03, fe80::212:4b:00:12:04:cb]",[source],"[b8:27:eb:36:1b:9d, bbbb::ba27:ebff:fe9c:b137]",[controller],TRANSEdge
+[dc:d0:17:9d:1d:5d],[source],"[b8:27:eb:8c:b2:4f, 0xbeef]",[controller],TRANSEdge
+"[b8:27:eb:36:1b:9d, bbbb::ba27:ebff:fe9c:b137]",[controller],"[b8:27:eb:8c:b2:4f, 0xbeef]",[controller],TRANSEdge
+"[::212:4b00:1665:2707, fe80::212:4b:00:16:65:27]",[source],"[::212:4b00:1277:9806, fe80::212:4b:00:12:77:98]",[sink],TRANSEdge
+"[::212:4b00:1665:2707, fe80::212:4b:00:16:65:27]",[source],"[::212:4b00:1204:cea4, fe80::212:4b:00:12:04:ce, fd00::212:4b00:1204:cea4]",[controller],TRANSEdge
+"[::212:4b00:1204:cea4, fe80::212:4b:00:12:04:ce, fd00::212:4b00:1204:cea4]",[controller],"[::212:4b00:1204:c92d, fd00::212:4b00:1204:c92d]",[sink],TRANSEdge
+[0x7b65],[source],[0x3181],"[sink, source]",INTERACT
+"[fe80::212:4b00:1204:cb03, fe80::212:4b:00:12:04:cb]",[source],[0x3181],"[sink, source]",INTERACT
+[dc:d0:17:9d:1d:5d],[source],[0x3181],"[sink, source]",INTERACT
+"[::212:4b00:1665:2707, fe80::212:4b:00:16:65:27]",[source],"[::212:4b00:1204:c92d, fd00::212:4b00:1204:c92d]",[sink],INTERACT
