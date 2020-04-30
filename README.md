@@ -1,45 +1,43 @@
 # IoTMap
-IoTMap is a tool that models IoT networks using one or multiple protocols
-simultaneously. This work is a part of my thesis and is in progress. Currently 3
-protocols are supported (BLE, ZigBee, OS4I), but more protocols will be added
-soon.
+IoTMap is a tool that models IoT networks using one or multiple protocols simultaneously. 
+This is work in progress, as a part of a PhD thesis on Internet Of Things security.
+This repository is regularly updated as new results are obtained.
+This project supports 3 protocol as this time : BLE, ZigBee and OS4I. More are coming.
 
 ## Requirements :
 
 ### Python 3 requirements
 
 * Python > 3.5
-* Scapy (pip install scapy or via git using git clone
-https://github.com/secdev/scapy.git && cd scapy && python setup.py install)
+* Scapy (Can be installed through the requirements file but building the from the [latest source](https://github.com/secdev/scapy) is recommended)
 * neo4j-1.7.6
 * docopt-0.6.2
 * prompt-toolkit-3.0.5
 * terminaltables-3.1.0
 * pycryptodomex-3.9.7
 
-You can use the requirements.txt file to install the packages with this command:
+You can use the requirements.txt file to install the packages:
 ```
 pip3 install -r requirements.txt
 ```
 
-### OS libs
+### OS libraries
 
-* libgcrypt20-dev (for KillerBee)
+* libgcrypt20-dev (Needed for sniffing capabilities through KillerBee)
 Depending on the system you used (debian-based OS, archlinux-based OS) you can
 use:
 ```
-sudo apt-get install libgcrypt20-dev # (for debian-based distrib)
-sudo pacman -S libgcrypt             # (for archlinux-based distrib)
+sudo apt-get install libgcrypt20-dev # (debian-based distribs)
+sudo pacman -S libgcrypt             # (archlinux-based distribs)
 ```
 
 ## Installation
 
-This section describes how to install this project. The first thing is to clone
-this repo, then install all requirements described above
+Clone this repo and install all requirements described above:
 ```
 # For any distrib
-git clone https://github.com/AlgoSecure/iotmap.git
-cd iotmap
+git clone https://github.com/JnTournier/iot-model.git
+cd iot-model
 sudo pip install -r requirements.txt
 
 # If debian-based
@@ -49,45 +47,51 @@ sudo apt-get install libgcrypt20-dev
 sudo pacman -S libgcrypt
 ```
 
-Now we gonna install Neo4J. You can install Neo4J from you packet manager if you want. For me, the simplest
-way to install and use it is from the tarball. So if like me you choose this
-option, you can follow those commands:
+Now we gonna install Neo4J. Most distributions ships Neo4J through the built-in package manager. However, it may be simpler 
+to install and use it from the tarball:
 ```
-cd /path/to/iotmap
+cd /path/to/iot-model
 cd database
 
-# You can replace the version number to the latest one in the URL
+# Replace the version number with the latest in the URL if necessary
 wget -O neo4j-community.tar "https://neo4j.com/artifact.php?name=neo4j-community-3.5.9-unix.tar.gz"
 mkdir neo4j-community && tar xvf neo4j-community.tar -C neo4j-community --strip-components 1
 ```
 
-## The first run
+## First run
 
-If it is the first run of the project, you need to define a username and a password for
-the database. You must start the database with the following commands:
+For the first run of the project, you need to define a username and a password for
+the database. Start the database with the following:
 ```
 cd database
 ./neo4j-community/bin/neo4j console
 ```
 
-Then go to the neo4j webpage at http://localhost:7474. The default username and
-password are **neo4j** and **neo4j** respectively. If you don't want to modify
-the values in iotmap you can set the username with **neo4j** and the
-password with **iotmap**.
+Neo4J will start and is accessible at http://localhost:7474. Default username and
+password are `neo4j` and `neo4j` respectively. 
+Iotmap uses the default username and `iotmap` for password. 
 
-If you want to choose another couple of id, you must change the values in the
-script **core/databaseController.py** at line 46
+If you want to set different credentials, you must update the values in 
+`core/databaseController.py` at line 46 as follows:
 ```
 model = Model("bolt:http://localhost:7474", "username", "password")
 ```
 
-## How to use this project
+## How to use iotmap
 
 A more detailed documentation on how to use IoTMap with an example is available [here](doc/started.md)
 
-To start the framework you have to run **python3 iotmap.py**. IoTMap will starts the neo4j database before running the project. However, after starting neo4j, the database is not immediately available. Sometimes the sleep of 10 seconds is enough for the database to be available sometimes not and you need to rerun iotmap. 
+Start the framework:
+ ```
+python3 iotmap.py
+``` 
+IoTMap will start the neo4j database before running, 
+however the database is not immediately available. 
+Sometimes the sleep of 10 seconds is enough for the database to be available, sometimes not and you need to rerun iotmap. 
 
-IoTMap provides 3 modules **Database, Modelling and Sniffing**. The sniffing module is a work in progress and not fully operational. To switch between modules, you can just hit the name of the module and iotmap switch to this module.
+IoTMap provides 3 modules: **Database, Modelling and Sniffing**. 
+The sniffing module is a work in progress and not fully operational. 
+To switch between modules, simply type the name of the module.
 
 ````
 python3 iotmap.py
@@ -136,10 +140,10 @@ Core commands
 
 IoTMap >
 ````
-Each module and functions provide its help menu to list the functions available and how to use them.
+Each module and functions provide a help menu to list the functions available and how to use them.
 
 ### Database module
-This module manages the neo4j database and can interact with it.
+This module manages and interacts with the neo4j database.
 ```
 IoTMap > database
 IoTMap database > help
@@ -177,7 +181,10 @@ IoTMap database >
 											
 ```
 
-To populate the database you can import an existing database or import Pcaps. ImportPcaps converts Pcaps to our unified format used to generate the modelling. This program is a launcher that uses different extractors according to the protocol given in argument that you can find in the extractors folder. The main program chooses which extractor to use then runs the packets generator (gen_packets.py) in a multithreading way to generate the pcap with the unified format.
+To populate the database you can import an existing database or Pcaps files. 
+ImportPcaps converts Pcaps to our unified format used to generate the modelling. 
+This module uses different extractors according to the protocol given in argument that you can find in the extractors folder. 
+The main program chooses the appropriate extractor then runs the packets generator (gen_packets.py) in a multithreading way to generate the pcap with the unified format.
 
 ### Modelling module
 ```
@@ -216,10 +223,10 @@ IoTMap modelling >
 ```
 
 This program starts the Neo4J database before creating the modelling. Once the
-database is up, the modelling can begin. It starts with the analysis of the
+database is up, the modelling begins. It starts with the analysis of the
 pcap given in input to extract and create nodes then edges that link
 nodes. After the 4 graphs created, the result can be viewed on the web
-application provided by Neo4J and available at http://localhost:7474/
+application provided by Neo4J available at http://localhost:7474/
 
 You can also request the database directly from the web application by using
 cypher request in the input box.
