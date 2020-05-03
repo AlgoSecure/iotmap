@@ -4,85 +4,38 @@ This document is a walkthrough to use IoTMap with an example.
 
 ## Requirements :
 
-### Python 3 requirements
-
-* Python > 3.5
-* Scapy (pip install scapy or via git using git clone
-https://github.com/secdev/scapy.git && cd scapy && python setup.py install)
-* neo4j-1.7.6
-* docopt-0.6.2
-* prompt-toolkit-3.0.5
-* terminaltables-3.1.0
-* pycryptodomex-3.9.7
-
-You can use the requirements.txt file to install the packages with this command:
-```
-pip3 install -r requirements.txt
-```
-
-### OS libs
-
-* libgcrypt20-dev (for KillerBee)
-Depending on the system you used (debian-based OS, archlinux-based OS) you can
-use:
-```
-sudo apt-get install libgcrypt20-dev # (for debian-based distrib)
-sudo pacman -S libgcrypt             # (for archlinux-based distrib)
-```
+See [requirements in main documentaion](../README.md#requirements-)
 
 ## Installation 
 
-This section describes how to install this project. The first thing is to clone
-this repo, then install all requirements described above
-```
-# For any distrib
-git clone https://github.com/AlgoSecure/iotmap.git
-cd iotmap
-sudo pip3 install -r requirements.txt
-
-# If debian-based
-sudo apt-get install libgcrypt20-dev
-
-# If archlinux-based
-sudo pacman -S libgcrypt
-```
-
-Now we gonna install Neo4J. You can install Neo4J from you packet manager if you want. For me, the simplest
-way to install and use it is from the tarball. So if like me you choose this
-option, you can follow those commands:
-```
-cd /path/to/iotmap
-cd database
-
-# You can replace the version number to the latest one in the URL
-wget -O neo4j-community.tar "https://neo4j.com/artifact.php?name=neo4j-community-3.5.9-unix.tar.gz"
-mkdir neo4j-community && tar xvf neo4j-community.tar -C neo4j-community --strip-components 1
-````
+See [installation in main documentaion](../README.md#installation)
 
 ## Configure the database
 
-As explained in the README file, the first thing before using IoTMap is to configure the database to be sure IoTMap can use it. So, we start the database with the following command:
+As explained in the [README](../README.md) file, the first thing before using IoTMap is to configure the database to be sure IoTMap can use it. 
+So, we start the database with the following command:
 ```
 ./database/neo4j-community/bin/neo4j start
 ```
 
-After few minutes, the service exposed a web interface accessible through http://localhost:7474. 
+After few minutes, the web interface is accessible through http://localhost:7474. 
 
 ![neo4j first start](images/neo4j-first-start.PNG)
 
-Crediantals to login for the first time is neo4j/neo4j, then a new password is requested. To avoid any modifications in the code, i suggest to define **iotmap** as password.
-
-Once this modification is applied, we can run IoTMap.
+Initial credentials are neo4j/neo4j, then a new password is requested. 
+The simplest is to set **iotmap** as password. For a different value, see how to
+update the code [in the main documentation](../README.md#use-custom-credentials).
 
 ## First run of IoTMap
 
-Many examples files are provided to start with IoTMap in the **tests** folder. We will use them as demonstration on how to use IoTMap.
+The `test` folder contains any examples files to start with IoTMap. 
+We will use them as demonstration on how to use IoTMap.
 
 ### Populate the database
 
-When we run IoTMap, we get starting with the prompt command as following:
+IoTMap displays the following prompt command when started:
 ```
-python3 iotmap.py
+$ python3 iotmap.py
 Starting the database
 Database is available at http://localhost:7474/
 
@@ -129,9 +82,11 @@ Core commands
 
 IoTMap >
 ```
-As we can wee with the help command, IoTMap has four main modules: **database, sniffing, exploit and modelling**. The exploit and sniffing modules are works in progress and will not be introduce in this walkthrough.
+Te `help` command shows IoTMap has four main modules: **database, sniffing, exploit and modelling**. 
+Exploit and sniffing modules are still work in progress and will not be introduced in this walkthrough.
 
-As it is the first run of IoTMap, we need to populate the database to generate a modelling. So we start with the **database** module
+As it is the first run of IoTMap, we need to populate the database to generate a modelling. 
+To do so, start the **database** module:
 
 ```
 IoTMap > database
@@ -170,8 +125,11 @@ For more information about any commands hit :
 IoTMap database > 
 ```
 
-As we can see many commands are available. We want to populate the database so we can use either the importDB command or the importPCAPS command regarding how we want to populate the database. In this example we will use the **importPCAPS** options. For each command, a help menu is available to explain what the command does and how to use it.
+Many commands are available. To populate the database, use either `importDB` or `importPCAPS`, 
+depending on how you want to populate the database. 
+This example will use `importPCAPS`. 
 
+For each command, a help menu is available using `-h`:
 ```
 IoTMap database > importPcaps -h
 Import pcap files into the database
@@ -195,14 +153,15 @@ Import pcap files into the database
 IoTMap database > 
 ```
 
-For this example, we will use importPCAPS with multiple pcaps from three different protocols. Also, a nodes.txt file is provided to define each node used in each PCAP. 
-
+Here, importPCAPS is used with multiple `.pcap` files from three different protocols. 
+A file named `nodes.txt` is provided to define each node used in each PCAP:
 ```
 IoTMap database > importPcaps btle tests/capture-rpi-tempDispl-test3-merged.pcap btle tests/capture-rpi-rpi-test3.pcap btle tests/capture-rpi-tempSens-test3.pcap zigbee tests/zigbee-test3.pcapng os4i tests/coap-test3.pcapng -o tests/first-run.csv -n tests/nodes.txt -t 2 
 ```
-When the command is ran, it takes some time to convert and populate the database, so go grab a coffee and enjoy =)
+It takes some time to convert and populate the database, so it may be a good time for a coffee =)
 
-After that, the database is populated and we can get some information. For example, we can list the nodes stored in database.
+When the database is populated, it is ready for queries. 
+For example, we can list the nodes:
 
 ```
 IoTMap database > getNodes
@@ -223,15 +182,18 @@ IoTMap database > getNodes
 IoTMap database > 
 ```
 
-We can also verify that the import worked correctly by visiting the neo4j webapp hosted at http://localhost:7474
+Verify the import completed successfully with the neo4j webapp: http://localhost:7474.
 
 ![neo4j imports](images/import-pcaps.PNG)
 
-We can see that two relationships have been created and prove that the import was successful. When we import data from pcaps, only the data link graph is created. To model the other graphs we need to use the modelling module.
+Two relationships have been created and prove that the import was successful. 
+When importing data from pcaps, IoTmap will only create the data link graph. 
+To model the other graphs, use the modelling module.
 
 ### Graphs modelling
 
-Now we will model graphs based on the data we previously import. We will use the **modelling** module for the rest of this walkthrough
+Now, model graphs based on the data previously imported.
+The remainder of this walkthrough will focus on the **modelling** module. 
 
 ```
 IoTMap database > modelling
@@ -282,10 +244,14 @@ Module Options (modelling):
 IoTMap modelling >  
 ```
 
-This module comes with different options that can be set with the command **set**. Those options are used as default values to generate graphs.
+This module comes with different options that can be set with the command **set**. 
+The command `option` shows the default values used to create graphs.
 
-Regarding what we want to model, we can generate graph step by step using the appropriate function. If we want to only model the network graph, then we use the nwkGraph function and so on. In this example, we will model all the graphs to the application graph. Let's start with the network graph.
+Regarding what you want to model, you can generate a graph step by step using the appropriate function. 
+If you want to model only the network graph, then use the nwkGraph function and so on. 
+This example will model all the graphs to the application graph. 
 
+Let's start with the network graph:
 ```
 IoTMap modelling > nwkGraph -h
 Generate the network graph of the modelling. If uppers layers have already been generated, this function
@@ -299,8 +265,7 @@ Generate the network graph of the modelling. If uppers layers have already been 
 IoTMap modelling >        
 ```
 
-Then we continue with the other graphs:
-
+Then continue with the other graphs:
 ```
 IoTMap modelling > nwkGraph
 IoTMap modelling > transGraph
@@ -308,25 +273,36 @@ IoTMap modelling > appGraph
 IoTMap modelling >
 ```
 
-In the case where we already have communications formatted with the unified format, we can use it in the **modelling** module and automate the graphs modelling. With this options, we can skip the intermediate graph generation and go straight to the final graph we want to model.
+If you already have communications formatted with the unified format, you can use it in the **modelling** module and automate the graphs modelling. 
+With this options, you can skip the intermediate graph generation and go straight to the final graph you want to model :
 
 ```
 IoTMap modelling > appGraph -f tests/test-all-with-protocol.csv
 ```
 
-To observe the modelling newly created, we visit http://localhost:7474 
+To observe the modelling newly created, visit http://localhost:7474 
 
-Several relationships have been added on the left side panel, the application graph corresponds to the INTERACT label
+Relationships have been added on the left side panel, the application graph matches the INTERACT label.
 
 ![neo4j imports](images/application-graph.PNG)
 
-If we want to regenerate the application graph with different delta values, we just have to rerun the command with the delta option. The old transmissions will be erased and the new ones will take the place. If we want to modify the delta values of the transport graph, we have to set their value from the **set** command.
-
+If you want to regenerate the application graph with different delta values, 
+simply rerun the command with the delta option:
 ```
 IoTMap modelling > appGraph -d 100
 IoTMap modelling >
 ```
+The old transmissions are replaces with the new ones. 
+If you want to modify the delta values for the transport graph, set their value with the **set** command:
+```
+IoTMap modelling > appGraph -d 100                                              
+IoTMap modelling > set tdelta1 100                                              
+tdelta1 set to 100
+IoTMap modelling > set tdelta2 100                                              
+tdelta2 set to 100
+IoTMap modelling > appGraph -d 100                                              
+IoTMap modelling >  
+```
 
-With this value the graph should be different from the previous one as the delta value changed.
-
+The graph is now updated with the new value:
 ![neo4j imports](images/application-graph-100.PNG)

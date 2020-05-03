@@ -1,3 +1,4 @@
+
 # IoTMap
 IoTMap is a tool that models IoT networks using one or multiple protocols simultaneously. 
 This is work in progress, as a part of a PhD thesis on Internet Of Things security.
@@ -36,8 +37,8 @@ sudo pacman -S libgcrypt             # (archlinux-based distribs)
 Clone this repo and install all requirements described above:
 ```
 # For any distrib
-git clone https://github.com/JnTournier/iot-model.git
-cd iot-model
+git clone https://github.com/AlgoSecure/iotmap.git
+cd iotmap
 sudo pip install -r requirements.txt
 
 # If debian-based
@@ -50,7 +51,7 @@ sudo pacman -S libgcrypt
 Now we gonna install Neo4J. Most distributions ships Neo4J through the built-in package manager. However, it may be simpler 
 to install and use it from the tarball:
 ```
-cd /path/to/iot-model
+cd /path/to/iotmap
 cd database
 
 # Replace the version number with the latest in the URL if necessary
