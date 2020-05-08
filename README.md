@@ -10,7 +10,7 @@ This project supports 3 protocol as this time : BLE, ZigBee and OS4I. More are c
 ### Python 3 requirements
 
 * Python > 3.5
-* Scapy (Can be installed through the requirements file but building the from the [latest source](https://github.com/secdev/scapy) is recommended)
+* Scapy (Can be installed through the requirements file but building from the [latest source](https://github.com/secdev/scapy) is recommended)
 * neo4j-1.7.6
 * docopt-0.6.2
 * prompt-toolkit-3.0.5
