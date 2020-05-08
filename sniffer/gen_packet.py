@@ -158,17 +158,23 @@ class PacketGenerator():
         # and Handle Value Indication/Write Command
         # Currently I only need packets with those opcode
         opCode = list(bleConstants.opCode.keys())
-        opCode.remove(0x01)
-        opCode.remove(0x08)
-        opCode.remove(0x09)
+        opCode.remove(0x0a)
+        opCode.remove(0x0b)
+        opCode.remove(0x52)
+        opCode.remove(0x1d)
+        # opCode.remove(0x08)
+        # opCode.remove(0x09)
         
         if self.verbose:
             opCode = list(bleConstants.opCode.values())
-            opCode.remove('Error Response')
-            opCode.remove('Read By Type Request')
-            opCode.remove('Read By Type Response')
+            opCode.remove('Read Request')
+            opCode.remove('Read Response')
+            opCode.remove('Write Command')
+            opCode.remove('Handle Value Indication')
+            # opCode.remove('Read By Type Response')
+            # opCode.remove('Read By Type Request')
             
-        if e['layer4'] == {} or e['layer4']['opcode'] not in opCode:
+        if e['layer4'] == {} or e['layer4']['opcode'] in opCode:
             return None
         
         row.append(e["time"])
@@ -187,17 +193,22 @@ class PacketGenerator():
         row.append(apptype)
         
         if (e['layer4']['opcode'] == 'Read Request' or \
-            e['layer4']['opcode'] == 'Read By Type Request' or \
             e['layer4']['opcode'] == 0x0a or \
-            e['layer4']['opcode'] == 0x08 or \
             e['layer4']['opcode'] == 'Write Command' or \
             e['layer4']['opcode'] == 0x52):
             # It corresponds to a sensor scheme initialised by the controller
             # And we define it with get_data
             row.append('get_data')
 
-        elif (e['layer4']['opcode'] == 'Read By Type Response' or \
-              e['layer4']['opcode'] == 0x09 or \
+        # elif e['layer4']['opcode'] == 'Read By Type Request' or \
+        #      e['layer4']['opcode'] == 0x08 or \
+        #      e['layer4']['opcode'] == 'Read By Type Response' or \
+        #      e['layer4']['opcode'] == 0x09 :
+        #     row.append('Nothing')
+
+        elif (
+              e['layer4']['opcode'] == 'Read Response' or \
+              e['layer4']['opcode'] == 0x0b or \
               e['layer4']['opcode'] == 'Handle Value Indication' or \
               e['layer4']['opcode'] == 0x1d):
             row.append('value')
