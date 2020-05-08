@@ -34,7 +34,6 @@ Options:
 
 
 from core.databaseController import DBController
-import time
 import subprocess
 import functools
 from shlex import split
@@ -46,7 +45,7 @@ from prompt_toolkit.completion import WordCompleter, PathCompleter
 from core.sniffing import Sniffing
 from core.database import Database
 from core.modelling import Modelling
-from utils.utils import main_help
+from utils.utils import main_help, wait_until_DB_is_UP
 
 
 class IoTMap:
@@ -184,8 +183,6 @@ class IoTMap:
 
 
 if __name__ == '__main__':  
-
-    author='AlgoSecure'
     version=0.1
     
     banner = f"""\
@@ -224,11 +221,10 @@ IIIIIIIIII   ooooooooooo      TTTTTTTTTTT      MMMMMMMM               MMMMMMMM  
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, error = process.communicate()
     
-    time.sleep(10)
-    print('Database is available at http://localhost:7474/ \n')
-    
     print(banner)
-    
+    wait_until_DB_is_UP()
+
+    # print('Database is available at http://localhost:7474/ \n')
     iotmap = IoTMap()
     iotmap()
     

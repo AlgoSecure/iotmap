@@ -2,6 +2,8 @@ from functools import wraps
 from docopt import docopt, DocoptExit
 from terminaltables import AsciiTable
 import re
+import time
+import requests
 
 # The list of available protocols
 list_protocol = ['os4i', 'zigbee', 'btle'] 
@@ -198,3 +200,18 @@ def readNodesFile(filename):
         return False
 
     return nodes
+
+def wait_until_DB_is_UP():
+    status_code = 404
+    eof = ['/', '\\', '|']
+    i = 0
+    while status_code != 200:
+        try:
+            req = requests.get("http://127.0.0.1:7474")
+            status_code = req.status_code
+        except:
+            time.sleep(1)
+            print('Waiting for database ' + eof[i%3], end='\r')
+            i+=1
+            continue
+    print("Database is available at http://localhost:7474/ \n")
