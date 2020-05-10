@@ -152,7 +152,8 @@ class DBController(object):
         # use the content of the file as data
         print(f'{filename}')
         if filename is not None:
-            self.delNodes(3)
+            self.delNodes(3, 'node')
+            self.delNodes(2, 'visu')
             self.db.removeTX(2)
             with open(filename, 'r') as csvFile:
                 csvData = list(csv.reader(csvFile, delimiter=','))
@@ -175,7 +176,8 @@ class DBController(object):
             self.dlGraph(filename)
         # Check if nwk transmissions are not already stored in the database
         else:
-            self.delNodes(3)
+            self.delNodes(3, 'node')
+            self.delNodes(3, 'visu')
             
         self.db.nwkGraph()
 
@@ -189,7 +191,7 @@ class DBController(object):
             self.nwkGraph(filename)
         # Check if trans transmissions are not already stored in the database
         else:
-            self.delNodes(4)
+            self.delNodes(4, 'node')
             
         self.db.transGraph(delta, delta2)
 
@@ -202,13 +204,13 @@ class DBController(object):
             self.transGraph(tdelta1, tdelta2, filename)
         # Check if trans transmissions are not already stored in the database
         else:
-            self.delNodes(5)
+            self.delNodes(5, 'node')
             
         self.db.appGraph(delta)
 
         
-    def delNodes(self, label):
-        self.db.del_nodes(label)
+    def delNodes(self, label, mode):
+        self.db.del_nodes(label, mode)
 
     def getResults(self):
         return self.db.getResults()
@@ -220,15 +222,20 @@ class DBController(object):
     def extractNodes(self, csvData):
         nodes = []
         for line in csvData:
-            protocol, dlsrc, dldst = csvData[0], csvData[2], csvData[3]
+            protocol, dlsrc, dldst = line[0], line[2], line[3]
             n1 = createNode(protocol, dlsrc)
             n2 = createNode(protocol, dldst)
             if n1 not in nodes:
                 nodes.append(n1)
             if n2 not in nodes:
                 nodes.append(n2)
+        nodesTocreate = []
+        i = 1
+        for n in nodes:
+            nodesTocreate.append([i, n[0], n[1], 2, []])
+            i+=1
 
-        return nodes
+        return nodesTocreate
 
     # Get all nodes already stored in the database
     def getNodes(self):

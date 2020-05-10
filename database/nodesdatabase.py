@@ -81,7 +81,7 @@ class NodesDatabase(object):
         where (r.dlsrc in n_src.dlsrc) and r.dldst in n_dst.dlsrc
         merge (n_src)-[:layer2]->(n_dst)""", label=label)
 
-    # Simpler view of the nwk graph where only one edge is drawed between
+    # Simpler view of the nwk graph where only one edge is drew between
     # two nodes
     @classmethod
     def node_visu_nwklink(cls, tx, label):
@@ -110,7 +110,7 @@ class NodesDatabase(object):
     def node_transmission(cls, tx, properties):
         dlsrc, dldst = properties['dlsrc'], properties['dldst'] 
         tx.run( """
-        match (n_src: Node) 
+        match (n_src: Node {label: 2}) 
         where $dlsrc in n_src.dlsrc 
         match (n_dst: Node) 
         where $dldst in n_dst.dlsrc 
@@ -361,10 +361,12 @@ class NodesDatabase(object):
             for n in nodes:
                 session.write_transaction(self.create_node, n)
 
-    def del_nodes(self, label):
+    def del_nodes(self, label, mode):
         with self._driver.session() as session:
-            session.write_transaction(self.delete_nodes, label)
-            session.write_transaction(self.delete_visu_nodes, label)
+            if 'node' in mode:
+                session.write_transaction(self.delete_nodes, label)
+            else:
+                session.write_transaction(self.delete_visu_nodes, label)
 
     def getResults(self):
         values = ''  

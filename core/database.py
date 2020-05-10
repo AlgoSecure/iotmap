@@ -143,8 +143,8 @@ class Database:
             -h, --help  print this help menu
         """
 
-        self.dbc.delNodes(2)
-
+        self.dbc.delNodes(2, 'node')
+        self.dbc.delNodes(2, 'visu')    
 
     @command
     def removeNode(self, nodeID:int):
@@ -179,12 +179,13 @@ class Database:
         table_data = [["id", "dl addresses", "nwk addresses"]]
         for node in nodes:
             table_data.append(node)
-            table = AsciiTable(table_data)
-            table.inner_column_border = False
-            table.inner_footing_row_border = False
-            table.inner_heading_row_border = True
-            table.inner_row_border = False
-            table.outer_border = False
+            
+        table = AsciiTable(table_data)
+        table.inner_column_border = False
+        table.inner_footing_row_border = False
+        table.inner_heading_row_border = True
+        table.inner_row_border = False
+        table.outer_border = False
         
         print(f"{table.table}")
 
