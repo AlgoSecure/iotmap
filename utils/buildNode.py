@@ -33,4 +33,4 @@ functions = {
 # Wrapper that calls the protrocol-specific function 
 # to create the node based on the dl address
 def createNode(protocol, dlAddress):
-	return function[protocol](dlAddress)
+	return functions[protocol](dlAddress)
