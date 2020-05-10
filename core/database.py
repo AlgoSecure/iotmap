@@ -1,6 +1,6 @@
 from utils.utils import command, cls_commands, readNodesFile
 from utils.utils import check_protocol, unify_pcaps
-from utils.utils import main_help, formatArray
+from utils.utils import main_help
 from utils.completer import IMCompleter
 from terminaltables import AsciiTable
 
