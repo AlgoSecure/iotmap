@@ -216,7 +216,6 @@ IIIIIIIIII   ooooooooooo      TTTTTTTTTTT      MMMMMMMM               MMMMMMMM  
 """		
     args = docopt(__doc__, version=version)
     
-    print("Starting the database")
     command = "./database/neo4j-community/bin/neo4j start"
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, error = process.communicate()
