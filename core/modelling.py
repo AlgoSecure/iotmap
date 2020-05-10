@@ -1,11 +1,15 @@
 from utils.utils import command, cls_commands
-from utils.utils import main_help, formatArray, compare2arrays
+from utils.utils import main_help, convert_str_to_array, compare2arrays
 from utils.completer import IMCompleter
 from terminaltables import AsciiTable
 import csv
 
+from prompt_toolkit.shortcuts import ProgressBar
+
 import subprocess
 import ast
+
+from numpy import arange
 
 # from scapy.layers.dot15d4 import *
 # from scapy.layers.zigbee import *
@@ -59,40 +63,6 @@ class Modelling:
 
         
         self.prompt_session = prompt_session
-        
-        self.options = {
-            'level': {
-                'Current Settings': options['level'],
-                'Require': False,
-                'Description': 'Set the number of layers of the graph [default: 4].',
-                'type': int
-            },
-            #We can add multiple options such as type of application, protocol-based modelling, etc.
-            'csvFile': {
-                'Current Settings': None,
-                'Require': False,
-                'Description': 'CSV file containing packets converted into unified format.',
-                'type': str
-            },
-            'tdelta1': {
-                'Current Settings': .6,
-                'Require': False,
-                'Description': 'Delay for an object to respond to a request. This value is used to build the transport graph.',
-                'type': float    
-            },
-            'tdelta2': {
-                'Current Settings': .7,
-                'Require': False,
-                'Description': 'Delay for an object to forward a packet. This value is used to build the transport graph.',
-                'type': float
-            },
-            'adelta': {
-                'Current Settings': 1.5,
-                'Require': False,
-                'Description': 'Delay for a controller to forward a packet. This value is used to build the application graph.',
-                'type': float
-            }
-        }
 
         self.updateGraphOptions()
                
@@ -145,6 +115,23 @@ class Modelling:
         
         print (f'\nModule Options ({self.name}):\n\n{table.table}\n')
             
+    @command
+    def get_current_graph(self, output:str=None):
+        """Get current Graph
+        Display the current graph with the neo4j format data.
+
+        Usage: get_current_graph [-h] [--output <output>]
+
+        Options:
+            -h, --help  Print this help menu
+            -o, --output <output>  Output file where the display will be stored.
+        """
+        current = self.dbc.getResults()
+        if not output is None:
+            with open(output, 'w') as outputFile:
+                for line in current:
+                    outputFile.write(f"{str(line)[1:-1]}\n")
+        print(f"Current Graph:\n{current}")
 
     @command
     def run(self):
@@ -201,7 +188,7 @@ For more information about any commands hit :
 
     @command
     def dlGraph(self, filename:str=None):
-        """
+        """DlGraph
         Generate the first graph of the modelling. If uppers layers have already been generated, this function
         deletes all upper layers. 
 
@@ -219,7 +206,7 @@ For more information about any commands hit :
 
     @command
     def nwkGraph(self, filename:str=None):
-        """
+        """NwkGraph
         Generate the network graph of the modelling. If uppers layers have already been generated, this function
         deletes all upper layers. 
 
@@ -236,7 +223,7 @@ For more information about any commands hit :
 
     @command
     def transGraph(self, delta: float, delta2: float,  filename:str=None):
-        """
+        """TransGraph
         Generate the network graph of the modelling. If uppers layers have already been generated, this function
         deletes all upper layers. 
 
@@ -255,7 +242,7 @@ For more information about any commands hit :
 
     @command
     def appGraph(self, delta: float, filename:str=None):
-        """
+        """AppGraph
         Generate the network graph of the modelling. If uppers layers have already been generated, this function
         deletes all upper layers. 
 
@@ -280,18 +267,25 @@ For more information about any commands hit :
         self.dbc.appGraph(delta, tdelta, tdelta2, filename)
 
     @command
-    def compareTo(self, filename:str, level:int=4):
-        """
+    def compareTo(self, filename:str, td1start:float, td1end:float, td1step:float,
+                  td2start:float, td2end:float, td2step:float, adstart:float, adend:float,
+                  adstep:float, output:str, level:int=4):
+        """CompareTo
         Compare the result of the current run of the modelling (with the level you want) and a file 
         that contains expected results.
         This function returns the difference between the expected result and the current run of the modelling
 
-        Usage: compareTo [-h] (--filename <filename>) [--level <level>]
+        Usage: compareTo [-h] (--filename <filename>) [--level <level>] (tdelta1 <td1start> <td1end> <td1step>) 
+                         (tdelta2 <td2start> <td2end> <td2step>) (adelta <adstart> <adend> <adstep>) [--output <output>]
 
         Options:
-            -h, --help               Print this help menu.
-            -l, --level level        Set the number of layers of the graph [default: 4].
-            -f, --filename filename  Csv File containing expected results to compare with.
+            -h, --help                 Print this help menu.
+            -l, --level level          Set the number of layers of the graph [Default: 4].
+            -f, --filename <filename>  Csv File containing expected results to compare with.
+            -o, --output <output>      File where results will be stored [Default: results.txt].
+            tdelta1                    Options relating to the first delta of the transport graph.
+            tdelta2                    Options relating to the second delta of the transport graph.
+            adelta                     Options relating to the delta of the application graph.
         """
         try:
             with open(filename, 'r') as csvFile:
@@ -299,21 +293,32 @@ For more information about any commands hit :
                 for line in csvFile.readlines():
                     csvData.append(line.strip())
         except IOError as ioe:
-            #print(f"CSVFile: {csvData}")
+            print(f"CSVFile: {filename}")
             print(f'Error while opening the file...\n{ioe}')
             return False
         except :
-            #print(f"CSVFile: {csvData}")
+            print(f"CSVFile: {filename}")
             print(f'Error while opening into CSV file...')
             return False
 
-        retTab = formatArray(csvData)
+        retTab = convert_str_to_array(csvData)
 
-        current = self.dbc.getResults()
+        with open(output, 'w') as outputFile:
+            outputFile.write(f"Expected Results: {retTab}")
 
-        missing, extra = compare2arrays(retTab, current)
+        with ProgressBar() as pb:
+            for t1 in pb(arange(td1start, td1end, td1step)):
+                for t2 in arange(td2start, td2end, td2step):
+                    for a in arange(adstart, adend, adstep):
+                        self.transGraph(t1, t2)
+                        self.appGraph(a)
 
-        print(f"Expected Results: {retTab}\n\nCurrent: {current}\n\nMissings: {missing}\n\nExtra: {extra}")
+                        current = self.dbc.getResults()
+
+                        missing, extra = compare2arrays(retTab, current)
+                        with open(output, 'a') as outputFile:
+                            outputFile.write(f"\n\nTdelta1: {t1}\tTdelta2: {t2}\tAdelta: {a}")
+                            outputFile.write(f"\nCurrent: {current}\n\nMissings: {missing}\n\nExtra: {extra}")
         
         # Now we gonna extract the difference between the expected result and the current one
         # We must display missing and extra elements compare to the expected result

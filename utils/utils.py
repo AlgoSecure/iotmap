@@ -17,15 +17,12 @@ def command(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         # Retrieve arguments
-        # Cmd_args is a dict containing between 2 or 3 keys
-        # depending on the module used:
-        # {-h: boolean; name: string; value: string}
         try :
-            #print(f"[i] {kwargs['args']}")
+            # print(f"[i] {kwargs['args']}")
             cmd_args = docopt(func.__doc__.strip(), argv=kwargs["args"])
-            #print(f"[i] {cmd_args}")
+            # print(f"[i] {cmd_args}")
         except:
-            #print("[d] Something's wrong with arguments") 
+            # print(f"[d] Something's wrong with arguments\n\n{docopt(func.__doc__.strip(), argv=kwargs['args'])}") 
             return wrapper
         
         correct_args = {}
@@ -110,27 +107,26 @@ Core commands
     return msg
 
 
-# Function to format the return of the neo4j getResults function
-# Neo4j returns a list of string that contains special characters
-# This function rebuilds the array with the right type and without
-# special characters
-def formatArray(tab):
+# This function converts strings that represent an array to the corresponding array
+# and returns the results.
+# Expecting return: A list of array that describes the graph
+def convert_str_to_array(tab):
     retTab = []
     for line in tab:
-        line = line.replace(', ', ';')
-        tmp = re.split(',', line)
-        tmpline = []
-        for i in tmp:
-            i = i.replace('\'', '').replace('[', '').replace(']', '').replace('\"', '')
-            if ';' in i:
-                i = i.split(';')
+        line = line.replace('\'', '').replace('\"', '')
+        tmp = re.findall("\[([^\[\]]+)\]", line)
+        array = []
+        for t in tmp:
+            if ',' in t:
+                t = t.split(', ')
             else:
-                i = [i]
-                
-            tmpline.append(i)
-        retTab.append(tmpline)
-
+                t = [t]
+            array.append(t)
+        array.append(line.split(', ')[-1])
+        retTab.append(array)
     return retTab
+
+
 
 # This function compares two arrays and returns two values
 # the result of A - B and the result of B - A
@@ -144,9 +140,9 @@ def compare2arrays(arrayA, arrayB):
     # to the arrayA
     for lineA in arrayA:
         isIn = False
-        print(f"lineA : {lineA} : {len(lineA)}")
+        # print(f"lineA : {lineA} : {len(lineA)}")
         for lineB in arrayB:
-            print(f"lineB: {lineB} : {len(lineB)}")
+            # print(f"lineB: {lineB} : {len(lineB)}")
             count = 0
             for i in range(len(lineA)):
                 if lineB[i] == lineA[i]:
@@ -203,7 +199,7 @@ def readNodesFile(filename):
 
 def wait_until_DB_is_UP():
     status_code = 404
-    eof = ['/', '\\', '|']
+    eof = ['/', '—', '\\', '|']
     i = 0
     while status_code != 200:
         try:
@@ -211,7 +207,7 @@ def wait_until_DB_is_UP():
             status_code = req.status_code
         except:
             time.sleep(1)
-            print('Waiting for database ' + eof[i%3], end='\r')
+            print('Starting the database ' + eof[i%4], end='\r')
             i+=1
             continue
     print("Database is available at http://localhost:7474/ \n")
