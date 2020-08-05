@@ -1,5 +1,6 @@
 from utils.utils import command, cls_commands
 from utils.utils import main_help, convert_str_to_array, compare2arrays
+from utils.generateResults import get_optimal_delta, plot_controller_delta
 from utils.completer import IMCompleter
 from terminaltables import AsciiTable
 import csv
@@ -267,25 +268,21 @@ For more information about any commands hit :
         self.dbc.appGraph(delta, tdelta, tdelta2, filename)
 
     @command
-    def compareTo(self, filename:str, td1start:float, td1end:float, td1step:float,
-                  td2start:float, td2end:float, td2step:float, adstart:float, adend:float,
-                  adstep:float, output:str, level:int=4):
+    def compareTo(self, filename:str, dstart:float, dend:float, dstep:float, output:str):
         """CompareTo
         Compare the result of the current run of the modelling (with the level you want) and a file 
         that contains expected results.
         This function returns the difference between the expected result and the current run of the modelling
 
-        Usage: compareTo [-h] (--filename <filename>) [--level <level>] (tdelta1 <td1start> <td1end> <td1step>) 
-                         (tdelta2 <td2start> <td2end> <td2step>) (adelta <adstart> <adend> <adstep>) [--output <output>]
+        Usage: compareTo [-h] (--filename <filename>) (delta <dstart> <dend> <dstep>) 
+                         [--output <output>]
 
         Options:
             -h, --help                 Print this help menu.
             -l, --level level          Set the number of layers of the graph [Default: 4].
             -f, --filename <filename>  Csv File containing expected results to compare with.
             -o, --output <output>      File where results will be stored [Default: results.txt].
-            tdelta1                    Options relating to the first delta of the transport graph.
-            tdelta2                    Options relating to the second delta of the transport graph.
-            adelta                     Options relating to the delta of the application graph.
+            delta                      Value used to determine which node acts as a controller.
         """
         try:
             with open(filename, 'r') as csvFile:
@@ -303,27 +300,19 @@ For more information about any commands hit :
 
         retTab = convert_str_to_array(csvData)
 
-        with open(output, 'w') as outputFile:
-            outputFile.write(f"Expected Results: {retTab}")
+        with open('tests/debug.log', 'w') as outputFile:
+            outputFile.write(f"[d] - ExpectedResults\n")
+            outputFile.write(f"{retTab}\n")
 
         with ProgressBar() as pb:
-            for t1 in pb(arange(td1start, td1end, td1step)):
-                for t2 in arange(td2start, td2end, td2step):
-                    for a in arange(adstart, adend, adstep):
-                        self.transGraph(t1, t2)
-                        self.appGraph(a)
+            graphs = {}
+            for d in pb(arange(dstart, dend, dstep)):
+                current = self.dbc.transGraph(0.6, d.item(), None)
+                # current = self.dbc.getResults()
+                graphs[d] = current
 
-                        current = self.dbc.getResults()
-
-                        missing, extra = compare2arrays(retTab, current)
-                        with open(output, 'a') as outputFile:
-                            outputFile.write(f"\n\nTdelta1: {t1}\tTdelta2: {t2}\tAdelta: {a}")
-                            outputFile.write(f"\nCurrent: {current}\n\nMissings: {missing}\n\nExtra: {extra}")
-        
-        # Now we gonna extract the difference between the expected result and the current one
-        # We must display missing and extra elements compare to the expected result
-        #print(f"ER - C: {res}")
-        #print(f"C: {set(current) - set(retTab)}")
+            # tdelta = get_optimal_delta(retTab.copy(), graphs, plot=True, isT1=True, debug=output)
+            plot_controller_delta(retTab.copy(), graphs, plot=True, debug=output)
 
     def updateGraphOptions(self):
         self.graphs = {

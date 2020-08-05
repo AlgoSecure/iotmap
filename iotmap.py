@@ -171,15 +171,18 @@ class IoTMap:
             self.run_options()
             
         while True:
-            result = self.prompt_session.prompt()
-            if result == 'help' and self.current_context.name == 'main':
-                print(main_help())
-                continue
-            
-            if result == 'exit':
-                break
+            try:
+                result = self.prompt_session.prompt()
+                if result == 'help' and self.current_context.name == 'main':
+                    print(main_help())
+                    continue
+                
+                if result == 'exit':
+                    break
 
-            self.parse_result(result)
+                self.parse_result(result)
+            except KeyboardInterrupt:
+                print("CTRL^C")
 
 
 if __name__ == '__main__':  

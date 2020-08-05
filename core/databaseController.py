@@ -193,7 +193,11 @@ class DBController(object):
         else:
             self.delNodes(4, 'node')
             
-        self.db.transGraph(delta, delta2)
+        if delta2 is not None and delta2 < 0.:
+            delta2 = None
+
+        ret = self.db.transGraph(delta, delta2)
+        return ret
 
     # This function builds the application graph (Currently only Interaction pattern)
     # Build the 3 previous graphs if they do not exist

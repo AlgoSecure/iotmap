@@ -122,7 +122,7 @@ def convert_str_to_array(tab):
             else:
                 t = [t]
             array.append(t)
-        array.append(line.split(', ')[-1])
+        # array.append(line.split(', ')[-1])
         retTab.append(array)
     return retTab
 
@@ -133,8 +133,9 @@ def convert_str_to_array(tab):
 # In other words, the function returns the missing and extra elements of B compare to A
 def compare2arrays(arrayA, arrayB):
 
-    missing = []
-    extra = []
+    falseNeg = []
+    falsePos = []
+    truePos = []
 
     # This loop returns missing elements in arrayB according
     # to the arrayA
@@ -145,7 +146,7 @@ def compare2arrays(arrayA, arrayB):
             # print(f"lineB: {lineB} : {len(lineB)}")
             count = 0
             for i in range(len(lineA)):
-                if lineB[i] == lineA[i]:
+                if set(lineB[i]) == set(lineA[i]):
                     count+=1
 
             if count == len(lineA):
@@ -153,7 +154,7 @@ def compare2arrays(arrayA, arrayB):
                 break
             
         if not isIn:
-            missing.append(lineA)
+            falseNeg.append(lineA)
 
     # This loop returns extra elements in arrayB according
     # to the arrayA
@@ -162,16 +163,18 @@ def compare2arrays(arrayA, arrayB):
         for lineA in arrayA:
             count = 0
             for i in range(len(lineA)):
-                if lineB[i] == lineA[i]:
+                if set(lineB[i]) == set(lineA[i]):
                     count+=1
 
             if count == len(lineB):
                 notIn = False
 
         if notIn:
-           extra.append(lineB) 
+           falsePos.append(lineB)
+        else:
+            truePos.append(lineB)
 
-    return missing, extra
+    return falseNeg, falsePos, truePos
 
 
 def readNodesFile(filename):

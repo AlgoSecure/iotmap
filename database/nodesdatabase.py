@@ -128,7 +128,7 @@ class NodesDatabase(object):
         )
 
     @classmethod
-    def transport_transmission(cs, tx, delta, delta2):
+    def transport_transmission_part1(cs, tx, delta):
         #delta = .6 # It is the time delta between a request and the response
 
         delta = delta
@@ -208,7 +208,7 @@ class NodesDatabase(object):
                     on create set n.role = $srcRole, m.role = $dstRole
                     """, label=label, srcID=source, dstID=sink, srcRole = srcRole, dstRole = dstRole, ts=transNodes[source][sink])
 
-                # bidirectionnal communications
+                # bidirectional communications
                 else:
                     tx1 = transNodes[src][dst]
                     tx2 = transNodes[dst][src]
@@ -245,6 +245,8 @@ class NodesDatabase(object):
                             else:
                                 continue
 
+    @classmethod
+    def transport_transmission_part2(cs, tx, delta):
         #Let's create controller
         results = tx.run("""
         match (n: Node{label: 4})-[r1]-(m: Node{label: 4})-[r2]-(d: Node{label: 4})
@@ -254,28 +256,36 @@ class NodesDatabase(object):
         """).values()
 
         #delta2 = .7
-        delta2 = delta2
-        
+        delta = delta
+
+        toreturn = []
+        toprint = ""
+
         for line in results:
             source, controller, sink, ts1, ts2 = line
 
             if isinstance(controller, list):
-                controller = controller[0]
+                controller = controller[0]      
             
             for t2 in ts2:
                 for t1 in ts1:
                 # we get a controller
-                    if t2 > t1 and t2 - t1 < delta2:
+                    if t2 > t1 and t2 - t1 < delta:
 
-                        #logging.debug(f'Controller set: {controller} with {source} and {sink} with {t2} - {t1}')
+                        
+                        toreturn.append([source, [str(t1)], [controller], [str(t2)], sink])
+                        toprint+=f"{source}, [{t1}], [{controller}], [{t2}], {sink}\n"
                         
                         tx.run("""
-                        match (n: Node{label: $label})
+                        match (n: Node{label: 4})
                         where $ctrl in n.nwksrc
                         set n.role = ['controller']
-                        """, label=label, ctrl=controller)
-        
-        
+                        """, ctrl=controller)
+    
+        with open("tests/controller-legit.txt", 'w') as outputFile:
+            outputFile.write(f"{toprint}")
+
+        return toreturn
     # Create edges corresponding to the application communications
     # Currently only support AS scheme
     @classmethod
@@ -321,21 +331,26 @@ class NodesDatabase(object):
     ###  Following functions are wrappers called by the databaseController 
     ####
 
-    # Call the trans_transmission function to store all the communciations
+    # Call the trans_transmission_part{1,2} function to store all the communications
     # between nodes
-    def transGraph(self, delta, delta2):
+    def transGraph(self, delta, delta2=None):
+        ret = None
         with self._driver.session() as session:
             session.write_transaction(self.duplicate_node, 2, 4)
-            session.write_transaction(self.transport_transmission, delta, delta2)
+            session.write_transaction(self.transport_transmission_part1, delta)
+            if not delta2 is None:
+                ret = session.write_transaction(self.transport_transmission_part2, delta2)
 
-    # Call the trans_transmission function to store all the communciations
+            return ret
+
+    # Call the trans_transmission function to store all the communications
     # between nodes
     def appGraph(self, delta):
         with self._driver.session() as session:
             session.write_transaction(self.duplicate_node, 4, 5)
             session.write_transaction(self.application_transmission, delta)
 
-    # Call the nwk_transmission function to store all the communciations
+    # Call the nwk_transmission function to store all the communications
     # between nodes
     def nwkGraph(self):
         with self._driver.session() as session:
@@ -344,7 +359,7 @@ class NodesDatabase(object):
 
             session.write_transaction(self.node_visu_nwklink, 'l2')
 
-    # Call the node_transmission function to store all the communciations
+    # Call the node_transmission function to store all the communications
     # between nodes
     def create_nodesTX(self, nodesTX):
         with self._driver.session() as session:
@@ -372,9 +387,8 @@ class NodesDatabase(object):
         values = ''  
         with self._driver.session() as session:
             values = session.run("""
-                with ['TRANSEdge', 'INTERACT'] as t
                 match (n)-[r]-(m)
-                where n.nwksrc = r.nwksrc and type(r) in t
+                where n.nwksrc = r.nwksrc and n.label >=4
                 return n.nwksrc, n.role, m.nwksrc, m.role, type(r)
              """).values()
         return values
