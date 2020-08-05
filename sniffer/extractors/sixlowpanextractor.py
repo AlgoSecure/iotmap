@@ -46,9 +46,13 @@ class SixLowPANExtractor():
             try:
                 layers['layer4']['value'] = pkt.load.decode('utf-8') if hasattr(pkt, 'load') else 'Done'
             except:
-                print("Timestamp : " + str(pkt.time))
+                # print("Timestamp : " + str(pkt.time))
                 return None
-            
+        elif pkt.code == 161:
+                layers['layer4']['value'] = 'test161'
+
+        else:
+            layers['layer4']['value'] = 'test'
                 
         return layers
 
