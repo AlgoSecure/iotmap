@@ -1,6 +1,7 @@
 # Folder to ignore
-database/neo4j-community-3.4.1/*
+database/neo4j-community/*
 pcap/*
+tests/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -30,3 +31,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+tmp.py
+Pipfile
+Pipfile.lock
+database/neo4j-community.tar

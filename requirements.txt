@@ -1,4 +1,4 @@
-neo4j>=1.7.6
+neo4j==1.7.6
 scapy>=2.4.3
 docopt>=0.6.2
 prompt-toolkit>=3.0.5

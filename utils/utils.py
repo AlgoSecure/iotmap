@@ -1,15 +1,45 @@
 from functools import wraps
 from docopt import docopt, DocoptExit
 from terminaltables import AsciiTable
+import importlib
 import re
 import time
 import requests
+import random
+import os
 
 # The list of available protocols
 list_protocol = ['os4i', 'zigbee', 'btle'] 
 
 class CmdError(Exception):
     pass
+
+# Decorator to dynamically add patterns to the class NodeDatabase
+# With this function, it will me much more easier to add new patterns 
+# in IoTMap
+def addpatterns(cls):
+
+    # This dict stores patterns specific to a graph
+    cls._graph_patterns = {
+        'datalink': {},
+        'network': {},
+        'transport': {},
+        'application': {}
+    }  
+
+    for module in os.listdir(os.path.dirname(__file__) + '/../database/patterns'):
+        if module == '__init__.py' or module[-3:] != '.py':
+            continue
+
+        pattern = module[:-3]
+        path = 'database.patterns.'+pattern
+        mod = importlib.import_module(path, pattern)
+        func = getattr(mod, pattern)
+        cls._graph_patterns[f"{getattr(mod, 'graph')}"].update({pattern: getattr(mod, 'description')})
+        setattr(cls, pattern, classmethod(func))
+    # print(f"[d]  - Modules added !")
+    # print(f"[d]  - {cls._graph_patterns} !")
+    return cls
 
 # Command decorator
 def command(func):
@@ -146,6 +176,9 @@ def compare2arrays(arrayA, arrayB):
             # print(f"lineB: {lineB} : {len(lineB)}")
             count = 0
             for i in range(len(lineA)):
+                # elemB = lineB[i] if type(lineB[i]) is int else set(lineB[i])
+                # elemA = lineA[i] if type(lineA[i]) is int else set(lineA[i])
+
                 if set(lineB[i]) == set(lineA[i]):
                     count+=1
 
@@ -163,6 +196,9 @@ def compare2arrays(arrayA, arrayB):
         for lineA in arrayA:
             count = 0
             for i in range(len(lineA)):
+                # elemB = lineB[i] if type(lineB[i]) is int else set(lineB[i])
+                # elemA = lineA[i] if type(lineA[i]) is str else set(lineA[i])
+
                 if set(lineB[i]) == set(lineA[i]):
                     count+=1
 
@@ -214,3 +250,15 @@ def wait_until_DB_is_UP():
             i+=1
             continue
     print("Database is available at http://localhost:7474/ \n")
+
+
+# This function aims to remove a precent of packets
+# to represent the packet loss that occurs in a network
+def packet_loss_file(filename, percent):
+    packets = []
+    for line in filename:
+        packets.append(line.strip().split(','))
+    sampleSize = len(packets) - int((percent * len(packets)) / 100)
+    samplePackets = random.sample(packets, sampleSize)
+    samplePackets.sort(key=lambda x: x[1])
+    return samplePackets

@@ -744,6 +744,14 @@ def getFlags(flag):
             ret.append(flags[k])
 
     return ret
+
+def getDirection(flag):
+    mask = 2 # 00000010 or 0x02
+    if flag & mask == 2:
+        return 'MS'
+    else:
+        return 'SM'
+
             
 # This function takes a value containing the whole flag
 # and details which subflag is up

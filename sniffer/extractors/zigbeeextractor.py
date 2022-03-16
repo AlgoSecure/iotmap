@@ -29,6 +29,7 @@ class ZigbeeExtractor():
         """
         src, dst, transmission = {}, {}, {}
         transmission['time'] = pkt.time
+        transmission['length'] = len(pkt)
    
         # Extract information from layer 2
         extract2 = self.extract_pkt_info2(pkt)
@@ -310,32 +311,32 @@ class ZigbeeExtractor():
                                 records.append(record)
 
                             transmission4['read_attributes_status_records'] = records
-
+                            
                         # TODO after : implement support for Write Attributes when Scapy supports it (only read is supported as of now)
                         
-                        # If the zcl frametype is profile wide
-                        if transmission4['zcl_frametype'] == 1:
+                        # If the zcl frametype is cluster-specific
+                        if transmission4['zcl_frametype'] == 1 or transmission4['zcl_frametype'] == 'cluster-specific':
                             transmission4["command"] = 'On' if command_identifier == 1 else 'Off'
         
 
             # Experimental manuel parser to use when Scapy fails : mainly parses READ ATTRIBUTES ZCL PACKETS
-            elif ok_decryption and not ok_interpretation and len(raw(decrypted_pkt)) > 8:
+            elif ok_decryption and not ok_interpretation and len(bytes_encode(decrypted_pkt)) > 8:
                 ## Debug info
                 # print("Go parser")
                 # print(pkt.summary())
                 # print(decrypted_pkt.summary())
-                # print(raw(decrypted_pkt))
+                # print(bytes_encode(decrypted_pkt))
 
                 # ZigbeeAppDataPayload
-                raw_dpkt = raw(decrypted_pkt)
-                transmission4['src_endpoint']= raw_dpkt[6]
-                transmission4['dst_endpoint']= raw_dpkt[1]
-                transmission4['delivery_mode'] = (raw_dpkt[0] >> 2 & 3) # Get 2nd and 3rd bits counting from the right
-                transmission4['counter'] = raw_dpkt[7]
+                bytes_encode_dpkt = bytes_encode(decrypted_pkt)
+                transmission4['src_endpoint']= bytes_encode_dpkt[6]
+                transmission4['dst_endpoint']= bytes_encode_dpkt[1]
+                transmission4['delivery_mode'] = (bytes_encode_dpkt[0] >> 2 & 3) # Get 2nd and 3rd bits counting from the right
+                transmission4['counter'] = bytes_encode_dpkt[7]
 
-                cluster = int('0x' + '{:02x}'.format(raw_dpkt[3]) + '{:02x}'.format(raw_dpkt[2]), 0)
-                profile = int('0x' + '{:02x}'.format(raw_dpkt[5]) + '{:02x}'.format(raw_dpkt[4]), 0)
-                aps_frametype = raw_dpkt[0] & 3 # We only want the 2 lower bits (000000xx)
+                cluster = int('0x' + '{:02x}'.format(bytes_encode_dpkt[3]) + '{:02x}'.format(bytes_encode_dpkt[2]), 0)
+                profile = int('0x' + '{:02x}'.format(bytes_encode_dpkt[5]) + '{:02x}'.format(bytes_encode_dpkt[4]), 0)
+                aps_frametype = bytes_encode_dpkt[0] & 3 # We only want the 2 lower bits (000000xx)
                 
                 if self.verbose == 0:
                     transmission4['cluster'] = cluster
@@ -351,11 +352,11 @@ class ZigbeeExtractor():
                 if profile == 0x0104: # We only want HA
                 
                     # ZigbeeClusterLibrary
-                    transmission4['direction'] = raw_dpkt[8] >> 3 & 1
-                    transmission4['manufacturer_specific'] = raw_dpkt[8] >> 2 & 1
-                    transmission4['zcl_frametype'] = raw_dpkt[8] & 3 # We only want the 2 lower bits (000000xx)
-                    transmission4['transaction_sequence'] = raw_dpkt[9]
-                    command_identifier = raw_dpkt[10]
+                    transmission4['direction'] = bytes_encode_dpkt[8] >> 3 & 1
+                    transmission4['manufacturer_specific'] = bytes_encode_dpkt[8] >> 2 & 1
+                    transmission4['zcl_frametype'] = bytes_encode_dpkt[8] & 3 # We only want the 2 lower bits (000000xx)
+                    transmission4['transaction_sequence'] = bytes_encode_dpkt[9]
+                    command_identifier = bytes_encode_dpkt[10]
                     
                     # If the zcl frametype is profile wide
                     if transmission4['zcl_frametype'] == 0:
@@ -369,7 +370,7 @@ class ZigbeeExtractor():
                             
                             if command_identifier == 0:
                                 general_read = {
-                                    'attribute_identifiers': int('0x' + '{:02x}'.format(raw_dpkt[12]) + '{:02x}'.format(raw_dpkt[11]), 0)
+                                    'attribute_identifiers': int('0x' + '{:02x}'.format(bytes_encode_dpkt[12]) + '{:02x}'.format(bytes_encode_dpkt[11]), 0)
                                 }
                                 transmission4['general_read_attributes'] = general_read
                                 
@@ -378,9 +379,9 @@ class ZigbeeExtractor():
                                 records = []
                                 # Only use a single record of read attribute response for now, but there could be multiple potentially, which means more complex parsing
                                 record = {}
-                                record['attribute_identifier'] = int('0x' + '{:02x}'.format(raw_dpkt[12]) + '{:02x}'.format(raw_dpkt[11]), 0)
-                                record['attribute_data_type'] = raw_dpkt[14]
-                                record['attribute_value'] = raw_dpkt[15]
+                                record['attribute_identifier'] = int('0x' + '{:02x}'.format(bytes_encode_dpkt[12]) + '{:02x}'.format(bytes_encode_dpkt[11]), 0)
+                                record['attribute_data_type'] = bytes_encode_dpkt[14]
+                                record['attribute_value'] = bytes_encode_dpkt[15]
                                 records.append(record)
                                 
                                 transmission4['read_attributes_status_records'] = records
@@ -388,7 +389,10 @@ class ZigbeeExtractor():
                                 # The ZCL frametype is Cluster wide -> Send command
                     elif transmission4['zcl_frametype'] == 1:
                         transmission4["command"] = 'On' if command_identifier == 1 else 'Off'
-                                
+        
+        # # If the packet decryption is not possible
+        # else:
+        #     continue
 
         # Values to display as hex
         for record in [src, dst, transmission3, transmission4]:

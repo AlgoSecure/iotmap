@@ -1,6 +1,6 @@
 from scapy.layers.dot15d4 import *
 from scapy.layers.zigbee import *
-from scapy.utils import conf, raw
+from scapy.utils import conf, bytes_encode
 
 # This package is very important to convert a string
 # to a byte string with the format b'\xBB\xAA'
@@ -118,7 +118,7 @@ def zigbee_decrypt(pktorig, key_net):
     elif frametype == 1 and micCheck == 1:
         payload = ZigbeeNWKCommandPayload(payload)
     else:
-        payload = raw(payload)
+        payload = bytes_encode(payload)
 
     if doMicCheck == False:
         return payload
